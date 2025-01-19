@@ -1,0 +1,35 @@
+[bootstrap]
+main_collection = /main/main.collectionc
+
+[script]
+shared_state = 1
+
+[display]
+width = 960
+height = 640
+high_dpi = 1
+
+[android]
+input_method = HiddenInputField
+
+[html5]
+scale_mode = stretch
+
+[project]
+title = Bridge-defold
+dependencies = 
+custom_resources = /core/
+
+[library]
+include_dirs = core
+
+[bridge]
+game_distribution_game_id = 
+y8_game_id = 
+y8_adsense_id = 
+y8_channel_id = 
+lagged_dev_id = 
+lagged_publisher_id = 
+adsgram_block_id = 
+facebook_placement_id = asdasdasasd
+
