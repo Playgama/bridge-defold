@@ -34,6 +34,7 @@
 
         bridge.initialize(options)
           .then(() => {
+            window.bridge = bridge;
             console.log("initialize")
           })
           .then(() => {

@@ -18,7 +18,7 @@ scale_mode = stretch
 [project]
 title = Bridge-defold
 dependencies = 
-custom_resources = /core/
+custom_resources = /bridge/
 
 [library]
 include_dirs = core
