@@ -1,10 +1,13 @@
 function init(self)
-	print("bridge_platform_sendMessage")
 	bridge.platform.sendMessage("start_game", function(self)
 		print("onSuccess")
 	end,
 	function(self, error)
 		print("onFailure" .. error)
+	end)
+
+	bridge.game.on("visibility_state_changed", function(self, state)
+		print("visibility_state_changed", state)
 	end)
 end
 
@@ -16,20 +19,6 @@ end
 
 function update(self, dt)
 	print(bridge.platform.id())
-
-
--- 	Bridge.bridge_platform_getServerTime(
--- 	function(self, result)
--- 		print("onSuccess bridge_platform_getServerTime" .. result)
--- 	end,
--- 	function(self, error)
--- 		print("onFailure ||" .. error)
--- 	end)
--- 
--- 	if Bridge then
--- 		Bridge.platform.getServerTime()
--- 	end
-	
 end
 
 function fixed_update(self, dt)

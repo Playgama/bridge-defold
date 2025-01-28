@@ -11,4 +11,8 @@ namespace bridge {
         void sendMessage(const char* event, dmScript::LuaCallbackInfo *onSuccess, dmScript::LuaCallbackInfo *onFailure);
         void getServerTime(dmScript::LuaCallbackInfo *onSuccess, dmScript::LuaCallbackInfo *onFailure);
     }
+
+    namespace game {
+        void on(const char* eventName, dmScript::LuaCallbackInfo *callback);
+    }
 }

@@ -23,7 +23,7 @@ static int platformID(lua_State* L)
 
 static int bridge_platform_payload(lua_State* L)
 {
-     DM_LUA_STACK_CHECK(L, 1);
+    DM_LUA_STACK_CHECK(L, 1);
     char* str = bridge::platform::payload();
     lua_pushstring(L, str);
     free(str);
@@ -32,7 +32,7 @@ static int bridge_platform_payload(lua_State* L)
 
 static int bridge_platform_tld(lua_State* L)
 {
-     DM_LUA_STACK_CHECK(L, 1);
+    DM_LUA_STACK_CHECK(L, 1);
     char* str = bridge::platform::tld();
     lua_pushstring(L, str);
     free(str);
@@ -67,6 +67,19 @@ static int bridge_platform_sendMessage(lua_State* L)
     return 0;
 }
 
+static int bridge_game_on(lua_State* L)
+{
+    int top = lua_gettop(L);
+    dmScript::LuaCallbackInfo *callback = NULL;
+    const char* event_name = luaL_checkstring(L, 1);
+    callback = dmScript::CreateCallback(L, 2);
+
+    bridge::game::on(event_name, callback);
+    assert(top == lua_gettop(L));
+    return 0;
+}
+
+
 // Functions exposed to Lua
 static const luaL_reg platforms_methods[] =
 {
@@ -75,6 +88,12 @@ static const luaL_reg platforms_methods[] =
     {"getServerTime", bridge_platform_getServerTime},
     {"payload", bridge_platform_payload},
     {"tld", bridge_platform_tld},
+    {0, 0}
+};
+
+static const luaL_reg game_methods[] =
+{
+    {"on", bridge_game_on},
     {0, 0}
 };
 
@@ -89,10 +108,16 @@ static void LuaInit(lua_State* L)
 
     lua_pushstring(L, "platform"); // create platform table
     lua_newtable(L);
-
-    // Register lua names
     luaL_register(L, NULL, platforms_methods);
     lua_settable(L, -3);
+
+
+    lua_pushstring(L, "game"); // create platform table
+    lua_newtable(L);
+    luaL_register(L, NULL, game_methods);
+    lua_settable(L, -3);
+
+
     lua_pop(L, 1);
 
     assert(top == lua_gettop(L));
