@@ -94,31 +94,31 @@ static int bridge_game_visibilityState(lua_State* L) {
     return 1;
 }
 
-static int bridge_store_isAvailable(lua_State* L) {
+static int bridge_storage_isAvailable(lua_State* L) {
     DM_LUA_STACK_CHECK(L, 1);
     const char* storageType = luaL_checkstring(L, 1);
-    bool isAvailable = bridge::store::isAvailable(storageType);
+    bool isAvailable = bridge::storage::isAvailable(storageType);
     lua_pushboolean(L, isAvailable);
     return 1;
 }
 
-static int bridge_store_defaultType(lua_State* L) {
+static int bridge_storage_defaultType(lua_State* L) {
     DM_LUA_STACK_CHECK(L, 1);
-    char* defaultType = bridge::store::defaultType();
+    char* defaultType = bridge::storage::defaultType();
     lua_pushstring(L, defaultType);
     free(defaultType);
     return 1;
 }
 
-static int bridge_store_isSupported(lua_State* L) {
+static int bridge_storage_isSupported(lua_State* L) {
     DM_LUA_STACK_CHECK(L, 1);
     const char* storageType = luaL_checkstring(L, 1);
-    bool isAvailable = bridge::store::isSupported(storageType);
+    bool isAvailable = bridge::storage::isSupported(storageType);
     lua_pushboolean(L, isAvailable);
     return 1;
 }
 
-static int bridge_store_get(lua_State* L) {
+static int bridge_storage_get(lua_State* L) {
     int top = lua_gettop(L);
     const char* key = luaL_checkstring(L, 1);
     dmScript::LuaCallbackInfo* onSuccess = NULL;
@@ -132,12 +132,12 @@ static int bridge_store_get(lua_State* L) {
     if (lua_isstring(L, 4))
         storageType = lua_tostring(L, 4);
 
-    bridge::store::get(key, onSuccess, onFailure, storageType);
+    bridge::storage::get(key, onSuccess, onFailure, storageType);
     assert(top == lua_gettop(L));
     return 0;
 }
 
-static int bridge_store_set(lua_State* L) {
+static int bridge_storage_set(lua_State* L) {
     int top = lua_gettop(L);
     const char* key = luaL_checkstring(L, 1); // first key
 
@@ -169,14 +169,14 @@ static int bridge_store_set(lua_State* L) {
     if (lua_isstring(L, 5))
         storageType = lua_tostring(L, 5);
 
-    bridge::store::set(key, (const char*)dst, onSuccess, onFailure, storageType);
+    bridge::storage::set(key, (const char*)dst, onSuccess, onFailure, storageType);
     free(dst);
     dmScript::Sys_FreeTableSerializationBuffer(buffer);
     assert(top == lua_gettop(L));
     return 0;
 }
 
-static int bridege_store_delete(lua_State* L) {
+static int bridege_storage_delete(lua_State* L) {
     int top = lua_gettop(L);
     const char* key = luaL_checkstring(L, 1);
     dmScript::LuaCallbackInfo* onSuccess = NULL;
@@ -192,7 +192,7 @@ static int bridege_store_delete(lua_State* L) {
     if (lua_isstring(L, 4))
         storageType = lua_tostring(L, 4);
 
-    bridge::store::deleteData(key, onSuccess, onFailure, storageType);
+    bridge::storage::deleteData(key, onSuccess, onFailure, storageType);
     assert(top == lua_gettop(L));
     return 0;
 }
@@ -203,24 +203,24 @@ static const luaL_reg platforms_methods[] = {
     { "language", bridge_platform_language },
     { "payload", bridge_platform_payload },
     { "tld", bridge_platform_tld },
-    { "sendMessage", bridge_platform_sendMessage },
-    { "getServerTime", bridge_platform_getServerTime },
+    { "send_message", bridge_platform_sendMessage },
+    { "get_server_time", bridge_platform_getServerTime },
     { 0, 0 }
 };
 
 static const luaL_reg game_methods[] = {
     { "on", bridge_game_on },
-    { "visibilityState", bridge_game_visibilityState },
+    { "visibility_state", bridge_game_visibilityState },
     { 0, 0 }
 };
 
 static const luaL_reg store_methods[] = {
-    { "defaultType", bridge_store_defaultType },
-    { "isSupported", bridge_store_isSupported },
-    { "isAvailable", bridge_store_isAvailable },
-    { "get", bridge_store_get },
-    { "set", bridge_store_set },
-    { "delete", bridege_store_delete },
+    { "default_type", bridge_storage_defaultType },
+    { "is_supported", bridge_storage_isSupported },
+    { "is_svailable", bridge_storage_isAvailable },
+    { "get", bridge_storage_get },
+    { "set", bridge_storage_set },
+    { "delete", bridege_storage_delete },
     { 0, 0 }
 };
 
@@ -243,7 +243,7 @@ static void LuaInit(lua_State* L) {
     luaL_register(L, NULL, game_methods);
     lua_settable(L, -3);
 
-    lua_pushstring(L, "store"); // create store table
+    lua_pushstring(L, "storage"); // create storage table
     lua_newtable(L);
     luaL_register(L, NULL, store_methods);
     lua_settable(L, -3);

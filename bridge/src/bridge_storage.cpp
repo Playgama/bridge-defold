@@ -2,11 +2,11 @@
 
 #if defined(DM_PLATFORM_HTML5)
 #include "bridge.h"
-#include "bridge_store.h"
+#include "bridge_storage.h"
 #include <dmsdk/dlib/crypt.h>
 
 namespace { // private
-    void cpp_bridge_store_get(dmScript::LuaCallbackInfo* onSuccess,
+    void cpp_bridge_storage_get(dmScript::LuaCallbackInfo* onSuccess,
                                      dmScript::LuaCallbackInfo* onFailure,
                                      const int callbackType, char* dataOrError) {
         if (callbackType == 0 && dmScript::IsCallbackValid(onSuccess)) {
@@ -47,7 +47,7 @@ namespace { // private
         free(dataOrError);
     }
 
-    void cpp_bridge_store_set(dmScript::LuaCallbackInfo* onSuccess,
+    void cpp_bridge_storage_set(dmScript::LuaCallbackInfo* onSuccess,
                               dmScript::LuaCallbackInfo* onFailure,
                               const int callbackType, char* error) {
         if (callbackType == 0 && dmScript::IsCallbackValid(onSuccess)) {
@@ -80,7 +80,7 @@ namespace { // private
         free(error);
     }
 
-    void cpp_bridge_store_delete(dmScript::LuaCallbackInfo* onSuccess,
+    void cpp_bridge_storage_delete(dmScript::LuaCallbackInfo* onSuccess,
                                  dmScript::LuaCallbackInfo* onFailure,
                                  const int callbackType,
                                  char* error) {
@@ -115,26 +115,26 @@ namespace { // private
     }
 } // namespace
 
-void bridge::store::get(const char* key, dmScript::LuaCallbackInfo* onSuccess,
+void bridge::storage::get(const char* key, dmScript::LuaCallbackInfo* onSuccess,
                         dmScript::LuaCallbackInfo* onFailure, const char* storageType) {
-    js_bridge_store_get((StoreGetHandler)cpp_bridge_store_get, key, onSuccess, onFailure, storageType);
+    js_bridge_storage_get((StoreGetHandler)cpp_bridge_storage_get, key, onSuccess, onFailure, storageType);
 }
 
-void bridge::store::set(const char* key, const char* value,
+void bridge::storage::set(const char* key, const char* value,
                         dmScript::LuaCallbackInfo* onSuccess,
                         dmScript::LuaCallbackInfo* onFailure, const char* storageType) {
-    js_bridge_store_set((StoreSetHandler)cpp_bridge_store_set, key, value, onSuccess, onFailure, storageType);
+    js_bridge_storage_set((StoreSetHandler)cpp_bridge_storage_set, key, value, onSuccess, onFailure, storageType);
 }
 
-bool bridge::store::isSupported(const char* storageType) { return js_bridge_store_isSupported(storageType); }
+bool bridge::storage::isSupported(const char* storageType) { return js_bridge_storage_isSupported(storageType); }
 
-bool bridge::store::isAvailable(const char* storageType) { return js_bridge_store_isAvailable(storageType); }
+bool bridge::storage::isAvailable(const char* storageType) { return js_bridge_storage_isAvailable(storageType); }
 
-char* bridge::store::defaultType() { return js_bridge_store_defaultType(); }
+char* bridge::storage::defaultType() { return js_bridge_storage_defaultType(); }
 
-void bridge::store::deleteData(const char* key, dmScript::LuaCallbackInfo* onSuccess,
+void bridge::storage::deleteData(const char* key, dmScript::LuaCallbackInfo* onSuccess,
                                dmScript::LuaCallbackInfo* onFailure, const char* storageType) {
-    js_bridge_store_delete((StoreDeleteHandler)cpp_bridge_store_delete, key, onSuccess, onFailure, storageType);
+    js_bridge_storage_delete((StoreDeleteHandler)cpp_bridge_storage_delete, key, onSuccess, onFailure, storageType);
 }
 
 #endif

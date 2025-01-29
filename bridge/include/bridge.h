@@ -20,7 +20,7 @@ namespace bridge {
         char* visibilityState();
     }
 
-    namespace store {
+    namespace storage {
         char* defaultType();
         bool isSupported(const char* storageType);
         bool isAvailable(const char* storageType);

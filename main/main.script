@@ -5,13 +5,14 @@ function init(self)
 	print("bridge.platform.payload()", bridge.platform.payload())
 	print("bridge.platform.tld()", bridge.platform.tld())
 	print("bridge.platform.getServerTime(onSuccess, onFailure)")
-	bridge.platform.getServerTime(
+	
+	bridge.platform.get_server_time(
 	function(_, data) print("getServerTime", data) end,
 		function(_, error) print("getServerTimeError", error) end
 	)
 	print("bridge.platform.sendMessage start_game")
-	bridge.platform.sendMessage("start_game", function(self)
-		print("onSuccess")
+	bridge.platform.send_message("start_game", function(self)
+		print("bridge.platform.sendMessage onSuccess")
 	end,
 	function(self, error)
 		print("onFailure" .. error)
@@ -22,30 +23,40 @@ function init(self)
 		print("visibility_state_changed", state)
 	end)
 
-	print("-------- Platform store ------------")
-	print("bridge.store.set('key', lua_table)")
-	print("bridge.store.get('key', lua_table)")
+	print("-------- Platform storage ------------")
+	print("bridge.storage.set('key', lua_table)")
+	print("bridge.storage.get('key', lua_table)")
+
+	bridge.storage.set("storage", {a=1, b=2, g=1111});
+	bridge.storage.set("storage")
 	
-	bridge.store.set("key", {a=1, b=2, g=1111}, function()
-		print("set! bridge.store.set(")
-		bridge.store.get("key", function(_, data)
+	local ff = json.encode({a=1, b=2, g=1111})
+	bridge.game.visibility_state()
+	
+	bridge.storage.set("key", {a=1, b=2, g=1111}, function()
+		print("set! bridge.storage.set(")
+		bridge.storage.get("key", function(_, data)
 			pprint("load by key", data)
 		end, function(_, error)
-			print("get! bridge.store.get ", error)
+			print("get! bridge.storage.get ", error)
 		end)
 	end, function(_, error)
-		print("bridge.store.set error error", error)
+		print("bridge.storage.set error error", error)
 	 end)
 
-	print("bridge.store.defaultType()", bridge.store.defaultType())
-	print("bridge.store.isAvailable()", bridge.store.isAvailable("platform_internal"))
-	print("bridge.store.isSupported()", bridge.store.isSupported("platform_internal"))
+	print("bridge.storage.defaultType()", bridge.storage.default_type())
+	print("bridge.storage.isAvailable()", bridge.storage.is_available("platform_internal"))
+	print("bridge.storage.isSupported()", bridge.storage.is_supported("platform_internal"))
 	timer.delay(5, false, function()
-		bridge.store.delete("key", function(_)
-			print("bridge.store.delete")
+		bridge.storage.delete("key", function(_)
+			print("bridge.storage.delete")
 		end)
 	end)
 end
+
+function on_message(self, message_id, message, sender)
+end
+
 
 function update(self, dt)
 end

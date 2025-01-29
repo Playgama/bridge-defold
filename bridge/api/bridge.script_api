@@ -22,7 +22,7 @@
       type: function
       desc: Embed auxiliary information into the game URL to pass additional data or settings when launching the game.
 
-    - name: sendMessage
+    - name: send_message
       type: function
       desc: Send predefined messages to the platform to trigger specific actions or events, such as signaling that the game is ready.
       parameters:
@@ -36,7 +36,7 @@
         - name: onFailure
           type: function
 
-    - name: getServerTime
+    - name: get_server_time
       type: function
       desc: Server Time
       parameters:
@@ -58,26 +58,26 @@
         - name: callback
           type: function
           desc: function(self, state)
-    - name: visibilityState
+    - name: visibility_state
       type: function
       desc: Returns the current visibility state of the game (the tab with the game).
   
-  - name: store
+  - name: storage
     type: table
-    desc: Functions and constants for interacting with store
+    desc: Functions and constants for interacting with storage
     members:
-    - name: defaultType
+    - name: default_type
       type: function
       desc: Identify the default storage type to understand where data is being saved (local or server).
 
-    - name: isAvailable
+    - name: is_available
       type: function
       desc: Check if the specified storage type is currently available for use to manage data storage effectively.
       parameters:
         - name: storageType
           type: string
 
-    - name: isSupported
+    - name: is_supported
       type: function
       desc: Check if the specified storage type is currently available for use to manage data storage effectively.
       parameters:
