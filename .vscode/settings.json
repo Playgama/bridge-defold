@@ -1,5 +1,40 @@
 {
     "files.associations": {
-        "locale": "cpp"
-    }
+        "locale": "cpp",
+        "istream": "cpp",
+        "ios": "cpp",
+        "__config": "cpp",
+        "__hash_table": "cpp",
+        "array": "cpp",
+        "complex": "cpp",
+        "deque": "cpp",
+        "memory": "cpp",
+        "format": "cpp",
+        "functional": "cpp",
+        "mutex": "cpp",
+        "ostream": "cpp",
+        "print": "cpp",
+        "string": "cpp",
+        "tuple": "cpp",
+        "unordered_map": "cpp",
+        "utility": "cpp",
+        "variant": "cpp",
+        "vector": "cpp",
+        "sstream": "cpp",
+        "__assertion_handler": "cpp",
+        "__node_handle": "cpp",
+        "bitset": "cpp",
+        "typeinfo": "cpp",
+        "version": "cpp",
+        "queue": "cpp",
+        "stack": "cpp"
+    },
+    "files.exclude": {
+        "build":true,
+        ".internal": true
+
+    },
+    "search.exclude": {
+        "build": true // set this to false to include "out" folder in search results
+    },  
 }

@@ -1,55 +1,51 @@
 function init(self)
+	print("-------- Platform methods ------------")
+	print("bridge.platform.id()", bridge.platform.id())
+	print("bridge.platform.language()", bridge.platform.language())
+	print("bridge.platform.payload()", bridge.platform.payload())
+	print("bridge.platform.tld()", bridge.platform.tld())
+	print("bridge.platform.getServerTime(onSuccess, onFailure)")
+	bridge.platform.getServerTime(
+	function(_, data) print("getServerTime", data) end,
+		function(_, error) print("getServerTimeError", error) end
+	)
+	print("bridge.platform.sendMessage start_game")
 	bridge.platform.sendMessage("start_game", function(self)
 		print("onSuccess")
 	end,
 	function(self, error)
 		print("onFailure" .. error)
 	end)
-
+	
+	print("bridge.game.on visibility_state_changed")
 	bridge.game.on("visibility_state_changed", function(self, state)
 		print("visibility_state_changed", state)
 	end)
-end
 
-function final(self)
-	-- Add finalization code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
+	print("-------- Platform store ------------")
+	print("bridge.store.set('key', lua_table)")
+	print("bridge.store.get('key', lua_table)")
+	
+	bridge.store.set("key", {a=1, b=2, g=1111}, function()
+		print("set! bridge.store.set(")
+		bridge.store.get("key", function(_, data)
+			pprint("load by key", data)
+		end, function(_, error)
+			print("get! bridge.store.get ", error)
+		end)
+	end, function(_, error)
+		print("bridge.store.set error error", error)
+	 end)
+
+	print("bridge.store.defaultType()", bridge.store.defaultType())
+	print("bridge.store.isAvailable()", bridge.store.isAvailable("platform_internal"))
+	print("bridge.store.isSupported()", bridge.store.isSupported("platform_internal"))
+	timer.delay(5, false, function()
+		bridge.store.delete("key", function(_)
+			print("bridge.store.delete")
+		end)
+	end)
 end
 
 function update(self, dt)
-	print(bridge.platform.id())
-end
-
-function fixed_update(self, dt)
-	-- This function is called if 'Fixed Update Frequency' is enabled in the Engine section of game.project
-	-- Can be coupled with fixed updates of the physics simulation if 'Use Fixed Timestep' is enabled in
-	-- Physics section of game.project
-	-- Add update code here
-	-- Learn more: https://defold.com/manuals/script/
-	-- Remove this function if not needed
-end
-
-function on_message(self, message_id, message, sender)
-	-- Add message-handling code here
-	-- Learn more: https://defold.com/manuals/message-passing/
-	-- Remove this function if not needed
-end
-
-function on_input(self, action_id, action)
-	-- Add input-handling code here. The game object this script is attached to
-	-- must have acquired input focus:
-	--
-	--    msg.post(".", "acquire_input_focus")
-	--
-	-- All mapped input bindings will be received. Mouse and touch input will
-	-- be received regardless of where on the screen it happened.
-	-- Learn more: https://defold.com/manuals/input/
-	-- Remove this function if not needed
-end
-
-function on_reload(self)
-	-- Add reload-handling code here
-	-- Learn more: https://defold.com/manuals/hot-reload/
-	-- Remove this function if not needed
 end

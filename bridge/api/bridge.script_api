@@ -1,0 +1,131 @@
+- name: bridge
+  type: table
+  desc: Functions and constants for interacting with bridge
+  members:
+  - name: platform
+    type: table
+    desc: Functions and constants for interacting with platform
+    members:
+    - name: id
+      type: function
+      desc: Identify the platform on which the game is currently running to customize features and settings accordingly.
+
+    - name: tld
+      type: function
+      desc: Retrieve the top-level domain of the platform to handle domain-specific configurations and behavior.
+
+    - name: language
+      type: function
+      desc: Get the language set by the user on the platform or the browser language if not provided by the platform, to localize game content.
+
+    - name: payload
+      type: function
+      desc: Embed auxiliary information into the game URL to pass additional data or settings when launching the game.
+
+    - name: sendMessage
+      type: function
+      desc: Send predefined messages to the platform to trigger specific actions or events, such as signaling that the game is ready.
+      parameters:
+        - name: message
+          type: string
+          desc: "One of message types:
+                `game_ready`
+                `in_game_loading_started`"
+        - name: onSuccess
+          type: function
+        - name: onFailure
+          type: function
+
+    - name: getServerTime
+      type: function
+      desc: Server Time
+      parameters:
+        - name: onSuccess
+          type: function
+          desc: function(self, time)
+        - name: onFailure
+          type: function
+          desc: function(self, error)
+
+  - name: game
+    type: table
+    desc: Functions and constants for interacting with game
+    members:
+    - name: on
+      type: function
+      desc: Check if the game tab is visible or hidden, and adjust game behavior accordingly, such as muting sound when hidden.
+      parameters:
+        - name: callback
+          type: function
+          desc: function(self, state)
+    - name: visibilityState
+      type: function
+      desc: Returns the current visibility state of the game (the tab with the game).
+  
+  - name: store
+    type: table
+    desc: Functions and constants for interacting with store
+    members:
+    - name: defaultType
+      type: function
+      desc: Identify the default storage type to understand where data is being saved (local or server).
+
+    - name: isAvailable
+      type: function
+      desc: Check if the specified storage type is currently available for use to manage data storage effectively.
+      parameters:
+        - name: storageType
+          type: string
+
+    - name: isSupported
+      type: function
+      desc: Check if the specified storage type is currently available for use to manage data storage effectively.
+      parameters:
+        - name: storageType
+          type: string
+
+    - name: get
+      type: function
+      desc: Retrieve stored data based on a key or multiple keys to restore player progress or settings.
+      parameters:
+        - name: key
+          type: string
+        - name: onSuccess
+          type: function
+          desc: function(self, data)
+        - name: onFailure
+          type: function
+          desc: function(self, error)
+        - name: storageType
+          type: string
+    - name: set
+      type: function
+      desc: Save data to the specified storage with a key to retain player progress or settings.
+      parameters:
+        - name: key
+          type: string
+        - name: value
+          type: table
+        - name: onSuccess
+          type: function
+          desc: function(self)
+        - name: onFailure
+          type: function
+          desc: function(self, error)
+        - name: storageType
+          type: string
+    - name: delete
+      type: function
+      desc: Remove data from the specified storage by key to manage player data and settings effectively.
+      parameters:
+        - name: key
+          type: string
+        - name: onSuccess
+          type: function
+          desc: function(self)
+        - name: onFailure
+          type: function
+          desc: function(self, error)
+        - name: storageType
+          type: string
+          
