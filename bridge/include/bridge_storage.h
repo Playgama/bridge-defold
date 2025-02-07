@@ -27,8 +27,7 @@ extern "C" {
                              const char* storageType);
 
     void js_bridge_storage_set(StoreGetHandler handler,
-                             const char* key,
-                             const char* value,
+                             const char* json,
                              dmScript::LuaCallbackInfo* onSuccess,
                              dmScript::LuaCallbackInfo* onFailure,
                              const char* storageType);

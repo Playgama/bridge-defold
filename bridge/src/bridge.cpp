@@ -16,7 +16,7 @@ namespace dmScript {
     char* Sys_SetupTableSerializationBuffer(int required_size);
     void Sys_FreeTableSerializationBuffer(char* buffer);
 }
-
+#if defined(DM_PLATFORM_HTML5)
 static int bridge_platform_id(lua_State* L) {
     DM_LUA_STACK_CHECK(L, 1);
     char* str = bridge::platform::id();
@@ -50,19 +50,24 @@ static int bridge_platform_tld(lua_State* L) {
 }
 
 static int bridge_platform_getServerTime(lua_State* L) {
-    int top = lua_gettop(L);
+    DM_LUA_STACK_CHECK(L, 0);
+    if (!lua_isfunction(L, 1)) {
+        dmLogError("get_server_time");
+        return 0;
+    }
     dmScript::LuaCallbackInfo* onSuccess = NULL;
     dmScript::LuaCallbackInfo* onFailure = NULL;
     onSuccess = dmScript::CreateCallback(L, 1);
-    onFailure = dmScript::CreateCallback(L, 2);
+    if (lua_isfunction(L, 1) || lua_isnil(L, 1))
+        onFailure = dmScript::CreateCallback(L, 2);
 
     bridge::platform::getServerTime(onSuccess, onFailure);
-    assert(top == lua_gettop(L));
+
     return 0;
 }
 
 static int bridge_platform_sendMessage(lua_State* L) {
-    int top = lua_gettop(L);
+    DM_LUA_STACK_CHECK(L, 0);
     size_t len;
     const char* event = luaL_checklstring(L, 1, &len);
     dmScript::LuaCallbackInfo* onSuccess = NULL;
@@ -71,18 +76,16 @@ static int bridge_platform_sendMessage(lua_State* L) {
     onFailure = dmScript::CreateCallback(L, 3);
 
     bridge::platform::sendMessage(event, onSuccess, onFailure);
-    assert(top == lua_gettop(L));
     return 0;
 }
 
 static int bridge_game_on(lua_State* L) {
-    int top = lua_gettop(L);
+    DM_LUA_STACK_CHECK(L, 0);
     dmScript::LuaCallbackInfo* callback = NULL;
     const char* event_name = luaL_checkstring(L, 1);
     callback = dmScript::CreateCallback(L, 2);
 
     bridge::game::on(event_name, callback);
-    assert(top == lua_gettop(L));
     return 0;
 }
 
@@ -119,8 +122,13 @@ static int bridge_storage_isSupported(lua_State* L) {
 }
 
 static int bridge_storage_get(lua_State* L) {
-    int top = lua_gettop(L);
-    const char* key = luaL_checkstring(L, 1);
+    DM_LUA_STACK_CHECK(L, 0);
+    // const char* key = luaL_checkstring(L, 1);
+    luaL_checktype(L, 1, LUA_TTABLE); // table
+    char* json;
+    size_t json_len;
+    int res = dmScript::LuaToJson(L, &json, &json_len);
+
     dmScript::LuaCallbackInfo* onSuccess = NULL;
     dmScript::LuaCallbackInfo* onFailure = NULL;
     const char* storageType = NULL;
@@ -132,53 +140,20 @@ static int bridge_storage_get(lua_State* L) {
     if (lua_isstring(L, 4))
         storageType = lua_tostring(L, 4);
 
-    bridge::storage::get(key, onSuccess, onFailure, storageType);
-    assert(top == lua_gettop(L));
+    bridge::storage::get(json, onSuccess, onFailure, storageType);
+    free(json);
     return 0;
 }
 
 static int bridge_storage_set(lua_State* L) {
-    int top = lua_gettop(L);
-    const char* key = luaL_checkstring(L, 1); // first key
+    DM_LUA_STACK_CHECK(L, 0);
+    luaL_checktype(L, 1, LUA_TTABLE); // table
 
-    luaL_checktype(L, 2, LUA_TTABLE); // table
-    uint32_t table_size = dmScript::CheckTableSize(L, 2);
-    char* buffer = dmScript::Sys_SetupTableSerializationBuffer(table_size);
-    if (!buffer) {
-        return luaL_error(L, "Could not allocate %d bytes for table serialization.", table_size);
-    }
+    char* json;
+    size_t json_len;
+    int res = dmScript::LuaToJson(L, &json, &json_len);
+    // assert(res < 0);
 
-    uint32_t n_used = dmScript::CheckTable(L, buffer, table_size, 2);
-
-    uint32_t dstlen = table_size * 4 / 3 + 4;
-    uint8_t* dst = (uint8_t*)malloc(dstlen);
-    if (!dmCrypt::Base64Encode((uint8_t*)buffer, table_size, dst, &dstlen)) {
-        free(dst);
-        return luaL_error(L, "Can't encode data into Base64 string.");
-    }
-    dmScript::LuaCallbackInfo* onSuccess = NULL;
-    dmScript::LuaCallbackInfo* onFailure = NULL;
-    const char* storageType = NULL;
-
-    if (lua_isfunction(L, 3))
-        onSuccess = dmScript::CreateCallback(L, 3);
-
-    if (lua_isfunction(L, 4))
-        onFailure = dmScript::CreateCallback(L, 4);
-
-    if (lua_isstring(L, 5))
-        storageType = lua_tostring(L, 5);
-
-    bridge::storage::set(key, (const char*)dst, onSuccess, onFailure, storageType);
-    free(dst);
-    dmScript::Sys_FreeTableSerializationBuffer(buffer);
-    assert(top == lua_gettop(L));
-    return 0;
-}
-
-static int bridege_storage_delete(lua_State* L) {
-    int top = lua_gettop(L);
-    const char* key = luaL_checkstring(L, 1);
     dmScript::LuaCallbackInfo* onSuccess = NULL;
     dmScript::LuaCallbackInfo* onFailure = NULL;
     const char* storageType = NULL;
@@ -192,8 +167,32 @@ static int bridege_storage_delete(lua_State* L) {
     if (lua_isstring(L, 4))
         storageType = lua_tostring(L, 4);
 
-    bridge::storage::deleteData(key, onSuccess, onFailure, storageType);
-    assert(top == lua_gettop(L));
+    bridge::storage::set(json, onSuccess, onFailure, storageType);
+    free(json);
+    return 0;
+}
+
+static int bridege_storage_delete(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    luaL_checktype(L, 1, LUA_TTABLE); // table
+    char* json;
+    size_t json_len;
+    int res = dmScript::LuaToJson(L, &json, &json_len);
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+    const char* storageType = NULL;
+
+    if (lua_isfunction(L, 2))
+        onSuccess = dmScript::CreateCallback(L, 2);
+
+    if (lua_isfunction(L, 3))
+        onFailure = dmScript::CreateCallback(L, 3);
+
+    if (lua_isstring(L, 4))
+        storageType = lua_tostring(L, 4);
+
+    bridge::storage::deleteData(json, onSuccess, onFailure, storageType);
+    free(json);
     return 0;
 }
 
@@ -217,22 +216,21 @@ static const luaL_reg game_methods[] = {
 static const luaL_reg store_methods[] = {
     { "default_type", bridge_storage_defaultType },
     { "is_supported", bridge_storage_isSupported },
-    { "is_svailable", bridge_storage_isAvailable },
+    { "is_available", bridge_storage_isAvailable },
     { "get", bridge_storage_get },
     { "set", bridge_storage_set },
     { "delete", bridege_storage_delete },
     { 0, 0 }
 };
-
+#endif
 static void LuaInit(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
     int top = lua_gettop(L);
+#if defined(DM_PLATFORM_HTML5)
 
     lua_newtable(L); // create bridge table (root)
     lua_pushvalue(L, -1);
     lua_setglobal(
         L, "bridge");
-
     lua_pushstring(L, "platform"); // create platform table
     lua_newtable(L);
     luaL_register(L, NULL, platforms_methods);
@@ -249,7 +247,11 @@ static void LuaInit(lua_State* L) {
     lua_settable(L, -3);
 
     lua_pop(L, 1);
-
+#endif
+    // if(luaL_dostring(L, "bridge = require \"bridge.res.common.bridge_mock\"") != 0) {
+    //     dmLogError("%s", lua_tostring(L, -1));
+    // }
+    // lua_pop(L, 1);
     assert(top == lua_gettop(L));
 }
 

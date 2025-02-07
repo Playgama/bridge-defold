@@ -26,7 +26,7 @@ namespace bridge {
         bool isAvailable(const char* storageType);
         void get(const char* key, dmScript::LuaCallbackInfo* onSuccess,
                  dmScript::LuaCallbackInfo* onFailure, const char* storageType);
-        void set(const char* key, const char* value,
+        void set(const char* json,
                  dmScript::LuaCallbackInfo* onSuccess,
                  dmScript::LuaCallbackInfo* onFailure, const char* storageType);
         void deleteData(const char* key, dmScript::LuaCallbackInfo* onSuccess,

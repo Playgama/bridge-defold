@@ -12,14 +12,7 @@ namespace { // private
         if (callbackType == 0 && dmScript::IsCallbackValid(onSuccess)) {
             lua_State* L = dmScript::GetCallbackLuaContext(onSuccess);
             if (dmScript::SetupCallback(onSuccess)) {
-                uint32_t dataLen = strlen(dataOrError);
-                uint32_t dstlen = dataLen * 3 / 4;
-                uint8_t* dst = (uint8_t*)malloc(dstlen);
-                if (!dmCrypt::Base64Decode((const uint8_t*)dataOrError, dataLen, dst, &dstlen)) {
-                    free(dst);
-                    dmLogError("Can't decode Base64 string.");
-                }
-                dmScript::PushTable(L, (const char*)dst, dstlen);
+                dmScript::JsonToLua(L, dataOrError, strlen(dataOrError));
                 dmScript::PCall(L, 2, 0);
                 dmScript::TeardownCallback(onSuccess);
             } else {
@@ -115,15 +108,15 @@ namespace { // private
     }
 } // namespace
 
-void bridge::storage::get(const char* key, dmScript::LuaCallbackInfo* onSuccess,
+void bridge::storage::get(const char* json, dmScript::LuaCallbackInfo* onSuccess,
                         dmScript::LuaCallbackInfo* onFailure, const char* storageType) {
-    js_bridge_storage_get((StoreGetHandler)cpp_bridge_storage_get, key, onSuccess, onFailure, storageType);
+    js_bridge_storage_get((StoreGetHandler)cpp_bridge_storage_get, json, onSuccess, onFailure, storageType);
 }
 
-void bridge::storage::set(const char* key, const char* value,
+void bridge::storage::set(const char* json,
                         dmScript::LuaCallbackInfo* onSuccess,
                         dmScript::LuaCallbackInfo* onFailure, const char* storageType) {
-    js_bridge_storage_set((StoreSetHandler)cpp_bridge_storage_set, key, value, onSuccess, onFailure, storageType);
+    js_bridge_storage_set((StoreSetHandler)cpp_bridge_storage_set, json, onSuccess, onFailure, storageType);
 }
 
 bool bridge::storage::isSupported(const char* storageType) { return js_bridge_storage_isSupported(storageType); }
