@@ -128,4 +128,62 @@
           desc: function(self, error)
         - name: storageType
           type: string
-          
+
+  - name: advertisement
+    type: table
+    desc: Functions and constants for interacting with advertisement
+    members:
+    - name: show_banner
+      type: function
+      desc: Identify the default storage type to understand where data is being saved (local or server).
+      parameters:
+        - name: options
+          type: table
+    
+    - name: hide_banner
+      type: function
+      desc: Identify the default storage type to understand where data is being saved (local or server).
+    
+    - name: banner_state
+      type: function
+      desc: Check if the specified storage type is currently available for use to manage data storage effectively.
+    
+    - name: is_banner_supported
+      type: function
+      desc: Check if the specified storage type is currently available for use to manage data storage effectively.
+
+    - name: on
+      type: function
+      desc: Check if the game tab is visible or hidden, and adjust game behavior accordingly, such as muting sound when hidden.
+      parameters:
+        - name: callback
+          type: function
+          desc: function(self, state)
+    
+    - name: show_interstitial
+      type: function
+      desc: Check if the specified storage type is currently available for use to manage data storage effectively.
+    
+    - name: interstitial_state
+      type: function
+      desc: Identify the default storage type to understand where data is being saved (local or server).
+    
+    - name: minimum_delay_between_interstitial
+      type: function
+      desc: Identify the default storage type to understand where data is being saved (local or server).
+
+    - name: set_minimum_delay_between_nterstitial
+      type: function
+      desc: Identify the default storage type to understand where data is being saved (local or server).
+      parameters:
+        - name: delay
+          type: number
+          desc: 60 from default
+
+    - name: rewarded_state
+      type: function
+      desc: Identify the default storage type to understand where data is being saved (local or server).
+
+    - name: show_rewarded
+      type: function
+      desc: Check if the specified storage type is currently available for use to manage data storage effectively.

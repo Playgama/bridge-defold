@@ -17,6 +17,7 @@ namespace dmScript {
     void Sys_FreeTableSerializationBuffer(char* buffer);
 }
 #if defined(DM_PLATFORM_HTML5)
+#pragma region Platform
 static int bridge_platform_id(lua_State* L) {
     DM_LUA_STACK_CHECK(L, 1);
     char* str = bridge::platform::id();
@@ -78,7 +79,9 @@ static int bridge_platform_sendMessage(lua_State* L) {
     bridge::platform::sendMessage(event, onSuccess, onFailure);
     return 0;
 }
+#pragma endregion
 
+#pragma region Game
 static int bridge_game_on(lua_State* L) {
     DM_LUA_STACK_CHECK(L, 0);
     dmScript::LuaCallbackInfo* callback = NULL;
@@ -96,7 +99,9 @@ static int bridge_game_visibilityState(lua_State* L) {
     free(str);
     return 1;
 }
+#pragma endregion
 
+#pragma region Storage
 static int bridge_storage_isAvailable(lua_State* L) {
     DM_LUA_STACK_CHECK(L, 1);
     const char* storageType = luaL_checkstring(L, 1);
@@ -195,9 +200,96 @@ static int bridege_storage_delete(lua_State* L) {
     free(json);
     return 0;
 }
+#pragma endregion
 
+#pragma region Advertisement
+static int bridege_advertisement_showBanner(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    luaL_checktype(L, 1, LUA_TTABLE); // table
+    char* json;
+    size_t json_len;
+    int res = dmScript::LuaToJson(L, &json, &json_len);
+
+    bridge::advertisement::showBanner(json);
+    free(json);
+    return 0;
+}
+
+static int bridege_advertisement_hideBanner(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    bridge::advertisement::hideBanner();
+    return 0;
+}
+
+static int bridge_advertisement_bannerState(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    char* str = bridge::advertisement::bannerState();
+    lua_pushstring(L, str);
+    free(str);
+    return 1;
+}
+
+static int bridge_advertisement_isBannerSupported(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    bool isAvailable = bridge::advertisement::isBannerSupported();
+    lua_pushboolean(L, isAvailable);
+    return 1;
+}
+
+static int bridge_advertisement_on(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    dmScript::LuaCallbackInfo* callback = NULL;
+    const char* event_name = luaL_checkstring(L, 1);
+    callback = dmScript::CreateCallback(L, 2);
+    bridge::advertisement::on(event_name, callback);
+    return 0;
+}
+
+static int bridge_advertisement_showInterstitial(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    bridge::advertisement::showInterstitial();
+    return 0;
+}
+
+static int bridge_advertisement_minimumDelayBetweenInterstitial(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    int delay = bridge::advertisement::minimumDelayBetweenInterstitial();
+    lua_pushinteger(L, delay);
+    return 1;
+}
+
+static int bridge_advertisement_setMinimumDelayBetweenInterstitial(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    int delay = luaL_checkinteger(L, 1);
+    bridge::advertisement::setMinimumDelayBetweenInterstitial(delay);
+    return 0;
+}
+
+static int bridge_advertisement_interstitialState(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    char* str = bridge::advertisement::interstitialState();
+    lua_pushstring(L, str);
+    free(str);
+    return 1;
+}
+
+static int bridge_advertisement_rewardedState(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    char* str = bridge::advertisement::rewardedState();
+    lua_pushstring(L, str);
+    free(str);
+    return 1;
+}
+
+static int bridge_advertisement_showRewarded(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    bridge::advertisement::showRewarded();
+    return 0;
+}
+
+#pragma endregion
 // Functions exposed to Lua
-static const luaL_reg platforms_methods[] = {
+static const luaL_reg platform_methods[] = {
     { "id", bridge_platform_id },
     { "language", bridge_platform_language },
     { "payload", bridge_platform_payload },
@@ -222,7 +314,29 @@ static const luaL_reg store_methods[] = {
     { "delete", bridege_storage_delete },
     { 0, 0 }
 };
+
+static const luaL_reg advertisement_methods[] = {
+    // Banner
+    { "show_banner", bridege_advertisement_showBanner },
+    { "hide_banner", bridege_advertisement_hideBanner },
+    { "banner_state", bridge_advertisement_bannerState },
+    { "is_banner_supported", bridge_advertisement_isBannerSupported },
+    { "on", bridge_advertisement_on },
+
+    // Interstitial
+    { "show_interstitial", bridge_advertisement_showInterstitial },
+    { "minimum_delay_between_interstitial", bridge_advertisement_minimumDelayBetweenInterstitial },
+    { "set_minimum_delay_between_interstitial", bridge_advertisement_setMinimumDelayBetweenInterstitial },
+    { "interstitial_state", bridge_advertisement_interstitialState },
+
+    // Rewarded
+    { "rewarded_state", bridge_advertisement_rewardedState },
+    { "show_rewarded", bridge_advertisement_showRewarded },
+    { 0, 0 }
+};
+
 #endif
+
 static void LuaInit(lua_State* L) {
     int top = lua_gettop(L);
 #if defined(DM_PLATFORM_HTML5)
@@ -231,21 +345,27 @@ static void LuaInit(lua_State* L) {
     lua_pushvalue(L, -1);
     lua_setglobal(
         L, "bridge");
-    lua_pushstring(L, "platform"); // create platform table
-    lua_newtable(L);
-    luaL_register(L, NULL, platforms_methods);
-    lua_settable(L, -3);
+    {
+        lua_pushstring(L, "platform"); // create platform table
+        lua_newtable(L);
+        luaL_register(L, NULL, platform_methods);
+        lua_settable(L, -3);
 
-    lua_pushstring(L, "game"); // create game table
-    lua_newtable(L);
-    luaL_register(L, NULL, game_methods);
-    lua_settable(L, -3);
+        lua_pushstring(L, "game"); // create game table
+        lua_newtable(L);
+        luaL_register(L, NULL, game_methods);
+        lua_settable(L, -3);
 
-    lua_pushstring(L, "storage"); // create storage table
-    lua_newtable(L);
-    luaL_register(L, NULL, store_methods);
-    lua_settable(L, -3);
+        lua_pushstring(L, "storage"); // create storage table
+        lua_newtable(L);
+        luaL_register(L, NULL, store_methods);
+        lua_settable(L, -3);
 
+        lua_pushstring(L, "advertisement"); // create advertisement table
+        lua_newtable(L);
+        luaL_register(L, NULL, advertisement_methods);
+        lua_settable(L, -3);
+    }
     lua_pop(L, 1);
 #endif
     // if(luaL_dostring(L, "bridge = require \"bridge.res.common.bridge_mock\"") != 0) {
