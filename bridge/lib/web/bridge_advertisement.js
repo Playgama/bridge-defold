@@ -54,7 +54,17 @@ let js_bridge_advertisement = {
     },
 
     js_bridge_advertisement_showRewarded: function() {
-        bridge.advertisement.showRewarded();    
+        bridge.advertisement.showRewarded();
+    },
+
+    js_bridge_advertisement_checkAdBlock: function(handler, onSuccess, onFailure) {
+        bridge.advertisement.checkAdBlock()
+            .then(result => {
+                {{{ makeDynCall('viiiii', 'handler') }}} (onSuccess, onFailure, 0, result, stringToNewUTF8(""));
+            })
+            .catch(error => {
+                {{{ makeDynCall('viiiii', 'handler') }}} (onSuccess, onFailure, 1, result, stringToNewUTF8("" + error));
+            });
     }
     // #endregion
 }

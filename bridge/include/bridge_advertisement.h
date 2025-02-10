@@ -5,6 +5,11 @@
 #if defined(DM_PLATFORM_HTML5)
 
 typedef void (*AdvertisementOnHandler)(dmScript::LuaCallbackInfo* callback, char* state);
+typedef void (*AdblockHandler)(dmScript::LuaCallbackInfo* onSuccess,
+                               dmScript::LuaCallbackInfo* onFailure,
+                               const int callbackType,
+                               bool hasAdblock,
+                               char* errorString);
 
 extern "C" {
 #pragma region Banner
@@ -35,6 +40,12 @@ extern "C" {
     char* js_bridge_advertisement_rewardedState();
 
     void js_bridge_advertisement_showRewarded();
+#pragma endregion
+
+#pragma region Adblock
+    void js_bridge_advertisement_checkAdBlock(AdblockHandler handler,
+                                         dmScript::LuaCallbackInfo* onSuccess,
+                                         dmScript::LuaCallbackInfo* onFailure);
 #pragma endregion
 }
 

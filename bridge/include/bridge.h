@@ -49,5 +49,8 @@ namespace bridge {
 
         void showRewarded();
         char* rewardedState();
+
+        //AdBlock
+        void checkAdBlock(dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
      }
 } // namespace bridge

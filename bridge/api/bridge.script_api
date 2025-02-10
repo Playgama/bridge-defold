@@ -187,3 +187,14 @@
     - name: show_rewarded
       type: function
       desc: Check if the specified storage type is currently available for use to manage data storage effectively.
+      
+    - name: check_ad_block
+      type: function
+      desc: Check if the specified storage type is currently available for use to manage data storage effectively.
+      parameters:
+        - name: onSuccess
+          type: function
+          desc: function(self, state)
+        - name: onFailure
+          type: function
+          desc: function(self, state)

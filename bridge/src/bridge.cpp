@@ -287,6 +287,21 @@ static int bridge_advertisement_showRewarded(lua_State* L) {
     return 0;
 }
 
+static int bridge_advertisement_checkAdBlock(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    if (lua_isfunction(L, 1))
+        onSuccess = dmScript::CreateCallback(L, 1);
+
+    if (lua_isfunction(L, 2))
+        onFailure = dmScript::CreateCallback(L, 2);
+
+    bridge::advertisement::checkAdBlock(onSuccess, onFailure);
+    return 0;
+}
+
 #pragma endregion
 // Functions exposed to Lua
 static const luaL_reg platform_methods[] = {
@@ -332,11 +347,13 @@ static const luaL_reg advertisement_methods[] = {
     // Rewarded
     { "rewarded_state", bridge_advertisement_rewardedState },
     { "show_rewarded", bridge_advertisement_showRewarded },
+    { "check_ad_block", bridge_advertisement_checkAdBlock },
     { 0, 0 }
 };
 
 #endif
 
+#pragma region Defold
 static void LuaInit(lua_State* L) {
     int top = lua_gettop(L);
 #if defined(DM_PLATFORM_HTML5)
@@ -401,6 +418,7 @@ dmExtension::Result FinalizeMyExtension(dmExtension::Params* params) {
 
 // MyExtension is the C++ symbol that holds all relevant extension data.
 // It must match the name field in the `ext.manifest`
+#pragma endregion
 DM_DECLARE_EXTENSION(Bridge, LIB_NAME, AppInitializeMyExtension,
                      AppFinalizeMyExtension, InitializeMyExtension, 0, 0,
                      FinalizeMyExtension)
