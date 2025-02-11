@@ -1,18 +1,18 @@
 let js_bridge_platform = {
     js_bridge_platform_id: function () {
-        return stringToNewUTF8(bridge.platform.id);
+        return CStrOrNull(bridge.platform.id);
     },
 
     js_bridge_platform_language: function () {
-        return stringToNewUTF8(bridge.platform.language);
+        return CStrOrNull(bridge.platform.language);
     },
 
     js_bridge_platform_payload: function () {
-        return stringToNewUTF8(bridge.platform.payload || ""); // TODO make null to nil on lua
+        return CStrOrNull(bridge.platform.payload);
     },
 
     js_bridge_platform_tld: function () {
-        return stringToNewUTF8(bridge.platform.tld || ""); // TODO make null to nil on lua
+        return CStrOrNull(bridge.platform.tld);
     },
 
     js_bridge_platform_sendMessage: function (handler, message, success, failure) {

@@ -44,8 +44,8 @@ extern "C" {
 
 #pragma region Adblock
     void js_bridge_advertisement_checkAdBlock(AdblockHandler handler,
-                                         dmScript::LuaCallbackInfo* onSuccess,
-                                         dmScript::LuaCallbackInfo* onFailure);
+                                              dmScript::LuaCallbackInfo* onSuccess,
+                                              dmScript::LuaCallbackInfo* onFailure);
 #pragma endregion
 }
 

@@ -21,16 +21,16 @@ typedef void (*StoreDeleteHandler)(dmScript::LuaCallbackInfo* onSuccess,
 
 extern "C" {
     void js_bridge_storage_get(StoreGetHandler handler,
-                             const char* key,
-                             dmScript::LuaCallbackInfo* onSuccess,
-                             dmScript::LuaCallbackInfo* onFailure,
-                             const char* storageType);
+                               const char* key,
+                               dmScript::LuaCallbackInfo* onSuccess,
+                               dmScript::LuaCallbackInfo* onFailure,
+                               const char* storageType);
 
     void js_bridge_storage_set(StoreGetHandler handler,
-                             const char* json,
-                             dmScript::LuaCallbackInfo* onSuccess,
-                             dmScript::LuaCallbackInfo* onFailure,
-                             const char* storageType);
+                               const char* json,
+                               dmScript::LuaCallbackInfo* onSuccess,
+                               dmScript::LuaCallbackInfo* onFailure,
+                               const char* storageType);
 
     char* js_bridge_storage_defaultType();
 
@@ -39,10 +39,10 @@ extern "C" {
     bool js_bridge_storage_isSupported(const char* storageType);
 
     void js_bridge_storage_delete(StoreGetHandler handler,
-                                const char* key,
-                                dmScript::LuaCallbackInfo* onSuccess,
-                                dmScript::LuaCallbackInfo* onFailure,
-                                const char* storageType);
+                                  const char* key,
+                                  dmScript::LuaCallbackInfo* onSuccess,
+                                  dmScript::LuaCallbackInfo* onFailure,
+                                  const char* storageType);
 }
 
 #endif

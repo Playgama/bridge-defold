@@ -13,12 +13,12 @@ namespace bridge {
                          dmScript::LuaCallbackInfo* onFailure);
         void getServerTime(dmScript::LuaCallbackInfo* onSuccess,
                            dmScript::LuaCallbackInfo* onFailure);
-    } // namespace platformÍ
+    } // namespace platform
 
     namespace game {
         void on(const char* eventName, dmScript::LuaCallbackInfo* callback);
         char* visibilityState();
-    }
+    } // namespace game
 
     namespace storage {
         char* defaultType();
@@ -50,7 +50,21 @@ namespace bridge {
         void showRewarded();
         char* rewardedState();
 
-        //AdBlock
+        // AdBlock
         void checkAdBlock(dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
-     }
+    } // namespace advertisement
+
+    namespace device {
+        char* type();
+    } // namespace device
+
+    namespace player {
+        bool isAuthorizationSupported();
+        bool isAuthorized();
+        char* id();
+        char* name();
+        char* photos();
+        void authorize(const char* oprions, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+    } // namespace player
+
 } // namespace bridge

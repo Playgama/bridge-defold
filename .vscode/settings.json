@@ -27,7 +27,12 @@
         "typeinfo": "cpp",
         "version": "cpp",
         "queue": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "__locale": "cpp",
+        "limits": "cpp",
+        "__bit_reference": "cpp",
+        "optional": "cpp",
+        "ratio": "cpp"
     },
     "files.exclude": {
         "build":true,

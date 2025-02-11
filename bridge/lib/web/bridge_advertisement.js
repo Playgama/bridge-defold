@@ -9,8 +9,8 @@ let js_bridge_advertisement = {
         bridge.advertisement.showBanner(objOtions);
     },
 
-    js_bridge_advertisement_bannerState: function() { // TODO to helper module
-        return stringToNewUTF8(bridge.advertisement.bannerState);
+    js_bridge_advertisement_bannerState: function() {
+        return CStrOrNull(bridge.advertisement.bannerState);
     },
 
     js_bridge_advertisement_on: function (handler, event_name, callback) {
@@ -34,8 +34,8 @@ let js_bridge_advertisement = {
         bridge.advertisement.setMinimumDelayBetweenInterstitial(delay);
     },
 
-    js_bridge_advertisement_interstitialState: function() { // TODO to helper module
-        return stringToNewUTF8(bridge.advertisement.interstitialState);
+    js_bridge_advertisement_interstitialState: function() {
+        return CStrOrNull(bridge.advertisement.interstitialState);
     },
 
     js_bridge_advertisement_showInterstitial: function() {
@@ -44,13 +44,8 @@ let js_bridge_advertisement = {
     // #endregion
 
     // #region Rewarded
-    js_bridge_advertisement_rewardedState: function() { // TODO to helper module
-        console.log("bridge.advertisement.rewardedState", bridge.advertisement.rewardedState)
-        if(bridge.advertisement.rewardedState) {
-            return stringToNewUTF8(bridge.advertisement.rewardedState);
-        } else {
-            return 0;
-        }
+    js_bridge_advertisement_rewardedState: function() {
+        return CStrOrNull(bridge.advertisement.rewardedState);
     },
 
     js_bridge_advertisement_showRewarded: function() {
