@@ -538,6 +538,128 @@ static int bridge_social_isExternalLinksAllowed(lua_State* L) {
 }
 
 #pragma endregion
+
+#pragma region Leaderboards
+
+static int bridge_leaderboards_isGetEntriesSupported(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    bool isGetEntriesSupported = bridge::leaderboards::isGetEntriesSupported();
+    lua_pushboolean(L, isGetEntriesSupported);
+    return 1;
+}
+
+static int bridge_leaderboards_isGetScoreSupported(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    bool isGetScoreSupported = bridge::leaderboards::isGetScoreSupported();
+    lua_pushboolean(L, isGetScoreSupported);
+    return 1;
+}
+
+static int bridge_leaderboards_isMultipleBoardsSupported(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    bool isMultipleBoardsSupported = bridge::leaderboards::isMultipleBoardsSupported();
+    lua_pushboolean(L, isMultipleBoardsSupported);
+    return 1;
+}
+
+static int bridge_leaderboards_isNativePopupSupported(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    bool isNativePopupSupported = bridge::leaderboards::isNativePopupSupported();
+    lua_pushboolean(L, isNativePopupSupported);
+    return 1;
+}
+
+static int bridge_leaderboards_isSetScoreSupported(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    bool isSetScoreSupported = bridge::leaderboards::isSetScoreSupported();
+    lua_pushboolean(L, isSetScoreSupported);
+    return 1;
+}
+
+static int bridge_leaderboards_isSupported(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    bool isSupported = bridge::leaderboards::isSupported();
+    lua_pushboolean(L, isSupported);
+    return 1;
+}
+
+static int bridge_leaderboards_setScore(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    char* json;
+    size_t json_len;
+    int res = dmScript::LuaToJson(L, &json, &json_len);
+    if (lua_isfunction(L, 2))
+        onSuccess = dmScript::CreateCallback(L, 1);
+
+    if (lua_isfunction(L, 3))
+        onFailure = dmScript::CreateCallback(L, 2);
+
+    bridge::leaderboards::setScore(json, onSuccess, onFailure);
+    free(json);
+    return 0;
+}
+
+static int bridge_leaderboards_getScore(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    char* json;
+    size_t json_len;
+    int res = dmScript::LuaToJson(L, &json, &json_len);
+    if (lua_isfunction(L, 2))
+        onSuccess = dmScript::CreateCallback(L, 1);
+
+    if (lua_isfunction(L, 3))
+        onFailure = dmScript::CreateCallback(L, 2);
+
+    bridge::leaderboards::getScore(json, onSuccess, onFailure);
+    free(json);
+    return 0;
+}
+
+static int bridge_leaderboards_getEntries(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    char* json;
+    size_t json_len;
+    int res = dmScript::LuaToJson(L, &json, &json_len);
+    if (lua_isfunction(L, 2))
+        onSuccess = dmScript::CreateCallback(L, 1);
+
+    if (lua_isfunction(L, 3))
+        onFailure = dmScript::CreateCallback(L, 2);
+
+    bridge::leaderboards::getEntries(json, onSuccess, onFailure);
+    free(json);
+    return 0;
+}
+
+static int bridge_leaderboards_showNativePopup(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    char* json;
+    size_t json_len;
+    int res = dmScript::LuaToJson(L, &json, &json_len);
+    if (lua_isfunction(L, 2))
+        onSuccess = dmScript::CreateCallback(L, 1);
+
+    if (lua_isfunction(L, 3))
+        onFailure = dmScript::CreateCallback(L, 2);
+
+    bridge::leaderboards::showNativePopup(json, onSuccess, onFailure);
+    free(json);
+    return 0;
+}
+
+#pragma endregion
 // Functions exposed to Lua
 static const luaL_reg platform_methods[] = {
     { "id", bridge_platform_id },
@@ -631,6 +753,20 @@ static const luaL_reg social_methods[] = {
     { 0, 0 }
 };
 
+static const luaL_reg leaderboards_methods[] = {
+    { "is_supported", bridge_leaderboards_isSupported },
+    { "is_native_popup_supported", bridge_leaderboards_isNativePopupSupported },
+    { "is_multiple_boards_supported", bridge_leaderboards_isMultipleBoardsSupported },
+    { "is_set_score_supported", bridge_leaderboards_isSetScoreSupported },
+    { "is_get_score_supported", bridge_leaderboards_isGetScoreSupported },
+    { "is_get_entries_supported", bridge_leaderboards_isGetEntriesSupported },
+    { "set_score", bridge_leaderboards_setScore },
+    { "get_score", bridge_leaderboards_getScore },
+    { "get_entries", bridge_leaderboards_getEntries },
+    { "show_native_popup", bridge_leaderboards_showNativePopup },
+    { 0, 0 }
+};
+
 #endif
 
 #pragma region Defold
@@ -640,8 +776,7 @@ static void LuaInit(lua_State* L) {
 
     lua_newtable(L); // create bridge table (root)
     lua_pushvalue(L, -1);
-    lua_setglobal(
-        L, "bridge");
+    lua_setglobal(L, "bridge");
     {
         lua_pushstring(L, "platform"); // create platform table
         lua_newtable(L);
@@ -676,6 +811,11 @@ static void LuaInit(lua_State* L) {
         lua_pushstring(L, "social"); // create advertisement table
         lua_newtable(L);
         luaL_register(L, NULL, social_methods);
+        lua_settable(L, -3);
+
+        lua_pushstring(L, "leaderboards"); // create advertisement table
+        lua_newtable(L);
+        luaL_register(L, NULL, leaderboards_methods);
         lua_settable(L, -3);
     }
     lua_pop(L, 1);

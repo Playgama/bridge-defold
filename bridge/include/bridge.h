@@ -98,4 +98,26 @@ namespace bridge {
         bool isExternalLinksAllowed();
     } // namespace device
 
+    namespace leaderboards {
+        // Support
+        bool isSupported();
+        bool isNativePopupSupported();
+        bool isMultipleBoardsSupported();
+        bool isSetScoreSupported();
+        bool isGetScoreSupported();
+        bool isGetEntriesSupported();
+        
+        // Player Scores. Set
+        void setScore(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+        
+        // Player Scores. Get
+        void getScore(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+        
+        // Get Full Leaderboard
+        void getEntries(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+        
+        // Show Native Popup
+        void showNativePopup(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+    } // namespace leaderboards
+
 } // namespace bridge
