@@ -6,7 +6,7 @@
 
 typedef void (*AuthorizeHandler)(dmScript::LuaCallbackInfo* success,
                                  dmScript::LuaCallbackInfo* failure,
-                                 const int callbackType);
+                                int callbackType);
 
 extern "C" {
     bool js_bridge_player_isAuthorizationSupported();

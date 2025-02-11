@@ -18,6 +18,7 @@ namespace dmScript {
 }
 #if defined(DM_PLATFORM_HTML5)
 #pragma region Platform
+
 static int bridge_platform_id(lua_State* L) {
     DM_LUA_STACK_CHECK(L, 1);
     char* str = bridge::platform::id();
@@ -82,6 +83,7 @@ static int bridge_platform_sendMessage(lua_State* L) {
 #pragma endregion
 
 #pragma region Game
+
 static int bridge_game_on(lua_State* L) {
     DM_LUA_STACK_CHECK(L, 0);
     dmScript::LuaCallbackInfo* callback = NULL;
@@ -102,6 +104,7 @@ static int bridge_game_visibilityState(lua_State* L) {
 #pragma endregion
 
 #pragma region Storage
+
 static int bridge_storage_isAvailable(lua_State* L) {
     DM_LUA_STACK_CHECK(L, 1);
     const char* storageType = luaL_checkstring(L, 1);
@@ -203,6 +206,7 @@ static int bridege_storage_delete(lua_State* L) {
 #pragma endregion
 
 #pragma region Advertisement
+
 static int bridege_advertisement_showBanner(lua_State* L) {
     DM_LUA_STACK_CHECK(L, 0);
     luaL_checktype(L, 1, LUA_TTABLE); // table
@@ -305,6 +309,7 @@ static int bridge_advertisement_checkAdBlock(lua_State* L) {
 #pragma endregion
 
 #pragma region Device
+
 static int bridge_device_type(lua_State* L) {
     DM_LUA_STACK_CHECK(L, 1);
     char* str = bridge::device::type();
@@ -374,6 +379,165 @@ static int bridge_player_authorize(lua_State* L) {
 }
 
 #pragma endregion
+
+#pragma region Social
+
+static int bridge_social_isShareSupported(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    bool isShareSupported = bridge::social::isShareSupported();
+    lua_pushboolean(L, isShareSupported);
+    return 1;
+}
+
+static int bridge_social_share(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    char* json;
+    size_t json_len;
+    int res = dmScript::LuaToJson(L, &json, &json_len);
+    if (lua_isfunction(L, 2))
+        onSuccess = dmScript::CreateCallback(L, 1);
+
+    if (lua_isfunction(L, 3))
+        onFailure = dmScript::CreateCallback(L, 2);
+
+    bridge::social::share(json, onSuccess, onFailure);
+    free(json);
+    return 0;
+}
+
+static int bridge_social_isJoinCommunitySupported(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    bool isJoinCommunitySupported = bridge::social::isJoinCommunitySupported();
+    lua_pushboolean(L, isJoinCommunitySupported);
+    return 1;
+}
+
+static int bridge_social_joinCommunity(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    char* json;
+    size_t json_len;
+    int res = dmScript::LuaToJson(L, &json, &json_len);
+    if (lua_isfunction(L, 2))
+        onSuccess = dmScript::CreateCallback(L, 1);
+
+    if (lua_isfunction(L, 3))
+        onFailure = dmScript::CreateCallback(L, 2);
+
+    bridge::social::joinCommunity(json, onSuccess, onFailure);
+    free(json);
+    return 0;
+}
+
+static int bridge_social_isInviteFriendsSupported(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    bool isInviteFriendsSupported = bridge::social::isInviteFriendsSupported();
+    lua_pushboolean(L, isInviteFriendsSupported);
+    return 1;
+}
+
+static int bridge_social_inviteFriends(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    char* json;
+    size_t json_len;
+    int res = dmScript::LuaToJson(L, &json, &json_len);
+    if (lua_isfunction(L, 2))
+        onSuccess = dmScript::CreateCallback(L, 1);
+
+    if (lua_isfunction(L, 3))
+        onFailure = dmScript::CreateCallback(L, 2);
+
+    bridge::social::inviteFriends(json, onSuccess, onFailure);
+    free(json);
+    return 0;
+}
+
+static int bridge_social_isCreatePostSupported(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    bool isCreatePostSupported = bridge::social::isCreatePostSupported();
+    lua_pushboolean(L, isCreatePostSupported);
+    return 1;
+}
+
+static int bridge_social_createPost(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    char* json;
+    size_t json_len;
+    int res = dmScript::LuaToJson(L, &json, &json_len);
+    if (lua_isfunction(L, 2))
+        onSuccess = dmScript::CreateCallback(L, 1);
+
+    if (lua_isfunction(L, 3))
+        onFailure = dmScript::CreateCallback(L, 2);
+
+    bridge::social::createPost(json, onSuccess, onFailure);
+    free(json);
+    return 0;
+}
+
+static int bridge_social_isAddToHomeScreenSupported(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    bool isAddToHomeScreenSupported = bridge::social::isAddToHomeScreenSupported();
+    lua_pushboolean(L, isAddToHomeScreenSupported);
+    return 1;
+}
+
+static int bridge_social_addToHomeScreen(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    if (lua_isfunction(L, 2))
+        onSuccess = dmScript::CreateCallback(L, 1);
+
+    if (lua_isfunction(L, 3))
+        onFailure = dmScript::CreateCallback(L, 2);
+
+    bridge::social::addToHomeScreen(onSuccess, onFailure);
+    return 0;
+}
+
+static int bridge_social_isRateSupported(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    bool isRateSupported = bridge::social::isRateSupported();
+    lua_pushboolean(L, isRateSupported);
+    return 1;
+}
+
+static int bridge_social_rate(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    if (lua_isfunction(L, 2))
+        onSuccess = dmScript::CreateCallback(L, 1);
+
+    if (lua_isfunction(L, 3))
+        onFailure = dmScript::CreateCallback(L, 2);
+
+    bridge::social::rate(onSuccess, onFailure);
+    return 0;
+}
+
+static int bridge_social_isExternalLinksAllowed(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    bool isExternalLinksAllowed = bridge::social::isExternalLinksAllowed();
+    lua_pushboolean(L, isExternalLinksAllowed);
+    return 1;
+}
+
+#pragma endregion
 // Functions exposed to Lua
 static const luaL_reg platform_methods[] = {
     { "id", bridge_platform_id },
@@ -437,6 +601,36 @@ static const luaL_reg player_methods[] = {
     { 0, 0 }
 };
 
+static const luaL_reg social_methods[] = {
+    // Share
+    { "is_share_supported", bridge_social_isShareSupported },
+    { "share", bridge_social_share },
+
+    // Join Community
+    { "is_join_community_supported", bridge_social_isJoinCommunitySupported },
+    { "join_community", bridge_social_joinCommunity },
+
+    // Invite Friends
+    { "is_invite_friends_supported", bridge_social_isInviteFriendsSupported },
+    { "invite_friends", bridge_social_inviteFriends },
+
+    // Create Post
+    { "is_create_post_supported", bridge_social_isCreatePostSupported },
+    { "createPost", bridge_social_createPost },
+
+    //  Add to Favorites
+    { "is_add_to_home_screen_supported", bridge_social_isAddToHomeScreenSupported },
+    { "add_to_home_screen", bridge_social_addToHomeScreen },
+
+    // Rate Game
+    { "is_rate_supported", bridge_social_isRateSupported },
+    { "rate", bridge_social_rate },
+
+    // External Links
+    { "is_external_links_allowed", bridge_social_isExternalLinksAllowed },
+    { 0, 0 }
+};
+
 #endif
 
 #pragma region Defold
@@ -476,7 +670,12 @@ static void LuaInit(lua_State* L) {
 
         lua_pushstring(L, "player"); // create advertisement table
         lua_newtable(L);
-        luaL_register(L, NULL, device_methods);
+        luaL_register(L, NULL, player_methods);
+        lua_settable(L, -3);
+
+        lua_pushstring(L, "social"); // create advertisement table
+        lua_newtable(L);
+        luaL_register(L, NULL, social_methods);
         lua_settable(L, -3);
     }
     lua_pop(L, 1);

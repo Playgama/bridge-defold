@@ -4,7 +4,7 @@
 
 namespace {
     void cpp_bridge_player_authorize(dmScript::LuaCallbackInfo* success,
-                                     dmScript::LuaCallbackInfo* failure, const int callbackType) {
+                                     dmScript::LuaCallbackInfo* failure, int callbackType) {
         if (callbackType == 0 && dmScript::IsCallbackValid(success)) {
             lua_State* L = dmScript::GetCallbackLuaContext(success);
             if (dmScript::SetupCallback(success)) {

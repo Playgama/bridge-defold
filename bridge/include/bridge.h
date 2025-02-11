@@ -67,4 +67,35 @@ namespace bridge {
         void authorize(const char* oprions, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
     } // namespace player
 
+    namespace social {
+        // Share
+        bool isShareSupported();
+        void share(
+            const char* options,
+            dmScript::LuaCallbackInfo* onSuccess,
+            dmScript::LuaCallbackInfo* onFailure);
+        // Join Community
+        bool isJoinCommunitySupported();
+        void joinCommunity(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+
+        // Invite Friends
+        bool isInviteFriendsSupported();
+        void inviteFriends(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+
+        // Create Post
+        bool isCreatePostSupported();
+        void createPost(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+
+        //  Add to Favorites
+        bool isAddToHomeScreenSupported();
+        void addToHomeScreen(dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+
+        // Rate Game
+        bool isRateSupported();
+        void rate(dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+
+        // External Links
+        bool isExternalLinksAllowed();
+    } // namespace device
+
 } // namespace bridge
