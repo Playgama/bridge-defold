@@ -368,10 +368,10 @@ static int bridge_player_authorize(lua_State* L) {
     size_t json_len;
     int res = dmScript::LuaToJson(L, &json, &json_len);
     if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 1);
+        onSuccess = dmScript::CreateCallback(L, 2);
 
     if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 2);
+        onFailure = dmScript::CreateCallback(L, 3);
 
     bridge::player::authorize(json, onSuccess, onFailure);
     free(json);
@@ -398,10 +398,10 @@ static int bridge_social_share(lua_State* L) {
     size_t json_len;
     int res = dmScript::LuaToJson(L, &json, &json_len);
     if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 1);
+        onSuccess = dmScript::CreateCallback(L, 2);
 
     if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 2);
+        onFailure = dmScript::CreateCallback(L, 3);
 
     bridge::social::share(json, onSuccess, onFailure);
     free(json);
@@ -424,10 +424,10 @@ static int bridge_social_joinCommunity(lua_State* L) {
     size_t json_len;
     int res = dmScript::LuaToJson(L, &json, &json_len);
     if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 1);
+        onSuccess = dmScript::CreateCallback(L, 2);
 
     if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 2);
+        onFailure = dmScript::CreateCallback(L, 3);
 
     bridge::social::joinCommunity(json, onSuccess, onFailure);
     free(json);
@@ -450,10 +450,10 @@ static int bridge_social_inviteFriends(lua_State* L) {
     size_t json_len;
     int res = dmScript::LuaToJson(L, &json, &json_len);
     if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 1);
+        onSuccess = dmScript::CreateCallback(L, 2);
 
     if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 2);
+        onFailure = dmScript::CreateCallback(L, 3);
 
     bridge::social::inviteFriends(json, onSuccess, onFailure);
     free(json);
@@ -476,10 +476,10 @@ static int bridge_social_createPost(lua_State* L) {
     size_t json_len;
     int res = dmScript::LuaToJson(L, &json, &json_len);
     if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 1);
+        onSuccess = dmScript::CreateCallback(L, 2);
 
     if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 2);
+        onFailure = dmScript::CreateCallback(L, 3);
 
     bridge::social::createPost(json, onSuccess, onFailure);
     free(json);
@@ -498,10 +498,10 @@ static int bridge_social_addToHomeScreen(lua_State* L) {
     dmScript::LuaCallbackInfo* onSuccess = NULL;
     dmScript::LuaCallbackInfo* onFailure = NULL;
 
-    if (lua_isfunction(L, 2))
+    if (lua_isfunction(L, 1))
         onSuccess = dmScript::CreateCallback(L, 1);
 
-    if (lua_isfunction(L, 3))
+    if (lua_isfunction(L, 2))
         onFailure = dmScript::CreateCallback(L, 2);
 
     bridge::social::addToHomeScreen(onSuccess, onFailure);
@@ -520,10 +520,10 @@ static int bridge_social_rate(lua_State* L) {
     dmScript::LuaCallbackInfo* onSuccess = NULL;
     dmScript::LuaCallbackInfo* onFailure = NULL;
 
-    if (lua_isfunction(L, 2))
+    if (lua_isfunction(L, 1))
         onSuccess = dmScript::CreateCallback(L, 1);
 
-    if (lua_isfunction(L, 3))
+    if (lua_isfunction(L, 2))
         onFailure = dmScript::CreateCallback(L, 2);
 
     bridge::social::rate(onSuccess, onFailure);
@@ -592,10 +592,10 @@ static int bridge_leaderboards_setScore(lua_State* L) {
     size_t json_len;
     int res = dmScript::LuaToJson(L, &json, &json_len);
     if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 1);
+        onSuccess = dmScript::CreateCallback(L, 2);
 
     if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 2);
+        onFailure = dmScript::CreateCallback(L, 3);
 
     bridge::leaderboards::setScore(json, onSuccess, onFailure);
     free(json);
@@ -611,10 +611,10 @@ static int bridge_leaderboards_getScore(lua_State* L) {
     size_t json_len;
     int res = dmScript::LuaToJson(L, &json, &json_len);
     if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 1);
+        onSuccess = dmScript::CreateCallback(L, 2);
 
     if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 2);
+        onFailure = dmScript::CreateCallback(L, 3);
 
     bridge::leaderboards::getScore(json, onSuccess, onFailure);
     free(json);
@@ -630,10 +630,10 @@ static int bridge_leaderboards_getEntries(lua_State* L) {
     size_t json_len;
     int res = dmScript::LuaToJson(L, &json, &json_len);
     if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 1);
+        onSuccess = dmScript::CreateCallback(L, 2);
 
     if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 2);
+        onFailure = dmScript::CreateCallback(L, 3);
 
     bridge::leaderboards::getEntries(json, onSuccess, onFailure);
     free(json);
@@ -649,10 +649,10 @@ static int bridge_leaderboards_showNativePopup(lua_State* L) {
     size_t json_len;
     int res = dmScript::LuaToJson(L, &json, &json_len);
     if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 1);
+        onSuccess = dmScript::CreateCallback(L, 2);
 
     if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 2);
+        onFailure = dmScript::CreateCallback(L, 3);
 
     bridge::leaderboards::showNativePopup(json, onSuccess, onFailure);
     free(json);
@@ -693,10 +693,10 @@ static int bridge_achievements_showNativePopup(lua_State* L) {
     size_t json_len;
     int res = dmScript::LuaToJson(L, &json, &json_len);
     if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 1);
+        onSuccess = dmScript::CreateCallback(L, 2);
 
     if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 2);
+        onFailure = dmScript::CreateCallback(L, 3);
 
     bridge::achievements::showNativePopup(json, onSuccess, onFailure);
     free(json);
@@ -712,10 +712,10 @@ static int bridge_achievements_getList(lua_State* L) {
     size_t json_len;
     int res = dmScript::LuaToJson(L, &json, &json_len);
     if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 1);
+        onSuccess = dmScript::CreateCallback(L, 2);
 
     if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 2);
+        onFailure = dmScript::CreateCallback(L, 3);
 
     bridge::achievements::getList(json, onSuccess, onFailure);
     free(json);
@@ -731,13 +731,113 @@ static int bridge_achievements_unlock(lua_State* L) {
     size_t json_len;
     int res = dmScript::LuaToJson(L, &json, &json_len);
     if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 1);
+        onSuccess = dmScript::CreateCallback(L, 2);
 
     if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 2);
+        onFailure = dmScript::CreateCallback(L, 3);
 
     bridge::achievements::unlock(json, onSuccess, onFailure);
     free(json);
+    return 0;
+}
+
+#pragma endregion
+
+#pragma region Payments
+
+static int bridge_payments_isSupported(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    bool isSupported = bridge::payments::isSupported();
+    lua_pushboolean(L, isSupported);
+    return 1;
+}
+
+static int bridge_payments_isGetPurchasesSupported(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    bool isGetPurchasesSupported = bridge::payments::isGetPurchasesSupported();
+    lua_pushboolean(L, isGetPurchasesSupported);
+    return 1;
+}
+
+static int bridge_payments_isGetCatalogSupported(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    bool isGetCatalogSupported = bridge::payments::isGetCatalogSupported();
+    lua_pushboolean(L, isGetCatalogSupported);
+    return 1;
+}
+
+static int bridge_payments_isConsumePurchaseSupported(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    bool isConsumePurchaseSupported = bridge::payments::isConsumePurchaseSupported();
+    lua_pushboolean(L, isConsumePurchaseSupported);
+    return 1;
+}
+
+static int bridge_payments_purchase(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    char* json;
+    size_t json_len;
+    int res = dmScript::LuaToJson(L, &json, &json_len);
+    if (lua_isfunction(L, 2))
+        onSuccess = dmScript::CreateCallback(L, 2);
+
+    if (lua_isfunction(L, 3))
+        onFailure = dmScript::CreateCallback(L, 3);
+
+    bridge::payments::purchase(json, onSuccess, onFailure);
+    free(json);
+    return 0;
+}
+
+static int bridge_payments_consumePurchase(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    char* json;
+    size_t json_len;
+    int res = dmScript::LuaToJson(L, &json, &json_len);
+    if (lua_isfunction(L, 2))
+        onSuccess = dmScript::CreateCallback(L, 2);
+
+    if (lua_isfunction(L, 3))
+        onFailure = dmScript::CreateCallback(L, 3);
+
+    bridge::payments::consumePurchase(json, onSuccess, onFailure);
+    free(json);
+    return 0;
+}
+
+static int bridge_payments_getCatalog(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    if (lua_isfunction(L, 1))
+        onSuccess = dmScript::CreateCallback(L, 1);
+
+    if (lua_isfunction(L, 2))
+        onFailure = dmScript::CreateCallback(L, 2);
+
+    bridge::payments::getCatalog(onSuccess, onFailure);
+    return 0;
+}
+
+static int bridge_payments_getPurchases(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    if (lua_isfunction(L, 1))
+        onSuccess = dmScript::CreateCallback(L, 1);
+
+    if (lua_isfunction(L, 2))
+        onFailure = dmScript::CreateCallback(L, 2);
+
+    bridge::payments::getPurchases(onSuccess, onFailure);
     return 0;
 }
 
@@ -859,6 +959,18 @@ static const luaL_reg achievements_methods[] = {
     { 0, 0 }
 };
 
+static const luaL_reg payments_methods[] = {
+    { "is_supported", bridge_payments_isSupported },
+    { "is_get_catalog_supported", bridge_payments_isGetCatalogSupported },
+    { "is_get_purchases_supported", bridge_payments_isGetPurchasesSupported },
+    { "is_consume_purchase_supported", bridge_payments_isConsumePurchaseSupported },
+    { "purchase", bridge_payments_purchase },
+    { "consume_purchase", bridge_payments_consumePurchase },
+    { "get_catalog", bridge_payments_getCatalog },
+    { "get_purchases", bridge_payments_getPurchases },
+    { 0, 0 }
+};
+
 #endif
 
 #pragma region Defold
@@ -913,6 +1025,11 @@ static void LuaInit(lua_State* L) {
         lua_pushstring(L, "achievements"); // create advertisement table
         lua_newtable(L);
         luaL_register(L, NULL, achievements_methods);
+        lua_settable(L, -3);
+
+        lua_pushstring(L, "payments"); // create advertisement table
+        lua_newtable(L);
+        luaL_register(L, NULL, payments_methods);
         lua_settable(L, -3);
     }
     lua_pop(L, 1);

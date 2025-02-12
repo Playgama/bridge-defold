@@ -129,4 +129,15 @@ namespace bridge {
         void showNativePopup(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
     } // namespace achievements
 
+    namespace payments {
+        bool isSupported();
+        bool isGetCatalogSupported();
+        bool isGetPurchasesSupported();
+        bool isConsumePurchaseSupported();
+        void purchase(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+        void consumePurchase(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+        void getCatalog(dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+        void getPurchases(dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+    } // namespace payments
+
 } // namespace bridge
