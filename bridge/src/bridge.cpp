@@ -660,6 +660,88 @@ static int bridge_leaderboards_showNativePopup(lua_State* L) {
 }
 
 #pragma endregion
+
+#pragma region Advertisement
+
+static int bridge_achievements_isSupported(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    bool isSupported = bridge::achievements::isSupported();
+    lua_pushboolean(L, isSupported);
+    return 1;
+}
+
+static int bridge_achievements_isGetListSupported(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    bool isGetListSupported = bridge::achievements::isGetListSupported();
+    lua_pushboolean(L, isGetListSupported);
+    return 1;
+}
+
+static int bridge_achievements_isNativePopupSupported(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    bool isNativePopupSupported = bridge::achievements::isNativePopupSupported();
+    lua_pushboolean(L, isNativePopupSupported);
+    return 1;
+}
+
+static int bridge_achievements_showNativePopup(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    char* json;
+    size_t json_len;
+    int res = dmScript::LuaToJson(L, &json, &json_len);
+    if (lua_isfunction(L, 2))
+        onSuccess = dmScript::CreateCallback(L, 1);
+
+    if (lua_isfunction(L, 3))
+        onFailure = dmScript::CreateCallback(L, 2);
+
+    bridge::achievements::showNativePopup(json, onSuccess, onFailure);
+    free(json);
+    return 0;
+}
+
+static int bridge_achievements_getList(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    char* json;
+    size_t json_len;
+    int res = dmScript::LuaToJson(L, &json, &json_len);
+    if (lua_isfunction(L, 2))
+        onSuccess = dmScript::CreateCallback(L, 1);
+
+    if (lua_isfunction(L, 3))
+        onFailure = dmScript::CreateCallback(L, 2);
+
+    bridge::achievements::getList(json, onSuccess, onFailure);
+    free(json);
+    return 0;
+}
+
+static int bridge_achievements_unlock(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    char* json;
+    size_t json_len;
+    int res = dmScript::LuaToJson(L, &json, &json_len);
+    if (lua_isfunction(L, 2))
+        onSuccess = dmScript::CreateCallback(L, 1);
+
+    if (lua_isfunction(L, 3))
+        onFailure = dmScript::CreateCallback(L, 2);
+
+    bridge::achievements::unlock(json, onSuccess, onFailure);
+    free(json);
+    return 0;
+}
+
+#pragma endregion
 // Functions exposed to Lua
 static const luaL_reg platform_methods[] = {
     { "id", bridge_platform_id },
@@ -767,6 +849,16 @@ static const luaL_reg leaderboards_methods[] = {
     { 0, 0 }
 };
 
+static const luaL_reg achievements_methods[] = {
+    { "is_supported", bridge_achievements_isSupported },
+    { "is_get_list_supported", bridge_achievements_isGetListSupported },
+    { "is_native_popup_supported", bridge_achievements_isNativePopupSupported },
+    { "unlock", bridge_achievements_unlock },
+    { "get_list", bridge_achievements_getList },
+    { "show_native_popup", bridge_achievements_showNativePopup },
+    { 0, 0 }
+};
+
 #endif
 
 #pragma region Defold
@@ -816,6 +908,11 @@ static void LuaInit(lua_State* L) {
         lua_pushstring(L, "leaderboards"); // create advertisement table
         lua_newtable(L);
         luaL_register(L, NULL, leaderboards_methods);
+        lua_settable(L, -3);
+
+        lua_pushstring(L, "achievements"); // create advertisement table
+        lua_newtable(L);
+        luaL_register(L, NULL, achievements_methods);
         lua_settable(L, -3);
     }
     lua_pop(L, 1);

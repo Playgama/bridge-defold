@@ -106,18 +106,27 @@ namespace bridge {
         bool isSetScoreSupported();
         bool isGetScoreSupported();
         bool isGetEntriesSupported();
-        
+
         // Player Scores. Set
         void setScore(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
-        
+
         // Player Scores. Get
         void getScore(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
-        
+
         // Get Full Leaderboard
         void getEntries(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
-        
+
         // Show Native Popup
         void showNativePopup(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
     } // namespace leaderboards
+
+    namespace achievements {
+        bool isSupported();
+        bool isGetListSupported();
+        bool isNativePopupSupported();
+        void unlock(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+        void getList(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+        void showNativePopup(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+    } // namespace achievements
 
 } // namespace bridge
