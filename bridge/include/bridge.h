@@ -140,4 +140,9 @@ namespace bridge {
         void getPurchases(dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
     } // namespace payments
 
+    namespace remoteConfig {
+        bool isSupported();
+        void get(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+    } // namespace remoteConfig
+
 } // namespace bridge
