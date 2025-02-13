@@ -74,8 +74,12 @@ static int bridge_platform_sendMessage(lua_State* L) {
     const char* event = luaL_checklstring(L, 1, &len);
     dmScript::LuaCallbackInfo* onSuccess = NULL;
     dmScript::LuaCallbackInfo* onFailure = NULL;
-    onSuccess = dmScript::CreateCallback(L, 2);
-    onFailure = dmScript::CreateCallback(L, 3);
+
+    if (lua_isfunction(L, 2))
+        onSuccess = dmScript::CreateCallback(L, 2);
+
+    if (lua_isfunction(L, 3))
+        onFailure = dmScript::CreateCallback(L, 3);
 
     bridge::platform::sendMessage(event, onSuccess, onFailure);
     return 0;
