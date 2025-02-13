@@ -2,25 +2,41 @@
   type: table
   desc: Functions and constants for interacting with bridge
   members:
+
+
+
+
   - name: platform
     type: table
-    desc: Functions and constants for interacting with platform
+    desc: At any time, you can retrieve values for specific parameters that you might use in your game, such as the user's browser language.
     members:
     - name: id
       type: function
       desc: Identify the platform on which the game is currently running to customize features and settings accordingly.
+      returns:
+      - name: result
+        type: string | nil
 
     - name: tld
       type: function
       desc: Retrieve the top-level domain of the platform to handle domain-specific configurations and behavior.
+      returns:
+      - name: result
+        type: string | nil
 
     - name: language
       type: function
       desc: Get the language set by the user on the platform or the browser language if not provided by the platform, to localize game content.
+      returns:
+      - name: result
+        type: string
 
     - name: payload
       type: function
       desc: Embed auxiliary information into the game URL to pass additional data or settings when launching the game.
+      returns:
+      - name: result
+        type: string | nil
 
     - name: send_message
       type: function
@@ -31,21 +47,24 @@
           desc: "One of message types:
                 `game_ready`
                 `in_game_loading_started`"
-        - name: onSuccess
+        - name: on_success
           type: function
-        - name: onFailure
+        - name: on_failure
           type: function
 
     - name: get_server_time
       type: function
       desc: Server Time
       parameters:
-        - name: onSuccess
+        - name: on_success
           type: function
-          desc: function(self, time)
-        - name: onFailure
+          desc: function(_, time)
+        - name: on_failure
           type: function
-          desc: function(self, error)
+          desc: function(_, error)
+
+
+
 
   - name: game
     type: table
@@ -55,20 +74,33 @@
       type: function
       desc: Check if the game tab is visible or hidden, and adjust game behavior accordingly, such as muting sound when hidden.
       parameters:
+        - name: event_name
+          type: string
+
         - name: callback
           type: function
-          desc: function(self, state)
+          desc: function(_, state)
+
     - name: visibility_state
       type: function
       desc: Returns the current visibility state of the game (the tab with the game).
-  
+      returns:
+      - name: result
+        type: string
+
+
+
+
   - name: storage
     type: table
-    desc: Functions and constants for interacting with storage
+    desc: Store and manage player data to enhance gameplay experience and retain progress.
     members:
     - name: default_type
       type: function
       desc: Identify the default storage type to understand where data is being saved (local or server).
+      returns:
+      - name: result
+        type: string
 
     - name: is_available
       type: function
@@ -76,105 +108,120 @@
       parameters:
         - name: storageType
           type: string
+      returns:
+        - name: result
+          type: boolean
 
     - name: is_supported
       type: function
-      desc: Check if the specified storage type is currently available for use to manage data storage effectively.
+      desc: Verify if the specified storage type is supported on the platform to ensure compatibility.
       parameters:
         - name: storageType
           type: string
+      returns:
+        - name: result
+          type: boolean
 
     - name: get
       type: function
       desc: Retrieve stored data based on a key or multiple keys to restore player progress or settings.
       parameters:
-        - name: key
-          type: string
-        - name: onSuccess
+        - name: table_keys
+          type: table
+        - name: on_success
           type: function
-          desc: function(self, data)
-        - name: onFailure
+          desc: function(_, data)
+        - name: on_failure
           type: function
-          desc: function(self, error)
+          desc: function(_, error)
         - name: storageType
           type: string
     - name: set
       type: function
       desc: Save data to the specified storage with a key to retain player progress or settings.
       parameters:
-        - name: key
-          type: string
-        - name: value
+        - name: table_data
           type: table
-        - name: onSuccess
+        - name: on_success
           type: function
-          desc: function(self)
-        - name: onFailure
+          desc: function(_)
+        - name: on_failure
           type: function
-          desc: function(self, error)
+          desc: function(_, error)
         - name: storageType
           type: string
     - name: delete
       type: function
       desc: Remove data from the specified storage by key to manage player data and settings effectively.
       parameters:
-        - name: key
-          type: string
-        - name: onSuccess
+        - name: table_keys
+          type: table
+        - name: on_success
           type: function
-          desc: function(self)
-        - name: onFailure
+          desc: function(_)
+        - name: on_failure
           type: function
-          desc: function(self, error)
+          desc: function(_, error)
         - name: storageType
           type: string
 
+
+
+
   - name: advertisement
     type: table
-    desc: Functions and constants for interacting with advertisement
+    desc: Monetize your game by integrating various types of advertisements, including banners, interstitials, and rewarded ads.
     members:
     - name: show_banner
       type: function
-      desc: Identify the default storage type to understand where data is being saved (local or server).
+      desc: Display a banner ad within your game to generate revenue through advertising.
       parameters:
         - name: options
           type: table
     
     - name: hide_banner
       type: function
-      desc: Identify the default storage type to understand where data is being saved (local or server).
+      desc: Hide the currently displayed banner ad when it is no longer needed.
     
     - name: banner_state
       type: function
-      desc: Check if the specified storage type is currently available for use to manage data storage effectively.
+      desc: Hide the currently displayed banner ad when it is no longer needed.
     
     - name: is_banner_supported
       type: function
-      desc: Check if the specified storage type is currently available for use to manage data storage effectively.
+      desc: Check if the platform supports displaying banner ads. Use this to determine if you can include banner advertisements in your game
+      returns:
+        - name: result
+          type: string
 
     - name: on
       type: function
       desc: Check if the game tab is visible or hidden, and adjust game behavior accordingly, such as muting sound when hidden.
       parameters:
+        - name: event_name
+          type: string
         - name: callback
           type: function
-          desc: function(self, state)
+          desc: function(_, state)
     
     - name: show_interstitial
       type: function
-      desc: Check if the specified storage type is currently available for use to manage data storage effectively.
+      desc: Display an interstitial ad at appropriate moments, such as during level transitions or game over screens.
     
     - name: interstitial_state
       type: function
-      desc: Identify the default storage type to understand where data is being saved (local or server).
+      desc: Track the state of the interstitial ad to manage ad display and user experience.
     
     - name: minimum_delay_between_interstitial
       type: function
-      desc: Identify the default storage type to understand where data is being saved (local or server).
+      desc: Minimum time interval between interstitial ad displays to comply with platform requirements and improve user experience.
+      returns:
+        - name: result
+          type: namber
 
-    - name: set_minimum_delay_between_nterstitial
+    - name: set_minimum_delay_between_interstitial
       type: function
-      desc: Identify the default storage type to understand where data is being saved (local or server).
+      desc: Set the minimum time interval between interstitial ad displays to comply with platform requirements and improve user experience.
       parameters:
         - name: delay
           type: number
@@ -182,19 +229,513 @@
 
     - name: rewarded_state
       type: function
-      desc: Identify the default storage type to understand where data is being saved (local or server).
+      desc: Monitor the state of the rewarded ad (loading, opened, closed, rewarded, failed) to manage the reward process.
 
     - name: show_rewarded
       type: function
-      desc: Check if the specified storage type is currently available for use to manage data storage effectively.
+      desc: Display a rewarded ad and provide incentives to players for watching the entire ad.
       
     - name: check_ad_block
       type: function
-      desc: Check if the specified storage type is currently available for use to manage data storage effectively.
+      desc: Check if the ad blocker is enabled.
       parameters:
-        - name: onSuccess
+        - name: on_success
           type: function
-          desc: function(self, state)
-        - name: onFailure
+          desc: function(_, bool)
+        - name: on_failure
           type: function
-          desc: function(self, state)
+          desc: function(_, error)
+
+
+
+
+  - name: device
+    type: table
+    desc: You can also retrieve various information about the player device.
+    members:
+    - name: type
+      type: function
+      desc: Determine the type of device (mobile, tablet, desktop, tv) the game is being played on to adjust the game`s interface and performance settings.
+      returns:
+        - name: result
+          type: string
+
+
+
+
+  - name: player
+    type: table
+    desc: You can also retrieve various information about the player.
+    members:
+    - name: is_authorization_supported
+      type: function
+      desc: Check if the platform supports player authorization to enable features that require user authentication, such as saving game progress or accessing social features.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: is_authorized
+      type: function
+      desc: Verify if the player is currently authorized on the platform. This allows you to enable personalized features, such as saving high scores or providing user-specific content.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: id
+      type: function
+      desc: Get the player’s unique ID on the platform to manage user-specific data and settings. Use this ID to track player progress, achievements, and purchases.
+      returns:
+        - name: result
+          type: string | nil
+    
+    - name: name
+      type: function
+      desc: Retrieve the player's name to personalize the game experience. Display the name in leaderboards, friend lists, or when sending notifications and messages.
+      returns:
+        - name: result
+          type: string | nil
+    
+    - name: photos
+      type: function
+      desc: Get the count of player avatars available. Use this to manage and display user profile images effectively, such as showing the avatar in multiplayer lobbies or profile screens.
+      returns:
+        - name: result
+          type: table
+    
+    - name: authorize
+      type: function
+      desc: Authorize the player on the platform to access protected features and personalize the game experience. For example, prompting the player to log in to save their progress or unlock social sharing features.
+      parameters:
+        - name: options
+          type: table
+        - name: on_success
+          type: function
+          desc: function()
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
+
+
+
+  - name: social
+    type: table
+    desc: Enable social features to enhance player engagement by allowing them to share, join communities, invite friends, and more.
+    members:
+    - name: is_share_supported
+      type: function
+      desc: Check if the share functionality is supported on the platform.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: share
+      type: function
+      desc: Use this to allow players to share game content or achievements on social media platforms.
+      parameters:
+        - name: options
+          type: table
+        - name: on_success
+          type: function
+          desc: function(_)
+        - name: on_failure
+          type: function
+          desc: function(_)
+
+    - name: is_join_community_supported
+      type: function
+      desc: Check if the join community functionality is supported on the platform.
+      returns:
+        - name: result
+          type: boolean
+      
+
+    - name: join_community
+      type: function
+      desc: Use this to allow players to share game content or achievements on social media platforms.
+      parameters:
+        - name: options
+          type: table
+        - name: on_success
+          type: function
+          desc: function(_)
+        - name: on_failure
+          type: function
+          desc: function(_)
+
+    - name: is_invite_friends_supported
+      type: function
+      desc: Check if the invite friends functionality is supported on the platform.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: invite_friends
+      type: function
+      desc: Allow players to invite their friends to play the game, helping to grow your player base organically.
+      parameters:
+        - name: options
+          type: table
+        - name: on_success
+          type: function
+          desc: function(_)
+        - name: on_failure
+          type: function
+          desc: function(_)
+
+    - name: is_create_post_supported
+      type: function
+      desc: Check if the create post functionality is supported on the platform.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: create_post
+      type: function
+      desc: Use this to let players create posts about their achievements or updates directly from the game.
+      parameters:
+        - name: options
+          type: table
+        - name: on_success
+          type: function
+          desc: function(_)
+        - name: on_failure
+          type: function
+          desc: function(_)
+    
+    - name: is_add_to_favorites_supported
+      type: function
+      desc: Check if the add to favorites functionality is supported on the platform.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: add_to_favorites
+      type: function
+      desc: Allow players to bookmark your game for easy access in the future.
+      parameters:
+        - name: on_success
+          type: function
+          desc: function(_)
+        - name: on_failure
+          type: function
+          desc: function(_)
+    
+    - name: is_add_to_home_screen_supported
+      type: function
+      desc: Check if the add to home screen functionality is supported on the platform.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: add_to_home_screen
+      type: function
+      desc: Enable players to add a shortcut to your game on their home screen for quick access.
+      parameters:
+        - name: on_success
+          type: function
+          desc: function(_)
+        - name: on_failure
+          type: function
+          desc: function(_)
+    
+    - name: is_rate_supported
+      type: function
+      desc: Check if the rate game functionality is supported on the platform.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: rate
+      type: function
+      desc: Encourage players to rate your game, providing valuable feedback and improving visibility.
+      parameters:
+        - name: on_success
+          type: function
+          desc: function(_)
+        - name: on_failure
+          type: function
+          desc: function(_)
+
+    - name: is_external_links_allowed
+      type: function
+      desc: Check if external links are allowed on the platform.
+      returns:
+        - name: result
+          type: boolean
+
+
+
+
+  - name: payments
+    type: table
+    desc: Enable players to purchase items, upgrades, or currency within your game to enhance their experience and generate revenue.
+    members:
+    - name: is_supported
+      type: function
+      desc: Check if in-game purchases are supported to offer items or upgrades within the game.
+      returns:
+      - name: result
+        type: boolean
+    
+    - name: is_get_catalog_supported
+      type: function
+      desc: Check if getting catalog is supported.
+      returns:
+      - name: result
+        type: boolean
+    
+    - name: is_get_purchases_supported
+      type: function
+      desc: Check if getting purchases list is supported.
+      returns:
+      - name: result
+        type: boolean
+    
+    - name: is_consume_purchase_supported
+      type: function
+      desc: Check if purchase consuming is supported.
+      returns:
+      - name: result
+        type: boolean
+
+    - name: purchase
+      type: function
+      desc: Allow players to buy items or upgrades in your game to enhance their gameplay experience.
+      parameters:
+        - name: options
+          type: table
+        - name: on_success
+          type: function
+          desc: function(_, purchase)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
+    - name: consume_purchase
+      type: function
+      desc: Consume purchased items, such as in-game currency, once they are used, to manage inventory and player progression.
+      parameters:
+        - name: options
+          type: table
+        - name: on_success
+          type: function
+          desc: function(_, catalogItems)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
+    - name: get_catalog
+      type: function
+      desc: Retrieve a list of all available in-game items that players can purchase to display in the game store.
+      parameters:
+        - name: on_success
+          type: function
+          desc: function(_, catalogItems)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
+    - name: get_purchases
+      type: function
+      desc: Retrieve a list of items that the player has purchased to manage their inventory and provide access to purchased content.
+      parameters:
+        - name: on_success
+          type: function
+          desc: function(nil, purchases)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
+  - name: achievements
+    type: table
+    desc: Achievements in HTML5 games are an exciting and rewarding feature that adds an extra layer of engagement for players. They serve as milestones, celebrating a player's progress, skill, and dedication.
+    members:
+    - name: is_supported
+      type: function
+      desc: Use this to determine if you can implement achievements for your game on the current platform.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: is_get_list_supported
+      type: function
+      desc: Check if getting list of achievements is supported.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: is_native_popup_supported
+      type: function
+      desc: Check if built-in popup is supported.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: unlock
+      type: function
+      desc: Unlocks achievement for a player.
+      parameters:
+        - name: options
+          type: table
+        - name: on_success
+          type: function
+          desc: function(_, result)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
+    - name: get_list
+      type: function
+      desc: Returns the achievement list in JSON.
+      parameters:
+        - name: options
+          type: table
+        - name: on_success
+          type: function
+          desc: function(_, list)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
+    - name: show_native_popup
+      type: function
+      desc: Returns the achievement list in JSON.
+      parameters:
+        - name: options
+          type: table
+        - name: on_success
+          type: function
+          desc: function()
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
+
+
+
+  - name: leaderboard
+    type: table
+    desc: Enhance competitiveness by integrating leaderboards, allowing players to compare their scores and achievements.
+    members:
+    - name: is_supported
+      type: function
+      desc: Check if the leaderboard feature is supported on the platform.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: is_native_popup_supported
+      type: function
+      desc: Check if built-in popup is supported.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: is_multiple_boards_supported
+      type: function
+      desc: Check if multiple boards are supported.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: is_set_score_supported
+      type: function
+      desc: Check if user can set score to leaderboard.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: is_get_score_supported
+      type: function
+      desc: Check if user can retrieve their score.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: is_get_entries_supported
+      type: function
+      desc: Check if user can access leaderboard entries including other players' scores.
+      returns:
+        - name: result
+          type: boolean
+
+
+    - name: set_score
+      type: function
+      desc: Submit the player's score to the leaderboard to update their rank and position.
+      parameters:
+        - name: options
+          type: table
+        - name: on_success
+          type: function
+          desc: function()
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
+    - name: get_score
+      type: function
+      desc: Retrieve the player's score from the leaderboard to display their current standing.
+      parameters:
+        - name: options
+          type: table
+        - name: on_success
+          type: function
+          desc: function(_, score)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
+    - name: get_entries
+      type: function
+      desc: Retrieve entries from the leaderboard, including the player's rank and score, to display a comprehensive leaderboard.
+      parameters:
+        - name: options
+          type: table
+        - name: on_success
+          type: function
+          desc: function(_, entries)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
+    - name: show_native_popup
+      type: function
+      desc: Shows leaderboard entries built-in popup
+      parameters:
+        - name: options
+          type: table
+        - name: on_success
+          type: function
+          desc: function(_, entries)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
+
+
+
+  - name: remote_config
+    type: table
+    desc: Manage your game settings remotely without releasing updates, allowing for dynamic adjustments and feature toggling.
+    members:
+    - name: is_supported
+      type: function
+      desc: Check if remote configuration is supported to manage game settings without releasing updates.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: get
+      type: function
+      desc: Encourage players to rate your game, providing valuable feedback and improving visibility.
+      parameters:
+        - name: options
+          type: table
+        - name: on_success
+          type: function
+          desc: function(_, data)
+        - name: on_failure
+          type: function
+          desc: function(_)

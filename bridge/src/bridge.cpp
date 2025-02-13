@@ -1016,7 +1016,7 @@ static void LuaInit(lua_State* L) {
 
     lua_newtable(L); // create bridge table (root)
     lua_pushvalue(L, -1);
-    lua_setglobal(L, "bridge");
+    lua_setglobal(L, "_bridge");
     {
         lua_pushstring(L, "platform"); // create platform table
         lua_newtable(L);
