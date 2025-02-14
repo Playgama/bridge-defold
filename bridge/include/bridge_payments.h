@@ -1,16 +1,8 @@
 #pragma once
 
-#include <dmsdk/sdk.h>
-
 #if defined(DM_PLATFORM_HTML5)
-
-typedef void (*ShareHandler)(dmScript::LuaCallbackInfo* onSuccess,
-                             dmScript::LuaCallbackInfo* onFailure,
-                             const int callbackType);
-
-typedef void (*GetListHandler)(dmScript::LuaCallbackInfo* onSuccess,
-                               dmScript::LuaCallbackInfo* onFailure,
-                               const int callbackType, char* resultJson);
+#include "bridge_helper.h"
+#include <dmsdk/sdk.h>
 
 extern "C" {
     bool js_bridge_payments_isSupported();
@@ -21,21 +13,21 @@ extern "C" {
 
     bool js_bridge_payments_isConsumePurchaseSupported();
 
-    void js_bridge_payments_purchase(GetListHandler handler,
+    void js_bridge_payments_purchase(UniversalHandler handler,
                                      const char* options,
                                      dmScript::LuaCallbackInfo* onSuccess,
                                      dmScript::LuaCallbackInfo* onFailure);
 
-    void js_bridge_payments_consumePurchase(ShareHandler handler,
+    void js_bridge_payments_consumePurchase(UniversalHandler handler,
                                             const char* options,
                                             dmScript::LuaCallbackInfo* onSuccess,
                                             dmScript::LuaCallbackInfo* onFailure);
 
-    void js_bridge_payments_getCatalog(GetListHandler handler,
+    void js_bridge_payments_getCatalog(UniversalHandler handler,
                                        dmScript::LuaCallbackInfo* onSuccess,
                                        dmScript::LuaCallbackInfo* onFailure);
 
-    void js_bridge_payments_getPurchases(GetListHandler handler,
+    void js_bridge_payments_getPurchases(UniversalHandler handler,
                                          dmScript::LuaCallbackInfo* onSuccess,
                                          dmScript::LuaCallbackInfo* onFailure);
 }

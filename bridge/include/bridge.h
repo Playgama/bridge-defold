@@ -126,14 +126,14 @@ namespace bridge {
     } // namespace achievements
 
     namespace payments {
-        bool isSupported();
-        bool isGetCatalogSupported();
-        bool isGetPurchasesSupported();
-        bool isConsumePurchaseSupported();
-        void purchase(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
-        void consumePurchase(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
-        void getCatalog(dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
-        void getPurchases(dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+        int isSupported(lua_State* L);
+        int isGetCatalogSupported(lua_State* L);
+        int isGetPurchasesSupported(lua_State* L);
+        int isConsumePurchaseSupported(lua_State* L);
+        int purchase(lua_State* L);
+        int consumePurchase(lua_State* L);
+        int getCatalog(lua_State* L);
+        int getPurchases(lua_State* L);
     } // namespace payments
 
     namespace remoteConfig {

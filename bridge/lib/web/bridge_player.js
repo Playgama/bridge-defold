@@ -16,8 +16,7 @@ let js_bridge_player = {
     },
 
     js_bridge_player_photos: function () {
-        var jsonString = JSON.stringify(bridge.player.photos);
-        return CStrOrNull(jsonString);
+        return CStrOrNull(bridge.player.photos);
     },
 
     js_bridge_player_authorize: function (handler, options, onSuccess, onFailure) {

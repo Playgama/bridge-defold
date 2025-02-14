@@ -1,111 +1,8 @@
-// myextension.cpp
-// Extension lib defines
 #define LIB_NAME "Bridge"
 #define MODULE_NAME "Bridge"
-// include the Defold SDK
 
 #if defined(DM_PLATFORM_HTML5)
 #include "bridge.h"
-#include <stdio.h>
-
-#pragma region Payments
-
-static int bridge_payments_isSupported(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    bool isSupported = bridge::payments::isSupported();
-    lua_pushboolean(L, isSupported);
-    return 1;
-}
-
-static int bridge_payments_isGetPurchasesSupported(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    bool isGetPurchasesSupported = bridge::payments::isGetPurchasesSupported();
-    lua_pushboolean(L, isGetPurchasesSupported);
-    return 1;
-}
-
-static int bridge_payments_isGetCatalogSupported(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    bool isGetCatalogSupported = bridge::payments::isGetCatalogSupported();
-    lua_pushboolean(L, isGetCatalogSupported);
-    return 1;
-}
-
-static int bridge_payments_isConsumePurchaseSupported(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    bool isConsumePurchaseSupported = bridge::payments::isConsumePurchaseSupported();
-    lua_pushboolean(L, isConsumePurchaseSupported);
-    return 1;
-}
-
-static int bridge_payments_purchase(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    dmScript::LuaCallbackInfo* onSuccess = NULL;
-    dmScript::LuaCallbackInfo* onFailure = NULL;
-
-    char* json;
-    size_t json_len;
-    int res = dmScript::LuaToJson(L, &json, &json_len);
-    if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 2);
-
-    if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 3);
-
-    bridge::payments::purchase(json, onSuccess, onFailure);
-    free(json);
-    return 0;
-}
-
-static int bridge_payments_consumePurchase(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    dmScript::LuaCallbackInfo* onSuccess = NULL;
-    dmScript::LuaCallbackInfo* onFailure = NULL;
-
-    char* json;
-    size_t json_len;
-    int res = dmScript::LuaToJson(L, &json, &json_len);
-    if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 2);
-
-    if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 3);
-
-    bridge::payments::consumePurchase(json, onSuccess, onFailure);
-    free(json);
-    return 0;
-}
-
-static int bridge_payments_getCatalog(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    dmScript::LuaCallbackInfo* onSuccess = NULL;
-    dmScript::LuaCallbackInfo* onFailure = NULL;
-
-    if (lua_isfunction(L, 1))
-        onSuccess = dmScript::CreateCallback(L, 1);
-
-    if (lua_isfunction(L, 2))
-        onFailure = dmScript::CreateCallback(L, 2);
-
-    bridge::payments::getCatalog(onSuccess, onFailure);
-    return 0;
-}
-
-static int bridge_payments_getPurchases(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    dmScript::LuaCallbackInfo* onSuccess = NULL;
-    dmScript::LuaCallbackInfo* onFailure = NULL;
-
-    if (lua_isfunction(L, 1))
-        onSuccess = dmScript::CreateCallback(L, 1);
-
-    if (lua_isfunction(L, 2))
-        onFailure = dmScript::CreateCallback(L, 2);
-
-    bridge::payments::getPurchases(onSuccess, onFailure);
-    return 0;
-}
-#pragma endregion
 
 // Functions exposed to Lua
 static const luaL_reg platform_methods[] = {
@@ -135,7 +32,7 @@ static const luaL_reg store_methods[] = {
 };
 
 static const luaL_reg advertisement_methods[] = {
-    // Banner 
+    // Banner
     { "show_banner", bridge::advertisement::showBanner },
     { "hide_banner", bridge::advertisement::hideBanner },
     { "banner_state", bridge::advertisement::bannerState },
@@ -229,14 +126,14 @@ static const luaL_reg achievements_methods[] = {
 };
 
 static const luaL_reg payments_methods[] = {
-    { "is_supported", bridge_payments_isSupported },
-    { "is_get_catalog_supported", bridge_payments_isGetCatalogSupported },
-    { "is_get_purchases_supported", bridge_payments_isGetPurchasesSupported },
-    { "is_consume_purchase_supported", bridge_payments_isConsumePurchaseSupported },
-    { "purchase", bridge_payments_purchase },
-    { "consume_purchase", bridge_payments_consumePurchase },
-    { "get_catalog", bridge_payments_getCatalog },
-    { "get_purchases", bridge_payments_getPurchases },
+    { "is_supported", bridge::payments::isSupported },
+    { "is_get_catalog_supported", bridge::payments::isGetCatalogSupported },
+    { "is_get_purchases_supported", bridge::payments::isGetPurchasesSupported },
+    { "is_consume_purchase_supported", bridge::payments::isConsumePurchaseSupported },
+    { "purchase", bridge::payments::purchase },
+    { "consume_purchase", bridge::payments::consumePurchase },
+    { "get_catalog", bridge::payments::getCatalog },
+    { "get_purchases", bridge::payments::getPurchases },
     { 0, 0 }
 };
 
@@ -314,15 +211,7 @@ static void LuaInit(lua_State* L) {
     }
     lua_pop(L, 1);
 #endif
-    // if(luaL_dostring(L, "bridge = require \"bridge.res.common.bridge_mock\"") != 0) {
-    //     dmLogError("%s", lua_tostring(L, -1));
-    // }
-    // lua_pop(L, 1);
     assert(top == lua_gettop(L));
-}
-
-dmExtension::Result AppInitializeMyExtension(dmExtension::AppParams* params) {
-    return dmExtension::RESULT_OK;
 }
 
 dmExtension::Result InitializeMyExtension(dmExtension::Params* params) {
@@ -332,22 +221,5 @@ dmExtension::Result InitializeMyExtension(dmExtension::Params* params) {
     return dmExtension::RESULT_OK;
 }
 
-dmExtension::Result AppFinalizeMyExtension(dmExtension::AppParams* params) {
-    return dmExtension::RESULT_OK;
-}
-
-dmExtension::Result FinalizeMyExtension(dmExtension::Params* params) {
-    return dmExtension::RESULT_OK;
-}
-
-// Defold SDK uses a macro for setting up extension entry points:
-//
-// DM_DECLARE_EXTENSION(symbol, name, app_init, app_final, init, update,
-// on_event, final)
-
-// MyExtension is the C++ symbol that holds all relevant extension data.
-// It must match the name field in the `ext.manifest`
+DM_DECLARE_EXTENSION(Bridge, LIB_NAME, 0, 0, InitializeMyExtension, 0, 0, 0)
 #pragma endregion
-DM_DECLARE_EXTENSION(Bridge, LIB_NAME, AppInitializeMyExtension,
-                     AppFinalizeMyExtension, InitializeMyExtension, 0, 0,
-                     FinalizeMyExtension)

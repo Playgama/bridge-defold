@@ -18,13 +18,11 @@ let js_bridge_payments = {
     js_bridge_payments_purchase: function (handler, options, onSuccess, onFailure) {
         var jsOptions = JSON.parse(UTF8ToString(options));
         bridge.payments.purchase(jsOptions)
-            .then((purchase) => {
-                const jsonString = JSON.stringify(purchase);
-                console.log(jsonString);
-                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, CStrOrNull(jsonString));
+            .then(purchase => {
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(purchase));
             })
             .catch(error => {
-                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, CStrOrNull(error));
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
             })
     },
 
@@ -32,34 +30,30 @@ let js_bridge_payments = {
         var jsOptions = JSON.parse(UTF8ToString(options));
         bridge.payments.consumePurchase(jsOptions)
             .then(() => {
-                {{{ makeDynCall('viii', 'handler') }}} (onSuccess, onFailure, 0);
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
             })
             .catch(error => {
-                {{{ makeDynCall('viii', 'handler') }}} (onSuccess, onFailure, 1);
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
             })
     },
 
     js_bridge_payments_getCatalog: function (handler, onSuccess, onFailure) {
         bridge.payments.getCatalog()
-            .then((catalogItems) => {
-                const jsonString = JSON.stringify(catalogItems);
-                console.log(jsonString);
-                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, CStrOrNull(jsonString));
+            .then(catalogItems => {
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(catalogItems));
             })
             .catch(error => {
-                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, CStrOrNull(error));
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
             })
     },
 
     js_bridge_payments_getPurchases: function (handler, onSuccess, onFailure) {
         bridge.payments.getPurchases()
-            .then((purchases) => {
-                const jsonString = JSON.stringify(purchases);
-                console.log(jsonString);
-                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, CStrOrNull(jsonString));
+            .then(purchases => {
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(purchases));
             })
             .catch(error => {
-                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, CStrOrNull(error));
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
             })
     },
     
