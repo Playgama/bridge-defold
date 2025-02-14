@@ -219,17 +219,6 @@ static int bridge_advertisement_checkAdBlock(lua_State* L) {
 
 #pragma endregion
 
-#pragma region Device
-
-static int bridge_device_type(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    char* str = bridge::device::type();
-    lua_pushstring(L, str);
-    free(str);
-    return 1;
-}
-#pragma endregion
-
 #pragma region Player
 
 static int bridge_player_isAuthorizationSupported(lua_State* L) {
@@ -832,7 +821,7 @@ static const luaL_reg advertisement_methods[] = {
 };
 
 static const luaL_reg device_methods[] = {
-    { "type", bridge_device_type },
+    { "type", bridge::device::type },
     { 0, 0 }
 };
 

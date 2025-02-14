@@ -53,7 +53,7 @@ namespace bridge {
     } // namespace advertisement
 
     namespace device {
-        char* type();
+        int type(lua_State* L);
     } // namespace device
 
     namespace player {
