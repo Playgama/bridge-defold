@@ -1,17 +1,8 @@
 #pragma once
 
-#include <dmsdk/sdk.h>
-
 #if defined(DM_PLATFORM_HTML5)
-
-typedef void (*SetDataHandler)(dmScript::LuaCallbackInfo* onSuccess,
-                                dmScript::LuaCallbackInfo* onFailure,
-                                const int callbackType);
-
-typedef void (*GetDataHandler)(dmScript::LuaCallbackInfo* onSuccess,
-                               dmScript::LuaCallbackInfo* onFailure,
-                               const int callbackType,
-                               char* dataOrError);
+#include "bridge_helper.h"
+#include <dmsdk/sdk.h>
 
 extern "C" {
     bool js_bridge_leaderboard_isSupported();
@@ -21,10 +12,10 @@ extern "C" {
     bool js_bridge_leaderboard_isGetScoreSupported();
     bool js_bridge_leaderboard_isGetEntriesSupported();
 
-    void js_bridge_leaderboard_setScore(SetDataHandler handler, const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
-    void js_bridge_leaderboard_getScore(GetDataHandler handler, const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
-    void js_bridge_leaderboard_getEntries(GetDataHandler handler, const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
-    void js_bridge_leaderboard_showNativePopup(SetDataHandler handler, const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+    void js_bridge_leaderboard_setScore(UniversalHandler handler, const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+    void js_bridge_leaderboard_getScore(UniversalHandler handler, const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+    void js_bridge_leaderboard_getEntries(UniversalHandler handler, const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+    void js_bridge_leaderboard_showNativePopup(UniversalHandler handler, const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
 }
 
 #endif

@@ -22,9 +22,7 @@ let js_bridge_storage = {
                         continue;
                     obj[values[i]] = data[i];
                 }
-                console.log(data);
-                const jsonString = JSON.stringify(obj);
-                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(jsonString));
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(obj));
             })
             .catch(error => {
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));

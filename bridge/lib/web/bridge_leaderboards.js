@@ -27,23 +27,21 @@ let js_bridge_leaderboards = {
         var jsOptions = JSON.parse(UTF8ToString(options));
         bridge.social.setScore(jsOptions)
             .then(() => {
-                {{{ makeDynCall('viii', 'handler') }}} (onSuccess, onFailure, 0);
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
             })
             .catch(error => {
-                {{{ makeDynCall('viii', 'handler') }}} (onSuccess, onFailure, 1);
+                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
             })
     },
 
     js_bridge_leaderboard_getScore: function (handler, options, onSuccess, onFailure) {
         var jsOptions = JSON.parse(UTF8ToString(options));
         bridge.social.getScore(jsOptions)
-            .then(score => { // TODO maybe need fix from return value
-                const jsonString = JSON.stringify(score);
-                console.log(jsonString);
-                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, CStrOrNull(jsonString));
+            .then(score => {
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(score));
             })
             .catch(error => {
-                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, CStrOrNull("" + error));
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
             })
     },
 
@@ -51,12 +49,10 @@ let js_bridge_leaderboards = {
         var jsOptions = JSON.parse(UTF8ToString(options));
         bridge.social.getEntries(jsOptions)
             .then(entries => {
-                const jsonString = JSON.stringify(entries);
-                console.log(jsonString);
-                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, CStrOrNull(jsonString));
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(entries));
             })
             .catch(error => {
-                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, CStrOrNull("" + error));
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
             })
     },
 
@@ -64,10 +60,10 @@ let js_bridge_leaderboards = {
         var jsOptions = JSON.parse(UTF8ToString(options));
         bridge.social.showNativePopup(jsOptions)
             .then(() => {
-                {{{ makeDynCall('viii', 'handler') }}} (onSuccess, onFailure, 0);
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
             })
             .catch(error => {
-                {{{ makeDynCall('viii', 'handler') }}} (onSuccess, onFailure, 1);
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
             })
     },
 }

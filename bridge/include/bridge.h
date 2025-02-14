@@ -77,7 +77,7 @@ namespace bridge {
         // Add to Favorites
         int isAddToFavoritesSupported(lua_State* L);
         int addToFavorites(lua_State* L);
-        
+
         // Create Post
         int isCreatePostSupported(lua_State* L);
         int createPost(lua_State* L);
@@ -96,24 +96,24 @@ namespace bridge {
 
     namespace leaderboards {
         // Support
-        bool isSupported();
-        bool isNativePopupSupported();
-        bool isMultipleBoardsSupported();
-        bool isSetScoreSupported();
-        bool isGetScoreSupported();
-        bool isGetEntriesSupported();
+        int isSupported(lua_State* L);
+        int isNativePopupSupported(lua_State* L);
+        int isMultipleBoardsSupported(lua_State* L);
+        int isSetScoreSupported(lua_State* L);
+        int isGetScoreSupported(lua_State* L);
+        int isGetEntriesSupported(lua_State* L);
 
         // Player Scores. Set
-        void setScore(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+        int setScore(lua_State* L);
 
         // Player Scores. Get
-        void getScore(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+        int getScore(lua_State* L);
 
         // Get Full Leaderboard
-        void getEntries(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+        int getEntries(lua_State* L);
 
         // Show Native Popup
-        void showNativePopup(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+        int showNativePopup(lua_State* L);
     } // namespace leaderboards
 
     namespace achievements {
