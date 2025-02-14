@@ -14,7 +14,7 @@ extern "C" {
 
     char* js_bridge_advertisement_bannerState();
 
-    void js_bridge_advertisement_on(RuntimeHandler handler,
+    void js_bridge_advertisement_on(OnHandler handler,
                                     const char* eventName,
                                     dmScript::LuaCallbackInfo* callback);
 #pragma region

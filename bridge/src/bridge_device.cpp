@@ -4,7 +4,7 @@
 #include "bridge_helper.h"
 
 int bridge::device::type(lua_State* L) {
-    return stringGetter(L, js_bridge_device_type);
+    return getString(L, js_bridge_device_type);
 }
 
 #endif

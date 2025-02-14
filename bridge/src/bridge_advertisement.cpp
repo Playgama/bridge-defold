@@ -4,11 +4,11 @@
 
 #pragma region Banner
 int bridge::advertisement::on(lua_State* L) {
-    return runtimeOnGetter(L, js_bridge_advertisement_on);
+    return makeOnCallback(L, js_bridge_advertisement_on);
 }
 
 int bridge::advertisement::isBannerSupported(lua_State* L) {
-    return boolGetter(L, js_bridge_advertisement_isBannerSupported);
+    return getBoolean(L, js_bridge_advertisement_isBannerSupported);
 }
 
 int bridge::advertisement::showBanner(lua_State* L) {
@@ -22,7 +22,7 @@ int bridge::advertisement::showBanner(lua_State* L) {
 }
 
 int bridge::advertisement::bannerState(lua_State* L) {
-    return stringGetter(L, js_bridge_advertisement_bannerState);
+    return getString(L, js_bridge_advertisement_bannerState);
 }
 
 int bridge::advertisement::hideBanner(lua_State* L) {
@@ -54,13 +54,13 @@ int bridge::advertisement::setMinimumDelayBetweenInterstitial(lua_State* L) {
 }
 
 int bridge::advertisement::interstitialState(lua_State* L) {
-    return stringGetter(L, js_bridge_advertisement_interstitialState);
+    return getString(L, js_bridge_advertisement_interstitialState);
 }
 #pragma endregion
 
 #pragma region Rewarded
 int bridge::advertisement::rewardedState(lua_State* L) {
-    return stringGetter(L, js_bridge_advertisement_rewardedState);
+    return getString(L, js_bridge_advertisement_rewardedState);
 }
 
 int bridge::advertisement::showRewarded(lua_State* L) {
@@ -73,7 +73,7 @@ int bridge::advertisement::showRewarded(lua_State* L) {
 #pragma region Adblock
 
 int bridge::advertisement::checkAdBlock(lua_State* L) {
-    return voidCallbacksGetter(L, js_bridge_advertisement_checkAdBlock, true);
+    return makeCallback(L, js_bridge_advertisement_checkAdBlock, true);
 }
 
 #pragma endregion

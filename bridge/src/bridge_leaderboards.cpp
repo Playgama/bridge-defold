@@ -3,43 +3,43 @@
 #include "bridge.h"
 
 int bridge::leaderboards::isSupported(lua_State* L) {
-    return boolGetter(L, js_bridge_leaderboard_isSupported);
+    return getBoolean(L, js_bridge_leaderboard_isSupported);
 }
 
 int bridge::leaderboards::isNativePopupSupported(lua_State* L) {
-    return boolGetter(L, js_bridge_leaderboard_isNativePopupSupported);
+    return getBoolean(L, js_bridge_leaderboard_isNativePopupSupported);
 }
 
 int bridge::leaderboards::isMultipleBoardsSupported(lua_State* L) {
-    return boolGetter(L, js_bridge_leaderboard_isMultipleBoardsSupported);
+    return getBoolean(L, js_bridge_leaderboard_isMultipleBoardsSupported);
 }
 
 int bridge::leaderboards::isSetScoreSupported(lua_State* L) {
-    return boolGetter(L, js_bridge_leaderboard_isSetScoreSupported);
+    return getBoolean(L, js_bridge_leaderboard_isSetScoreSupported);
 }
 
 int bridge::leaderboards::isGetScoreSupported(lua_State* L) {
-    return boolGetter(L, js_bridge_leaderboard_isGetScoreSupported);
+    return getBoolean(L, js_bridge_leaderboard_isGetScoreSupported);
 }
 
 int bridge::leaderboards::isGetEntriesSupported(lua_State* L) {
-    return boolGetter(L, js_bridge_leaderboard_isGetEntriesSupported);
+    return getBoolean(L, js_bridge_leaderboard_isGetEntriesSupported);
 }
 
 int bridge::leaderboards::setScore(lua_State* L) {
-    return voidJsonCallbacksGetter(L, js_bridge_leaderboard_setScore, false);
+    return makeCallbackWithJson(L, js_bridge_leaderboard_setScore, false);
 }
 
 int bridge::leaderboards::getScore(lua_State* L) {
-    return voidJsonCallbacksGetter(L, js_bridge_leaderboard_getScore, true);
+    return makeCallbackWithJson(L, js_bridge_leaderboard_getScore, true);
 }
 
 int bridge::leaderboards::getEntries(lua_State* L) {
-    return voidJsonCallbacksGetter(L, js_bridge_leaderboard_getEntries, true);
+    return makeCallbackWithJson(L, js_bridge_leaderboard_getEntries, true);
 }
 
 int bridge::leaderboards::showNativePopup(lua_State* L) {
-    return voidJsonCallbacksGetter(L, js_bridge_leaderboard_showNativePopup, false);
+    return makeCallbackWithJson(L, js_bridge_leaderboard_showNativePopup, false);
 }
 
 #endif

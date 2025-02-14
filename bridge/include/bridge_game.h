@@ -5,7 +5,7 @@
 #include <dmsdk/sdk.h>
 
 extern "C" {
-    void js_bridge_game_on(RuntimeHandler handler,
+    void js_bridge_game_on(OnHandler handler,
                            const char* eventName,
                            dmScript::LuaCallbackInfo* callback);
 

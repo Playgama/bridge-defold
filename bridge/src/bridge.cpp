@@ -174,37 +174,37 @@ static void LuaInit(lua_State* L) {
         luaL_register(L, NULL, advertisement_methods);
         lua_settable(L, -3);
 
-        lua_pushstring(L, "device"); // create advertisement table
+        lua_pushstring(L, "device"); // create device table
         lua_newtable(L);
         luaL_register(L, NULL, device_methods);
         lua_settable(L, -3);
 
-        lua_pushstring(L, "player"); // create advertisement table
+        lua_pushstring(L, "player"); // create player table
         lua_newtable(L);
         luaL_register(L, NULL, player_methods);
         lua_settable(L, -3);
 
-        lua_pushstring(L, "social"); // create advertisement table
+        lua_pushstring(L, "social"); // create social table
         lua_newtable(L);
         luaL_register(L, NULL, social_methods);
         lua_settable(L, -3);
 
-        lua_pushstring(L, "leaderboards"); // create advertisement table
+        lua_pushstring(L, "leaderboards"); // create leaderboards table
         lua_newtable(L);
         luaL_register(L, NULL, leaderboards_methods);
         lua_settable(L, -3);
 
-        lua_pushstring(L, "achievements"); // create advertisement table
+        lua_pushstring(L, "achievements"); // create achievements table
         lua_newtable(L);
         luaL_register(L, NULL, achievements_methods);
         lua_settable(L, -3);
 
-        lua_pushstring(L, "payments"); // create advertisement table
+        lua_pushstring(L, "payments"); // create payments table
         lua_newtable(L);
         luaL_register(L, NULL, payments_methods);
         lua_settable(L, -3);
 
-        lua_pushstring(L, "remote_config"); // create advertisement table
+        lua_pushstring(L, "remote_config"); // create remote_config table
         lua_newtable(L);
         luaL_register(L, NULL, remoteConfig_methods);
         lua_settable(L, -3);

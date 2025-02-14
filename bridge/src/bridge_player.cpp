@@ -3,19 +3,19 @@
 #include "bridge.h"
 
 int bridge::player::isAuthorizationSupported(lua_State* L) {
-    return boolGetter(L, js_bridge_player_isAuthorizationSupported);
+    return getBoolean(L, js_bridge_player_isAuthorizationSupported);
 }
 
 int bridge::player::isAuthorized(lua_State* L) {
-    return boolGetter(L, js_bridge_player_isAuthorized);
+    return getBoolean(L, js_bridge_player_isAuthorized);
 }
 
 int bridge::player::id(lua_State* L) {
-    return stringGetter(L, js_bridge_player_id);
+    return getString(L, js_bridge_player_id);
 }
 
 int bridge::player::name(lua_State* L) {
-    return stringGetter(L, js_bridge_player_name);
+    return getString(L, js_bridge_player_name);
 }
 
 int bridge::player::photos(lua_State* L) {
@@ -27,6 +27,6 @@ int bridge::player::photos(lua_State* L) {
 }
 
 int bridge::player::authorize(lua_State* L) {
-    return voidJsonCallbacksGetter(L, js_bridge_player_authorize, false);
+    return makeCallbackWithJson(L, js_bridge_player_authorize, false);
 }
 #endif

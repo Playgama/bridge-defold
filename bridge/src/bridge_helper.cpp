@@ -48,12 +48,12 @@ void cppUniversalHandler(dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCall
     free(data);
 }
 
-void cppRuntimeHandler(dmScript::LuaCallbackInfo* onSuccess, char* data) {
+void cppOnHandler(dmScript::LuaCallbackInfo* onSuccess, char* data) {
     callCallback(onSuccess, data);
     free(data);
 }
 
-int stringGetter(lua_State* L, stringFunction func) {
+int getString(lua_State* L, StringFunction func) {
     DM_LUA_STACK_CHECK(L, 1);
     char* str = func();
     lua_pushstring(L, str);
@@ -61,14 +61,14 @@ int stringGetter(lua_State* L, stringFunction func) {
     return 1;
 }
 
-int boolGetter(lua_State* L, boolFunction func) {
+int getBoolean(lua_State* L, BooleanFunction func) {
     DM_LUA_STACK_CHECK(L, 1);
     bool isAvailable = func();
     lua_pushboolean(L, isAvailable);
     return 1;
 }
 
-int voidCallbacksGetter(lua_State* L, voidCallbacksFunction func, bool isRequiredFirstCallback) {
+int makeCallback(lua_State* L, CallbacksFunction func, bool isRequiredFirstCallback) {
     DM_LUA_STACK_CHECK(L, 0);
     dmScript::LuaCallbackInfo* onSuccess = NULL;
     dmScript::LuaCallbackInfo* onFailure = NULL;
@@ -85,7 +85,7 @@ int voidCallbacksGetter(lua_State* L, voidCallbacksFunction func, bool isRequire
     return 0;
 }
 
-int voidStringCallbacksGetter(lua_State* L, voidStringCallbacksFunction func, bool isRequiredFirstCallback) {
+int makeCallbackWithString(lua_State* L, CallbacksWithStringFunction func, bool isRequiredFirstCallback) {
     DM_LUA_STACK_CHECK(L, 0);
     size_t len;
     const char* event = luaL_checklstring(L, 1, &len);
@@ -105,16 +105,16 @@ int voidStringCallbacksGetter(lua_State* L, voidStringCallbacksFunction func, bo
     return 0;
 }
 
-int runtimeOnGetter(lua_State* L, runtimeOnFunction func) {
+int makeOnCallback(lua_State* L, OnFunction func) {
     DM_LUA_STACK_CHECK(L, 0);
     dmScript::LuaCallbackInfo* callback = NULL;
     const char* event_name = luaL_checkstring(L, 1);
     callback = dmScript::CreateCallback(L, 2);
-    func(cppRuntimeHandler, event_name, callback);
+    func(cppOnHandler, event_name, callback);
     return 0;
 }
 
-int voidJsonCallbacksGetter(lua_State* L, voidStringCallbacksFunction func, bool isRequiredFirstCallback) {
+int makeCallbackWithJson(lua_State* L, CallbacksWithStringFunction func, bool isRequiredFirstCallback) {
     DM_LUA_STACK_CHECK(L, 0);
     dmScript::LuaCallbackInfo* onSuccess = NULL;
     dmScript::LuaCallbackInfo* onFailure = NULL;
@@ -137,7 +137,7 @@ int voidJsonCallbacksGetter(lua_State* L, voidStringCallbacksFunction func, bool
     return 0;
 }
 
-int boolStringGetter(lua_State* L, boolStringFunction func) {
+int getBooleanWithString(lua_State* L, BooleanStringFunction func) {
     DM_LUA_STACK_CHECK(L, 1);
     const char* lstring = luaL_checkstring(L, 1);
     bool isAvailable = func(lstring);
@@ -145,7 +145,7 @@ int boolStringGetter(lua_State* L, boolStringFunction func) {
     return 1;
 }
 
-int storageFunctionGetter(lua_State* L, storageFunction func, bool isRequiredFirstCallback) {
+int makeCallbackStorage(lua_State* L, StorageFunction func, bool isRequiredFirstCallback) {
     DM_LUA_STACK_CHECK(L, 0);
     luaL_checktype(L, 1, LUA_TTABLE); // table
     char* json;

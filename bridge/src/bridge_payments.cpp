@@ -3,35 +3,35 @@
 #include "bridge.h"
 
 int bridge::payments::isSupported(lua_State* L) {
-    return boolGetter(L, js_bridge_payments_isSupported);
+    return getBoolean(L, js_bridge_payments_isSupported);
 }
 
 int bridge::payments::isGetCatalogSupported(lua_State* L) {
-    return boolGetter(L, js_bridge_payments_isGetCatalogSupported);
+    return getBoolean(L, js_bridge_payments_isGetCatalogSupported);
 }
 
 int bridge::payments::isGetPurchasesSupported(lua_State* L) {
-    return boolGetter(L, js_bridge_payments_isGetPurchasesSupported);
+    return getBoolean(L, js_bridge_payments_isGetPurchasesSupported);
 }
 
 int bridge::payments::isConsumePurchaseSupported(lua_State* L) {
-    return boolGetter(L, js_bridge_payments_isConsumePurchaseSupported);
+    return getBoolean(L, js_bridge_payments_isConsumePurchaseSupported);
 }
 
 int bridge::payments::purchase(lua_State* L) {
-    return voidJsonCallbacksGetter(L, js_bridge_payments_purchase, true);
+    return makeCallbackWithJson(L, js_bridge_payments_purchase, true);
 }
 
 int bridge::payments::consumePurchase(lua_State* L) {
-    return voidJsonCallbacksGetter(L, js_bridge_payments_consumePurchase, false);
+    return makeCallbackWithJson(L, js_bridge_payments_consumePurchase, false);
 }
 
 int bridge::payments::getCatalog(lua_State* L) {
-    return voidCallbacksGetter(L, js_bridge_payments_getCatalog, true);
+    return makeCallback(L, js_bridge_payments_getCatalog, true);
 }
 
 int bridge::payments::getPurchases(lua_State* L) {
-    return voidCallbacksGetter(L, js_bridge_payments_getPurchases, true);
+    return makeCallback(L, js_bridge_payments_getPurchases, true);
 }
 
 #endif
