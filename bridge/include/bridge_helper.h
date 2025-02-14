@@ -8,7 +8,7 @@ typedef void (*UniversalHandler)(dmScript::LuaCallbackInfo* onSuccess, // destro
                                  const int callbackType,
                                  char* data);
 
-typedef void (*RuntimeHandler)(dmScript::LuaCallbackInfo* onSuccess, // not destroy callback, by calling
+typedef void (*RuntimeHandler)(dmScript::LuaCallbackInfo* callback, // not destroy callback, by calling
                                char* data);
 
 void cppUniversalHandler(dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure, int callbackType, char* data);

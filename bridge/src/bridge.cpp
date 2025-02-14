@@ -8,109 +8,6 @@
 #include "bridge.h"
 #include <stdio.h>
 
-#pragma region Advertisement
-
-static int bridege_advertisement_showBanner(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    luaL_checktype(L, 1, LUA_TTABLE); // table
-    char* json;
-    size_t json_len;
-    int res = dmScript::LuaToJson(L, &json, &json_len);
-
-    bridge::advertisement::showBanner(json);
-    free(json);
-    return 0;
-}
-
-static int bridege_advertisement_hideBanner(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    bridge::advertisement::hideBanner();
-    return 0;
-}
-
-static int bridge_advertisement_bannerState(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    char* str = bridge::advertisement::bannerState();
-    lua_pushstring(L, str);
-    free(str);
-    return 1;
-}
-
-static int bridge_advertisement_isBannerSupported(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    bool isAvailable = bridge::advertisement::isBannerSupported();
-    lua_pushboolean(L, isAvailable);
-    return 1;
-}
-
-static int bridge_advertisement_on(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    dmScript::LuaCallbackInfo* callback = NULL;
-    const char* event_name = luaL_checkstring(L, 1);
-    callback = dmScript::CreateCallback(L, 2);
-    bridge::advertisement::on(event_name, callback);
-    return 0;
-}
-
-static int bridge_advertisement_showInterstitial(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    bridge::advertisement::showInterstitial();
-    return 0;
-}
-
-static int bridge_advertisement_minimumDelayBetweenInterstitial(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    int delay = bridge::advertisement::minimumDelayBetweenInterstitial();
-    lua_pushinteger(L, delay);
-    return 1;
-}
-
-static int bridge_advertisement_setMinimumDelayBetweenInterstitial(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    int delay = luaL_checkinteger(L, 1);
-    bridge::advertisement::setMinimumDelayBetweenInterstitial(delay);
-    return 0;
-}
-
-static int bridge_advertisement_interstitialState(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    char* str = bridge::advertisement::interstitialState();
-    lua_pushstring(L, str);
-    free(str);
-    return 1;
-}
-
-static int bridge_advertisement_rewardedState(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    char* str = bridge::advertisement::rewardedState();
-    lua_pushstring(L, str);
-    free(str);
-    return 1;
-}
-
-static int bridge_advertisement_showRewarded(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    bridge::advertisement::showRewarded();
-    return 0;
-}
-
-static int bridge_advertisement_checkAdBlock(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    dmScript::LuaCallbackInfo* onSuccess = NULL;
-    dmScript::LuaCallbackInfo* onFailure = NULL;
-
-    if (lua_isfunction(L, 1))
-        onSuccess = dmScript::CreateCallback(L, 1);
-
-    if (lua_isfunction(L, 2))
-        onFailure = dmScript::CreateCallback(L, 2);
-
-    bridge::advertisement::checkAdBlock(onSuccess, onFailure);
-    return 0;
-}
-
-#pragma endregion
-
 #pragma region Player
 
 static int bridge_player_isAuthorizationSupported(lua_State* L) {
@@ -610,23 +507,23 @@ static const luaL_reg store_methods[] = {
 };
 
 static const luaL_reg advertisement_methods[] = {
-    // Banner
-    { "show_banner", bridege_advertisement_showBanner },
-    { "hide_banner", bridege_advertisement_hideBanner },
-    { "banner_state", bridge_advertisement_bannerState },
-    { "is_banner_supported", bridge_advertisement_isBannerSupported },
-    { "on", bridge_advertisement_on },
+    // Banner 
+    { "show_banner", bridge::advertisement::showBanner },
+    { "hide_banner", bridge::advertisement::hideBanner },
+    { "banner_state", bridge::advertisement::bannerState },
+    { "is_banner_supported", bridge::advertisement::isBannerSupported },
+    { "on", bridge::advertisement::on },
 
     // Interstitial
-    { "show_interstitial", bridge_advertisement_showInterstitial },
-    { "minimum_delay_between_interstitial", bridge_advertisement_minimumDelayBetweenInterstitial },
-    { "set_minimum_delay_between_interstitial", bridge_advertisement_setMinimumDelayBetweenInterstitial },
-    { "interstitial_state", bridge_advertisement_interstitialState },
+    { "show_interstitial", bridge::advertisement::showInterstitial },
+    { "minimum_delay_between_interstitial", bridge::advertisement::minimumDelayBetweenInterstitial },
+    { "set_minimum_delay_between_interstitial", bridge::advertisement::setMinimumDelayBetweenInterstitial },
+    { "interstitial_state", bridge::advertisement::interstitialState },
 
     // Rewarded
-    { "rewarded_state", bridge_advertisement_rewardedState },
-    { "show_rewarded", bridge_advertisement_showRewarded },
-    { "check_ad_block", bridge_advertisement_checkAdBlock },
+    { "rewarded_state", bridge::advertisement::rewardedState },
+    { "show_rewarded", bridge::advertisement::showRewarded },
+    { "check_ad_block", bridge::advertisement::checkAdBlock },
     { 0, 0 }
 };
 

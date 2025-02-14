@@ -3,111 +3,78 @@
 #include "bridge_advertisement.h"
 #include "bridge.h"
 
-namespace { // private
-    void cpp_bridge_advertisement_on(dmScript::LuaCallbackInfo* callback, char* state) {
-        if (!dmScript::IsCallbackValid(callback)) {
-            return;
-        }
-
-        lua_State* L = dmScript::GetCallbackLuaContext(callback);
-        if (dmScript::SetupCallback(callback)) {
-            lua_pushstring(L, state);
-            dmScript::PCall(L, 2, 0);
-            dmScript::TeardownCallback(callback);
-        } else {
-            dmLogError("cpp_bridge_advertisement_on Failed to setup callback");
-        }
-        free(state);
-    }
-
-    void cpp_bridge_advertisement_checkAdBlock(dmScript::LuaCallbackInfo* onSuccess,
-                                               dmScript::LuaCallbackInfo* onFailure,
-                                               const int callbackType, bool hasAdblock, char* error) {
-        if (callbackType == 0 && dmScript::IsCallbackValid(onSuccess)) {
-            lua_State* L = dmScript::GetCallbackLuaContext(onSuccess);
-            if (dmScript::SetupCallback(onSuccess)) {
-                lua_pushboolean(L, hasAdblock);
-                dmScript::PCall(L, 2, 0);
-                dmScript::TeardownCallback(onSuccess);
-            } else {
-                dmLogError("Failed to setup onSuccess");
-            }
-        }
-
-        if (callbackType == 1 && dmScript::IsCallbackValid(onFailure)) {
-            lua_State* L = dmScript::GetCallbackLuaContext(onFailure);
-            if (dmScript::SetupCallback(onFailure)) {
-                lua_pushstring(L, error);
-                dmScript::PCall(L, 2, 0);
-                dmScript::TeardownCallback(onFailure);
-            } else {
-                dmLogError("Failed to setup onOpen");
-            }
-        }
-
-        if (dmScript::IsCallbackValid(onSuccess)) {
-            dmScript::DestroyCallback(onSuccess);
-        }
-        if (dmScript::IsCallbackValid(onFailure)) {
-            dmScript::DestroyCallback(onFailure);
-        }
-        free(error);
-    }
-} // namespace
-
 #pragma region Banner
-void bridge::advertisement::on(const char* eventName, dmScript::LuaCallbackInfo* callback) {
-    js_bridge_advertisement_on((AdvertisementOnHandler)cpp_bridge_advertisement_on, eventName, callback);
+int bridge::advertisement::on(lua_State* L) {
+    return runtimeOnGetter(L, js_bridge_advertisement_on);
 }
 
-bool bridge::advertisement::isBannerSupported() {
-    return js_bridge_advertisement_isBannerSupported();
+int bridge::advertisement::isBannerSupported(lua_State* L) {
+    return boolGetter(L, js_bridge_advertisement_isBannerSupported);
 }
 
-void bridge::advertisement::showBanner(const char* options) {
-    js_bridge_advertisement_showBanner(options);
+int bridge::advertisement::showBanner(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    char* json;
+    size_t json_len;
+    dmScript::LuaToJson(L, &json, &json_len);
+    js_bridge_advertisement_showBanner(json);
+    free(json);
+    return 0;
 }
 
-char* bridge::advertisement::bannerState() {
-    return js_bridge_advertisement_bannerState();
+int bridge::advertisement::bannerState(lua_State* L) {
+    return stringGetter(L, js_bridge_advertisement_bannerState);
 }
 
-void bridge::advertisement::hideBanner() {
+int bridge::advertisement::hideBanner(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
     js_bridge_advertisement_hideBanner();
+    return 0;
 }
 #pragma region
 
 #pragma region Interstitial
-void bridge::advertisement::showInterstitial() {
+int bridge::advertisement::showInterstitial(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
     js_bridge_advertisement_showInterstitial();
+    return 0;
 }
 
-int bridge::advertisement::minimumDelayBetweenInterstitial() {
-    return js_bridge_advertisement_minimumDelayBetweenInterstitial();
+int bridge::advertisement::minimumDelayBetweenInterstitial(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    int delay = js_bridge_advertisement_minimumDelayBetweenInterstitial();
+    lua_pushinteger(L, delay);
+    return 1;
 }
 
-void bridge::advertisement::setMinimumDelayBetweenInterstitial(int delay) {
+int bridge::advertisement::setMinimumDelayBetweenInterstitial(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    int delay = luaL_checkinteger(L, 1);
     js_bridge_advertisement_setMinimumDelayBetweenInterstitial(delay);
+    return 0;
 }
 
-char* bridge::advertisement::interstitialState() {
-    return js_bridge_advertisement_interstitialState();
+int bridge::advertisement::interstitialState(lua_State* L) {
+    return stringGetter(L, js_bridge_advertisement_interstitialState);
 }
 #pragma endregion
 
 #pragma region Rewarded
-char* bridge::advertisement::rewardedState() {
-    return js_bridge_advertisement_rewardedState();
+int bridge::advertisement::rewardedState(lua_State* L) {
+    return stringGetter(L, js_bridge_advertisement_rewardedState);
 }
-void bridge::advertisement::showRewarded() {
+
+int bridge::advertisement::showRewarded(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
     js_bridge_advertisement_showRewarded();
+    return 0;
 }
 #pragma endregion
 
 #pragma region Adblock
 
-void bridge::advertisement::checkAdBlock(dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure) {
-    js_bridge_advertisement_checkAdBlock((AdblockHandler)cpp_bridge_advertisement_checkAdBlock, onSuccess, onFailure);
+int bridge::advertisement::checkAdBlock(lua_State* L) {
+    return voidCallbacksGetter(L, js_bridge_advertisement_checkAdBlock, true);
 }
 
 #pragma endregion

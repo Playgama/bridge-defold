@@ -29,23 +29,23 @@ namespace bridge {
 
     namespace advertisement {
         // Banner
-        bool isBannerSupported();
-        void showBanner(const char* options);
-        char* bannerState();
-        void on(const char* eventName, dmScript::LuaCallbackInfo* callback);
-        void hideBanner();
+        int isBannerSupported(lua_State* L);
+        int showBanner(lua_State* L);
+        int bannerState(lua_State* L);
+        int on(lua_State* L);
+        int hideBanner(lua_State* L);
 
         // Interstitial
-        int minimumDelayBetweenInterstitial();
-        void setMinimumDelayBetweenInterstitial(int delay);
-        char* interstitialState();
-        void showInterstitial();
+        int minimumDelayBetweenInterstitial(lua_State* L);
+        int setMinimumDelayBetweenInterstitial(lua_State* L);
+        int interstitialState(lua_State* L);
+        int showInterstitial(lua_State* L);
 
-        void showRewarded();
-        char* rewardedState();
+        int showRewarded(lua_State* L);
+        int rewardedState(lua_State* L);
 
         // AdBlock
-        void checkAdBlock(dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+        int checkAdBlock(lua_State* L);
     } // namespace advertisement
 
     namespace device {

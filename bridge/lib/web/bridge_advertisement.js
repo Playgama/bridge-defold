@@ -15,8 +15,7 @@ let js_bridge_advertisement = {
 
     js_bridge_advertisement_on: function (handler, event_name, callback) {
         bridge.advertisement.on(UTF8ToString(event_name), state => {
-            {{{ makeDynCall('vii', 'handler') }}} (callback, stringToNewUTF8(state));
-            console.log('Banner state: ', state);
+            {{{ makeDynCall('vii', 'handler') }}} (callback, packToJson(state));
         });
     },
 
@@ -55,10 +54,10 @@ let js_bridge_advertisement = {
     js_bridge_advertisement_checkAdBlock: function(handler, onSuccess, onFailure) {
         bridge.advertisement.checkAdBlock()
             .then(result => {
-                {{{ makeDynCall('viiiii', 'handler') }}} (onSuccess, onFailure, 0, result, stringToNewUTF8(""));
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(result));
             })
             .catch(error => {
-                {{{ makeDynCall('viiiii', 'handler') }}} (onSuccess, onFailure, 1, result, stringToNewUTF8("" + error));
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
             });
     }
     // #endregion
