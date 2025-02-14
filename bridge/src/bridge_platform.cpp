@@ -1,9 +1,7 @@
-#include <stdio.h>
-
 #if defined(DM_PLATFORM_HTML5)
+#include "bridge_platform.h"
 #include "bridge.h"
 #include "bridge_helper.h"
-#include "bridge_platform.h"
 
 int bridge::platform::id(lua_State* L) {
     return stringGetter(L, js_bridge_platform_id);

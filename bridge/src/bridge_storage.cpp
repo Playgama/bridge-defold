@@ -1,8 +1,6 @@
-#include <stdio.h>
-
 #if defined(DM_PLATFORM_HTML5)
-#include "bridge.h"
 #include "bridge_storage.h"
+#include "bridge.h"
 
 int bridge::storage::isSupported(lua_State* L) { return boolStringGetter(L, js_bridge_storage_isSupported); }
 

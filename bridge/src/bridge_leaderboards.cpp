@@ -13,12 +13,15 @@ int bridge::leaderboards::isNativePopupSupported(lua_State* L) {
 int bridge::leaderboards::isMultipleBoardsSupported(lua_State* L) {
     return boolGetter(L, js_bridge_leaderboard_isMultipleBoardsSupported);
 }
+
 int bridge::leaderboards::isSetScoreSupported(lua_State* L) {
     return boolGetter(L, js_bridge_leaderboard_isSetScoreSupported);
 }
+
 int bridge::leaderboards::isGetScoreSupported(lua_State* L) {
     return boolGetter(L, js_bridge_leaderboard_isGetScoreSupported);
 }
+
 int bridge::leaderboards::isGetEntriesSupported(lua_State* L) {
     return boolGetter(L, js_bridge_leaderboard_isGetEntriesSupported);
 }

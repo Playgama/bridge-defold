@@ -1,7 +1,6 @@
+#if defined(DM_PLATFORM_HTML5)
 #include "bridge_helper.h"
 #include <string>
-
-#if defined(DM_PLATFORM_HTML5)
 
 namespace {
     void destroyCallbacks(dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure) {

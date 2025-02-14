@@ -1,8 +1,6 @@
-#include <stdio.h>
-
 #if defined(DM_PLATFORM_HTML5)
-#include "bridge.h"
 #include "bridge_achievements.h"
+#include "bridge.h"
 #include "bridge_helper.h"
 
 int bridge::achievements::isSupported(lua_State* L) {

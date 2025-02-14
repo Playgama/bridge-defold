@@ -1,5 +1,4 @@
 #if defined(DM_PLATFORM_HTML5)
-
 #include "bridge_advertisement.h"
 #include "bridge.h"
 

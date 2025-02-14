@@ -5,12 +5,15 @@
 int bridge::payments::isSupported(lua_State* L) {
     return boolGetter(L, js_bridge_payments_isSupported);
 }
+
 int bridge::payments::isGetCatalogSupported(lua_State* L) {
     return boolGetter(L, js_bridge_payments_isGetCatalogSupported);
 }
+
 int bridge::payments::isGetPurchasesSupported(lua_State* L) {
     return boolGetter(L, js_bridge_payments_isGetPurchasesSupported);
 }
+
 int bridge::payments::isConsumePurchaseSupported(lua_State* L) {
     return boolGetter(L, js_bridge_payments_isConsumePurchaseSupported);
 }
