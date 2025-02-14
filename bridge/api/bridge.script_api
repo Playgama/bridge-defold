@@ -547,6 +547,9 @@
           type: function
           desc: function(_, error)
 
+
+
+
   - name: achievements
     type: table
     desc: Achievements in HTML5 games are an exciting and rewarding feature that adds an extra layer of engagement for players. They serve as milestones, celebrating a player's progress, skill, and dedication.

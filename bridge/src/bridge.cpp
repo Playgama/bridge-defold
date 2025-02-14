@@ -8,164 +8,6 @@
 #include "bridge.h"
 #include <stdio.h>
 
-#pragma region Social
-
-static int bridge_social_isShareSupported(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    bool isShareSupported = bridge::social::isShareSupported();
-    lua_pushboolean(L, isShareSupported);
-    return 1;
-}
-
-static int bridge_social_share(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    dmScript::LuaCallbackInfo* onSuccess = NULL;
-    dmScript::LuaCallbackInfo* onFailure = NULL;
-
-    char* json;
-    size_t json_len;
-    int res = dmScript::LuaToJson(L, &json, &json_len);
-    if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 2);
-
-    if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 3);
-
-    bridge::social::share(json, onSuccess, onFailure);
-    free(json);
-    return 0;
-}
-
-static int bridge_social_isJoinCommunitySupported(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    bool isJoinCommunitySupported = bridge::social::isJoinCommunitySupported();
-    lua_pushboolean(L, isJoinCommunitySupported);
-    return 1;
-}
-
-static int bridge_social_joinCommunity(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    dmScript::LuaCallbackInfo* onSuccess = NULL;
-    dmScript::LuaCallbackInfo* onFailure = NULL;
-
-    char* json;
-    size_t json_len;
-    int res = dmScript::LuaToJson(L, &json, &json_len);
-    if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 2);
-
-    if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 3);
-
-    bridge::social::joinCommunity(json, onSuccess, onFailure);
-    free(json);
-    return 0;
-}
-
-static int bridge_social_isInviteFriendsSupported(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    bool isInviteFriendsSupported = bridge::social::isInviteFriendsSupported();
-    lua_pushboolean(L, isInviteFriendsSupported);
-    return 1;
-}
-
-static int bridge_social_inviteFriends(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    dmScript::LuaCallbackInfo* onSuccess = NULL;
-    dmScript::LuaCallbackInfo* onFailure = NULL;
-
-    char* json;
-    size_t json_len;
-    int res = dmScript::LuaToJson(L, &json, &json_len);
-    if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 2);
-
-    if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 3);
-
-    bridge::social::inviteFriends(json, onSuccess, onFailure);
-    free(json);
-    return 0;
-}
-
-static int bridge_social_isCreatePostSupported(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    bool isCreatePostSupported = bridge::social::isCreatePostSupported();
-    lua_pushboolean(L, isCreatePostSupported);
-    return 1;
-}
-
-static int bridge_social_createPost(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    dmScript::LuaCallbackInfo* onSuccess = NULL;
-    dmScript::LuaCallbackInfo* onFailure = NULL;
-
-    char* json;
-    size_t json_len;
-    int res = dmScript::LuaToJson(L, &json, &json_len);
-    if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 2);
-
-    if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 3);
-
-    bridge::social::createPost(json, onSuccess, onFailure);
-    free(json);
-    return 0;
-}
-
-static int bridge_social_isAddToHomeScreenSupported(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    bool isAddToHomeScreenSupported = bridge::social::isAddToHomeScreenSupported();
-    lua_pushboolean(L, isAddToHomeScreenSupported);
-    return 1;
-}
-
-static int bridge_social_addToHomeScreen(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    dmScript::LuaCallbackInfo* onSuccess = NULL;
-    dmScript::LuaCallbackInfo* onFailure = NULL;
-
-    if (lua_isfunction(L, 1))
-        onSuccess = dmScript::CreateCallback(L, 1);
-
-    if (lua_isfunction(L, 2))
-        onFailure = dmScript::CreateCallback(L, 2);
-
-    bridge::social::addToHomeScreen(onSuccess, onFailure);
-    return 0;
-}
-
-static int bridge_social_isRateSupported(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    bool isRateSupported = bridge::social::isRateSupported();
-    lua_pushboolean(L, isRateSupported);
-    return 1;
-}
-
-static int bridge_social_rate(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    dmScript::LuaCallbackInfo* onSuccess = NULL;
-    dmScript::LuaCallbackInfo* onFailure = NULL;
-
-    if (lua_isfunction(L, 1))
-        onSuccess = dmScript::CreateCallback(L, 1);
-
-    if (lua_isfunction(L, 2))
-        onFailure = dmScript::CreateCallback(L, 2);
-
-    bridge::social::rate(onSuccess, onFailure);
-    return 0;
-}
-
-static int bridge_social_isExternalLinksAllowed(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    bool isExternalLinksAllowed = bridge::social::isExternalLinksAllowed();
-    lua_pushboolean(L, isExternalLinksAllowed);
-    return 1;
-}
-
-#pragma endregion
 
 #pragma region Leaderboards
 
@@ -483,31 +325,35 @@ static const luaL_reg player_methods[] = {
 
 static const luaL_reg social_methods[] = {
     // Share
-    { "is_share_supported", bridge_social_isShareSupported },
-    { "share", bridge_social_share },
+    { "is_share_supported", bridge::social::isShareSupported },
+    { "share", bridge::social::share },
 
     // Join Community
-    { "is_join_community_supported", bridge_social_isJoinCommunitySupported },
-    { "join_community", bridge_social_joinCommunity },
+    { "is_join_community_supported", bridge::social::isJoinCommunitySupported },
+    { "join_community", bridge::social::joinCommunity },
 
     // Invite Friends
-    { "is_invite_friends_supported", bridge_social_isInviteFriendsSupported },
-    { "invite_friends", bridge_social_inviteFriends },
+    { "is_invite_friends_supported", bridge::social::isInviteFriendsSupported },
+    { "invite_friends", bridge::social::inviteFriends },
 
     // Create Post
-    { "is_create_post_supported", bridge_social_isCreatePostSupported },
-    { "createPost", bridge_social_createPost },
+    { "is_create_post_supported", bridge::social::isCreatePostSupported },
+    { "createPost", bridge::social::createPost },
 
-    //  Add to Favorites
-    { "is_add_to_home_screen_supported", bridge_social_isAddToHomeScreenSupported },
-    { "add_to_home_screen", bridge_social_addToHomeScreen },
+    //  Add to Home Screen
+    { "is_add_to_home_screen_supported", bridge::social::isAddToHomeScreenSupported },
+    { "add_to_home_screen", bridge::social::addToHomeScreen },
+
+    // Add to Favorites
+    { "is_add_to_favorites_supported", bridge::social::isAddToFavoritesSupported },
+    { "add_to_favorites", bridge::social::addToFavorites },
 
     // Rate Game
-    { "is_rate_supported", bridge_social_isRateSupported },
-    { "rate", bridge_social_rate },
+    { "is_rate_supported", bridge::social::isRateSupported },
+    { "rate", bridge::social::rate },
 
     // External Links
-    { "is_external_links_allowed", bridge_social_isExternalLinksAllowed },
+    { "is_external_links_allowed", bridge::social::isExternalLinksAllowed },
     { 0, 0 }
 };
 

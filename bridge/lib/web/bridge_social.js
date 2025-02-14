@@ -8,10 +8,10 @@ let js_bridge_social = {
         var jsOptions = JSON.parse(UTF8ToString(options));
         bridge.social.share(jsOptions)
             .then(() => {
-                {{{ makeDynCall('viii', 'handler') }}} (onSuccess, onFailure, 0);
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
             })
             .catch(error => {
-                {{{ makeDynCall('viii', 'handler') }}} (onSuccess, onFailure, 1);
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
             })
     },
     // #endregion
@@ -25,10 +25,10 @@ let js_bridge_social = {
         var jsOptions = JSON.parse(UTF8ToString(options));
         bridge.social.joinCommunity(jsOptions)
             .then(() => {
-                {{{ makeDynCall('viii', 'handler') }}} (onSuccess, onFailure, 0);
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
             })
             .catch(error => {
-                {{{ makeDynCall('viii', 'handler') }}} (onSuccess, onFailure, 1);
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
             })
     },
     // #endregion
@@ -42,10 +42,10 @@ let js_bridge_social = {
         var jsOptions = JSON.parse(UTF8ToString(options));
         bridge.social.inviteFriends(jsOptions)
             .then(() => {
-                {{{ makeDynCall('viii', 'handler') }}} (onSuccess, onFailure, 0);
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
             })
             .catch(error => {
-                {{{ makeDynCall('viii', 'handler') }}} (onSuccess, onFailure, 1);
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
             })
     },
     // #endregion
@@ -59,15 +59,31 @@ let js_bridge_social = {
         var jsOptions = JSON.parse(UTF8ToString(options));
         bridge.social.createPost(jsOptions)
             .then(() => {
-                {{{ makeDynCall('viii', 'handler') }}} (onSuccess, onFailure, 0);
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
             })
             .catch(error => {
-                {{{ makeDynCall('viii', 'handler') }}} (onSuccess, onFailure, 1);
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
             })
     },
     // #endregion
 
     // #region Add to Favorites
+    js_bridge_social_isAddToFavoritesSupported: function () {
+        return bridge.social.isAddToFavoritesSupported;
+    },
+
+    js_bridge_social_addToFavorites: function (handler, onSuccess, onFailure) {
+        bridge.social.addToFavorites()
+            .then(() => {
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
+            })
+            .catch(error => {
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
+            })
+    },    
+    // #endregion
+
+    // #region Add to Home Screen
     js_bridge_social_isAddToHomeScreenSupported: function () {
         return bridge.social.isAddToHomeScreenSupported;
     },
@@ -75,10 +91,10 @@ let js_bridge_social = {
     js_bridge_social_addToHomeScreen: function (handler, onSuccess, onFailure) {
         bridge.social.addToHomeScreen()
             .then(() => {
-                {{{ makeDynCall('viii', 'handler') }}} (onSuccess, onFailure, 0);
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
             })
             .catch(error => {
-                {{{ makeDynCall('viii', 'handler') }}} (onSuccess, onFailure, 1);
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
             })
     },
     // #endregion
@@ -91,10 +107,10 @@ let js_bridge_social = {
     js_bridge_social_rate: function (handler, onSuccess, onFailure) {
         bridge.social.rate()
             .then(() => {
-                {{{ makeDynCall('viii', 'handler') }}} (onSuccess, onFailure, 0);
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
             })
             .catch(error => {
-                {{{ makeDynCall('viii', 'handler') }}} (onSuccess, onFailure, 1);
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
             })
     },
     // #endregion

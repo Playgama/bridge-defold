@@ -63,33 +63,35 @@ namespace bridge {
 
     namespace social {
         // Share
-        bool isShareSupported();
-        void share(
-            const char* options,
-            dmScript::LuaCallbackInfo* onSuccess,
-            dmScript::LuaCallbackInfo* onFailure);
+        int isShareSupported(lua_State* L);
+        int share(lua_State* L);
+
         // Join Community
-        bool isJoinCommunitySupported();
-        void joinCommunity(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+        int isJoinCommunitySupported(lua_State* L);
+        int joinCommunity(lua_State* L);
 
         // Invite Friends
-        bool isInviteFriendsSupported();
-        void inviteFriends(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+        int isInviteFriendsSupported(lua_State* L);
+        int inviteFriends(lua_State* L);
 
+        // Add to Favorites
+        int isAddToFavoritesSupported(lua_State* L);
+        int addToFavorites(lua_State* L);
+        
         // Create Post
-        bool isCreatePostSupported();
-        void createPost(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+        int isCreatePostSupported(lua_State* L);
+        int createPost(lua_State* L);
 
         //  Add to Favorites
-        bool isAddToHomeScreenSupported();
-        void addToHomeScreen(dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+        int isAddToHomeScreenSupported(lua_State* L);
+        int addToHomeScreen(lua_State* L);
 
         // Rate Game
-        bool isRateSupported();
-        void rate(dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+        int isRateSupported(lua_State* L);
+        int rate(lua_State* L);
 
         // External Links
-        bool isExternalLinksAllowed();
+        int isExternalLinksAllowed(lua_State* L);
     } // namespace device
 
     namespace leaderboards {
