@@ -53,12 +53,12 @@ namespace bridge {
     } // namespace device
 
     namespace player {
-        bool isAuthorizationSupported();
-        bool isAuthorized();
-        char* id();
-        char* name();
-        char* photos();
-        void authorize(const char* oprions, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+        int isAuthorizationSupported(lua_State* L);
+        int isAuthorized(lua_State* L);
+        int id(lua_State* L);
+        int name(lua_State* L);
+        int photos(lua_State* L);
+        int authorize(lua_State* L);
     } // namespace player
 
     namespace social {

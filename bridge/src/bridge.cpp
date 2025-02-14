@@ -8,67 +8,6 @@
 #include "bridge.h"
 #include <stdio.h>
 
-#pragma region Player
-
-static int bridge_player_isAuthorizationSupported(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    bool isSupported = bridge::player::isAuthorizationSupported();
-    lua_pushboolean(L, isSupported);
-    return 1;
-}
-
-static int bridge_player_isAuthorized(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    bool isAuthorized = bridge::player::isAuthorized();
-    lua_pushboolean(L, isAuthorized);
-    return 1;
-}
-
-static int bridge_player_id(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    char* id = bridge::player::id();
-    lua_pushstring(L, id);
-    free(id);
-    return 1;
-}
-
-static int bridge_player_name(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    char* name = bridge::player::name();
-    lua_pushstring(L, name);
-    free(name);
-    return 1;
-}
-
-static int bridge_player_photos(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    char* photosJson = bridge::player::photos();
-    dmScript::JsonToLua(L, photosJson, strlen(photosJson));
-    free(photosJson);
-    return 1;
-}
-
-static int bridge_player_authorize(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    dmScript::LuaCallbackInfo* onSuccess = NULL;
-    dmScript::LuaCallbackInfo* onFailure = NULL;
-
-    char* json;
-    size_t json_len;
-    int res = dmScript::LuaToJson(L, &json, &json_len);
-    if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 2);
-
-    if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 3);
-
-    bridge::player::authorize(json, onSuccess, onFailure);
-    free(json);
-    return 0;
-}
-
-#pragma endregion
-
 #pragma region Social
 
 static int bridge_social_isShareSupported(lua_State* L) {
@@ -533,12 +472,12 @@ static const luaL_reg device_methods[] = {
 };
 
 static const luaL_reg player_methods[] = {
-    { "id", bridge_player_id },
-    { "name", bridge_player_name },
-    { "photos", bridge_player_photos },
-    { "is_authorization_supported", bridge_player_isAuthorizationSupported },
-    { "is_authorized", bridge_player_isAuthorized },
-    { "authorize", bridge_player_authorize },
+    { "id", bridge::player::id },
+    { "name", bridge::player::name },
+    { "photos", bridge::player::photos },
+    { "is_authorization_supported", bridge::player::isAuthorizationSupported },
+    { "is_authorized", bridge::player::isAuthorized },
+    { "authorize", bridge::player::authorize },
     { 0, 0 }
 };
 
