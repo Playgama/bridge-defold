@@ -24,10 +24,10 @@ let js_bridge_player = {
         var jsOptions = JSON.parse(UTF8ToString(options));
         bridge.player.authorize(jsOptions)
             .then(() => {
-                {{{ makeDynCall('viii', 'handler') }}} (onSuccess, onFailure, 0);
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
             })
             .catch(error => {
-                {{{ makeDynCall('viii', 'handler') }}} (onSuccess, onFailure, 1);
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
             })
     }
 }

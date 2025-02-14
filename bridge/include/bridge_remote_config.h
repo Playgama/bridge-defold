@@ -1,18 +1,14 @@
 #pragma once
 
-#include <dmsdk/sdk.h>
-
 #if defined(DM_PLATFORM_HTML5)
-
-typedef void (*GetListHandler)(dmScript::LuaCallbackInfo* onSuccess,
-                               dmScript::LuaCallbackInfo* onFailure,
-                               const int callbackType, char* resultJson);
+#include "bridge_helper.h"
+#include <dmsdk/sdk.h>
 
 extern "C" {
     bool js_bridge_remoteConfig_isSupported();
 
-    void js_bridge_remoteConfig_get(GetListHandler handler,
-                                    const char* oprions,
+    void js_bridge_remoteConfig_get(UniversalHandler handler,
+                                    const char* json,
                                     dmScript::LuaCallbackInfo* onSuccess,
                                     dmScript::LuaCallbackInfo* onFailure);
 }

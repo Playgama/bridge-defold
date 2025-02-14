@@ -7,12 +7,10 @@ let js_bridge_remoteConfig = {
         var jsOptions = JSON.parse(UTF8ToString(options));
         bridge.remoteConfig.get(jsOptions)
             .then(data => {
-                const jsonString = JSON.stringify(data);
-                console.log(jsonString);
-                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, CStrOrNull(jsonString));
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(data));
             })
             .catch(error => {
-                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, CStrOrNull(error));
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
             })
     },
 }

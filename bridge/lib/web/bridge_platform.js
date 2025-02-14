@@ -15,23 +15,23 @@ let js_bridge_platform = {
         return CStrOrNull(bridge.platform.tld);
     },
 
-    js_bridge_platform_sendMessage: function (handler, message, success, failure) {
+    js_bridge_platform_sendMessage: function (handler, message, onSuccess, onFailure) {
         bridge.platform.sendMessage(UTF8ToString(message))
             .then(() => {
-                {{{ makeDynCall('viiii', 'handler') }}} (success, failure, 0, packToJson());
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
             })
             .catch(error => {
-                {{{ makeDynCall('viiii', 'handler') }}} (success, failure, 1, packToJson(error));
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
             })
     },
 
-    js_bridge_platform_getServerTime: function (handler, success, failure) {
+    js_bridge_platform_getServerTime: function (handler, onSuccess, onFailure) {
         bridge.platform.getServerTime()
             .then(result => {
-                {{{ makeDynCall('viiii', 'handler') }}} (success, failure, 0, packToJson(result));
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(result));
             })
             .catch(error => {
-                {{{ makeDynCall('viiii', 'handler') }}} (success, failure, 1, packToJson(error));
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
             })
     }
 };

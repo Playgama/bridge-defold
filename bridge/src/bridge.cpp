@@ -107,36 +107,6 @@ static int bridge_payments_getPurchases(lua_State* L) {
 }
 #pragma endregion
 
-#pragma region RemoteConfig
-
-static int bridge_remoteConfig_isSupported(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    bool isSupported = bridge::remoteConfig::isSupported();
-    lua_pushboolean(L, isSupported);
-    return 1;
-}
-
-static int bridge_remoteConfig_get(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    dmScript::LuaCallbackInfo* onSuccess = NULL;
-    dmScript::LuaCallbackInfo* onFailure = NULL;
-
-    char* json;
-    size_t json_len;
-    int res = dmScript::LuaToJson(L, &json, &json_len);
-    if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 2);
-
-    if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 3);
-
-    bridge::remoteConfig::get(json, onSuccess, onFailure);
-    free(json);
-    return 0;
-}
-
-#pragma endregion
-
 // Functions exposed to Lua
 static const luaL_reg platform_methods[] = {
     { "id", bridge::platform::id },
@@ -271,8 +241,8 @@ static const luaL_reg payments_methods[] = {
 };
 
 static const luaL_reg remoteConfig_methods[] = {
-    { "is_supported", bridge_remoteConfig_isSupported },
-    { "get", bridge_remoteConfig_get },
+    { "is_supported", bridge::remoteConfig::isSupported },
+    { "get", bridge::remoteConfig::get },
     { 0, 0 }
 };
 

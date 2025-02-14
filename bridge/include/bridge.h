@@ -137,8 +137,8 @@ namespace bridge {
     } // namespace payments
 
     namespace remoteConfig {
-        bool isSupported();
-        void get(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+        int isSupported(lua_State* L);
+        int get(lua_State* L);
     } // namespace remoteConfig
 
 } // namespace bridge
