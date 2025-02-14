@@ -36,7 +36,7 @@ namespace {
     }
 }
 
-void cppHandler(dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure, int callbackType, char* data) {
+void cppUniversalHandler(dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure, int callbackType, char* data) {
     if (callbackType == 0) {
         callCallback(onSuccess, data);
     }
@@ -49,11 +49,23 @@ void cppHandler(dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo*
     free(data);
 }
 
+void cppRuntimeHandler(dmScript::LuaCallbackInfo* onSuccess, char* data) {
+    callCallback(onSuccess, data);
+    free(data);
+}
+
 int stringGetter(lua_State* L, stringFunction func) {
     DM_LUA_STACK_CHECK(L, 1);
     char* str = func();
     lua_pushstring(L, str);
     free(str);
+    return 1;
+}
+
+int boolGetter(lua_State* L, boolFunction func) {
+    DM_LUA_STACK_CHECK(L, 1);
+    bool isAvailable = func();
+    lua_pushboolean(L, isAvailable);
     return 1;
 }
 
@@ -70,7 +82,7 @@ int voidCallbacksGetter(lua_State* L, voidCallbacksFunction func, bool isRequire
     if (lua_isfunction(L, 2))
         onFailure = dmScript::CreateCallback(L, 2);
 
-    func((UniversalHandler)cppHandler, onSuccess, onFailure);
+    func((UniversalHandler)cppUniversalHandler, onSuccess, onFailure);
     return 0;
 }
 
@@ -90,7 +102,16 @@ int voidStringCallbacksGetter(lua_State* L, voidStringCallbacksFunction func, bo
     if (lua_isfunction(L, 3))
         onFailure = dmScript::CreateCallback(L, 3);
 
-    func((UniversalHandler)cppHandler, event, onSuccess, onFailure);
+    func((UniversalHandler)cppUniversalHandler, event, onSuccess, onFailure);
+    return 0;
+}
+
+int runtimeOnGetter(lua_State* L, runtimeOnFunction func) {
+    DM_LUA_STACK_CHECK(L, 0);
+    dmScript::LuaCallbackInfo* callback = NULL;
+    const char* event_name = luaL_checkstring(L, 1);
+    callback = dmScript::CreateCallback(L, 2);
+    func(cppRuntimeHandler ,event_name, callback);
     return 0;
 }
 

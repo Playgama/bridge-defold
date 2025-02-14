@@ -14,27 +14,6 @@
 
 #if defined(DM_PLATFORM_HTML5)
 
-#pragma region Game
-
-static int bridge_game_on(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    dmScript::LuaCallbackInfo* callback = NULL;
-    const char* event_name = luaL_checkstring(L, 1);
-    callback = dmScript::CreateCallback(L, 2);
-
-    bridge::game::on(event_name, callback);
-    return 0;
-}
-
-static int bridge_game_visibilityState(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    char* str = bridge::game::visibilityState();
-    lua_pushstring(L, str);
-    free(str);
-    return 1;
-}
-#pragma endregion
-
 #pragma region Storage
 
 static int bridge_storage_isAvailable(lua_State* L) {
@@ -816,8 +795,8 @@ static const luaL_reg platform_methods[] = {
 };
 
 static const luaL_reg game_methods[] = {
-    { "on", bridge_game_on },
-    { "visibility_state", bridge_game_visibilityState },
+    { "on", bridge::game::on },
+    { "visibility_state", bridge::game::visibilityState },
     { 0, 0 }
 };
 

@@ -14,8 +14,8 @@ namespace bridge {
     } // namespace platform
 
     namespace game {
-        void on(const char* eventName, dmScript::LuaCallbackInfo* callback);
-        char* visibilityState();
+        int on(lua_State* L);
+        int visibilityState(lua_State* L);
     } // namespace game
 
     namespace storage {
