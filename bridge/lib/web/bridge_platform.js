@@ -18,20 +18,20 @@ let js_bridge_platform = {
     js_bridge_platform_sendMessage: function (handler, message, success, failure) {
         bridge.platform.sendMessage(UTF8ToString(message))
             .then(() => {
-                {{{ makeDynCall('viiii', 'handler') }}} (success, failure, 0, stringToNewUTF8(""));
+                {{{ makeDynCall('viiii', 'handler') }}} (success, failure, 0, packToJson());
             })
-            .catch((error) => {
-                {{{ makeDynCall('viiii', 'handler') }}} (success, failure, 1, stringToNewUTF8("" + error));
+            .catch(error => {
+                {{{ makeDynCall('viiii', 'handler') }}} (success, failure, 1, packToJson(error));
             })
     },
 
     js_bridge_platform_getServerTime: function (handler, success, failure) {
         bridge.platform.getServerTime()
             .then(result => {
-                {{{ makeDynCall('viiiii', 'handler') }}} (success, failure, 0, stringToNewUTF8(""), stringToNewUTF8(""+result));
+                {{{ makeDynCall('viiii', 'handler') }}} (success, failure, 0, packToJson(result));
             })
             .catch(error => {
-                {{{ makeDynCall('viiiii', 'handler') }}} (success, failure, 1, stringToNewUTF8("" + error), stringToNewUTF8(""));
+                {{{ makeDynCall('viiii', 'handler') }}} (success, failure, 1, packToJson(error));
             })
     }
 };

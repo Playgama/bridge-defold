@@ -4,15 +4,13 @@
 
 namespace bridge {
     namespace platform {
-        char* id();
-        char* language();
-        char* tld();
-        char* payload();
+        int id(lua_State* L);
+        int language(lua_State* L);
+        int tld(lua_State* L);
+        int payload(lua_State* L);
 
-        void sendMessage(const char* event, dmScript::LuaCallbackInfo* onSuccess,
-                         dmScript::LuaCallbackInfo* onFailure);
-        void getServerTime(dmScript::LuaCallbackInfo* onSuccess,
-                           dmScript::LuaCallbackInfo* onFailure);
+        int sendMessage(lua_State* L);
+        int getServerTime(lua_State* L);
     } // namespace platform
 
     namespace game {

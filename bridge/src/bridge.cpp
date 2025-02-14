@@ -12,79 +12,7 @@
 #include "bridge.h"
 #include <dmsdk/dlib/crypt.h>
 
-namespace dmScript {
-    char* Sys_SetupTableSerializationBuffer(int required_size);
-    void Sys_FreeTableSerializationBuffer(char* buffer);
-}
 #if defined(DM_PLATFORM_HTML5)
-#pragma region Platform
-
-static int bridge_platform_id(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    char* str = bridge::platform::id();
-    lua_pushstring(L, str);
-    free(str);
-    return 1;
-}
-
-static int bridge_platform_payload(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    char* str = bridge::platform::payload();
-    lua_pushstring(L, str);
-    free(str);
-    return 1;
-}
-
-static int bridge_platform_language(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    char* str = bridge::platform::language();
-    lua_pushstring(L, str);
-    free(str);
-    return 1;
-}
-
-static int bridge_platform_tld(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    char* str = bridge::platform::tld();
-    lua_pushstring(L, str);
-    free(str);
-    return 1;
-}
-
-static int bridge_platform_getServerTime(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    if (!lua_isfunction(L, 1)) {
-        dmLogError("get_server_time");
-        return 0;
-    }
-    dmScript::LuaCallbackInfo* onSuccess = NULL;
-    dmScript::LuaCallbackInfo* onFailure = NULL;
-    onSuccess = dmScript::CreateCallback(L, 1);
-    if (lua_isfunction(L, 1) || lua_isnil(L, 1))
-        onFailure = dmScript::CreateCallback(L, 2);
-
-    bridge::platform::getServerTime(onSuccess, onFailure);
-
-    return 0;
-}
-
-static int bridge_platform_sendMessage(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    size_t len;
-    const char* event = luaL_checklstring(L, 1, &len);
-    dmScript::LuaCallbackInfo* onSuccess = NULL;
-    dmScript::LuaCallbackInfo* onFailure = NULL;
-
-    if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 2);
-
-    if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 3);
-
-    bridge::platform::sendMessage(event, onSuccess, onFailure);
-    return 0;
-}
-#pragma endregion
 
 #pragma region Game
 
@@ -878,12 +806,12 @@ static int bridge_remoteConfig_get(lua_State* L) {
 
 // Functions exposed to Lua
 static const luaL_reg platform_methods[] = {
-    { "id", bridge_platform_id },
-    { "language", bridge_platform_language },
-    { "payload", bridge_platform_payload },
-    { "tld", bridge_platform_tld },
-    { "send_message", bridge_platform_sendMessage },
-    { "get_server_time", bridge_platform_getServerTime },
+    { "id", bridge::platform::id },
+    { "language", bridge::platform::language},
+    { "payload", bridge::platform::payload },
+    { "tld", bridge::platform::tld },
+    { "send_message", bridge::platform::sendMessage },
+    { "get_server_time", bridge::platform::getServerTime },
     { 0, 0 }
 };
 
@@ -1018,7 +946,7 @@ static void LuaInit(lua_State* L) {
     int top = lua_gettop(L);
 #if defined(DM_PLATFORM_HTML5)
 
-    lua_newtable(L); // create bridge table (root)
+    lua_newtable(L); // create _bridge table (root)
     lua_pushvalue(L, -1);
     lua_setglobal(L, "_bridge");
     {

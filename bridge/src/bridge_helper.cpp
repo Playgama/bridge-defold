@@ -1,0 +1,97 @@
+#include "bridge_helper.h"
+#include <string>
+
+#if defined(DM_PLATFORM_HTML5)
+
+namespace {
+    void destroyCallbacks(dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure) {
+        if (dmScript::IsCallbackValid(onSuccess)) {
+            dmScript::DestroyCallback(onSuccess);
+        }
+        if (dmScript::IsCallbackValid(onFailure)) {
+            dmScript::DestroyCallback(onFailure);
+        }
+    }
+
+    void callCallback(dmScript::LuaCallbackInfo* callback, const char* data) {
+        if (!dmScript::IsCallbackValid(callback))
+            return;
+
+        if (!dmScript::SetupCallback(callback)) {
+            dmLogError("Failed to setup onSuccess");
+            return;
+        }
+
+        lua_State* L = dmScript::GetCallbackLuaContext(callback);
+        if (data) {
+            dmScript::JsonToLua(L, data, strlen(data));
+            lua_pushstring(L, "data");
+            lua_gettable(L, -2); // get data from table
+            lua_replace(L, -2); // replace table to data
+        } else {
+            lua_pushnil(L); // if data == null push nil like default value
+        }
+        dmScript::PCall(L, 2, 0);
+        dmScript::TeardownCallback(callback);
+    }
+}
+
+void cppHandler(dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure, int callbackType, char* data) {
+    if (callbackType == 0) {
+        callCallback(onSuccess, data);
+    }
+
+    if (callbackType == 1) {
+        callCallback(onFailure, data);
+    }
+
+    destroyCallbacks(onSuccess, onFailure);
+    free(data);
+}
+
+int stringGetter(lua_State* L, stringFunction func) {
+    DM_LUA_STACK_CHECK(L, 1);
+    char* str = func();
+    lua_pushstring(L, str);
+    free(str);
+    return 1;
+}
+
+int voidCallbacksGetter(lua_State* L, voidCallbacksFunction func, bool isRequiredFirstCallback) {
+    DM_LUA_STACK_CHECK(L, 0);
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+    if (isRequiredFirstCallback) {
+        onSuccess = dmScript::CreateCallback(L, 1);
+    } else if (lua_isfunction(L, 1)) {
+        onSuccess = dmScript::CreateCallback(L, 1);
+    }
+
+    if (lua_isfunction(L, 2))
+        onFailure = dmScript::CreateCallback(L, 2);
+
+    func((UniversalHandler)cppHandler, onSuccess, onFailure);
+    return 0;
+}
+
+int voidStringCallbacksGetter(lua_State* L, voidStringCallbacksFunction func, bool isRequiredFirstCallback) {
+    DM_LUA_STACK_CHECK(L, 0);
+    size_t len;
+    const char* event = luaL_checklstring(L, 1, &len);
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    if (isRequiredFirstCallback) {
+        onSuccess = dmScript::CreateCallback(L, 2);
+    } else if (lua_isfunction(L, 2)) {
+        onSuccess = dmScript::CreateCallback(L, 2);
+    }
+
+    if (lua_isfunction(L, 3))
+        onFailure = dmScript::CreateCallback(L, 3);
+
+    func((UniversalHandler)cppHandler, event, onSuccess, onFailure);
+    return 0;
+}
+
+#endif
