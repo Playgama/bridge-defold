@@ -119,12 +119,12 @@ namespace bridge {
     } // namespace leaderboards
 
     namespace achievements {
-        bool isSupported();
-        bool isGetListSupported();
-        bool isNativePopupSupported();
-        void unlock(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
-        void getList(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
-        void showNativePopup(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
+        int isSupported(lua_State* L);
+        int isGetListSupported(lua_State* L);
+        int isNativePopupSupported(lua_State* L);
+        int unlock(lua_State* L);
+        int getList(lua_State* L);
+        int showNativePopup(lua_State* L);
     } // namespace achievements
 
     namespace payments {

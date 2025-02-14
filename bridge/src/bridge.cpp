@@ -5,14 +5,8 @@
 // include the Defold SDK
 
 #if defined(DM_PLATFORM_HTML5)
-#include "bridge_platform.h"
-#endif
-#include <stdio.h>
-
 #include "bridge.h"
-#include <dmsdk/dlib/crypt.h>
-
-#if defined(DM_PLATFORM_HTML5)
+#include <stdio.h>
 
 #pragma region Storage
 
@@ -561,88 +555,6 @@ static int bridge_leaderboards_showNativePopup(lua_State* L) {
 
 #pragma endregion
 
-#pragma region Advertisement
-
-static int bridge_achievements_isSupported(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    bool isSupported = bridge::achievements::isSupported();
-    lua_pushboolean(L, isSupported);
-    return 1;
-}
-
-static int bridge_achievements_isGetListSupported(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    bool isGetListSupported = bridge::achievements::isGetListSupported();
-    lua_pushboolean(L, isGetListSupported);
-    return 1;
-}
-
-static int bridge_achievements_isNativePopupSupported(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    bool isNativePopupSupported = bridge::achievements::isNativePopupSupported();
-    lua_pushboolean(L, isNativePopupSupported);
-    return 1;
-}
-
-static int bridge_achievements_showNativePopup(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    dmScript::LuaCallbackInfo* onSuccess = NULL;
-    dmScript::LuaCallbackInfo* onFailure = NULL;
-
-    char* json;
-    size_t json_len;
-    int res = dmScript::LuaToJson(L, &json, &json_len);
-    if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 2);
-
-    if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 3);
-
-    bridge::achievements::showNativePopup(json, onSuccess, onFailure);
-    free(json);
-    return 0;
-}
-
-static int bridge_achievements_getList(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    dmScript::LuaCallbackInfo* onSuccess = NULL;
-    dmScript::LuaCallbackInfo* onFailure = NULL;
-
-    char* json;
-    size_t json_len;
-    int res = dmScript::LuaToJson(L, &json, &json_len);
-    if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 2);
-
-    if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 3);
-
-    bridge::achievements::getList(json, onSuccess, onFailure);
-    free(json);
-    return 0;
-}
-
-static int bridge_achievements_unlock(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    dmScript::LuaCallbackInfo* onSuccess = NULL;
-    dmScript::LuaCallbackInfo* onFailure = NULL;
-
-    char* json;
-    size_t json_len;
-    int res = dmScript::LuaToJson(L, &json, &json_len);
-    if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 2);
-
-    if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 3);
-
-    bridge::achievements::unlock(json, onSuccess, onFailure);
-    free(json);
-    return 0;
-}
-
-#pragma endregion
-
 #pragma region Payments
 
 static int bridge_payments_isSupported(lua_State* L) {
@@ -775,7 +687,7 @@ static int bridge_remoteConfig_get(lua_State* L) {
 // Functions exposed to Lua
 static const luaL_reg platform_methods[] = {
     { "id", bridge::platform::id },
-    { "language", bridge::platform::language},
+    { "language", bridge::platform::language },
     { "payload", bridge::platform::payload },
     { "tld", bridge::platform::tld },
     { "send_message", bridge::platform::sendMessage },
@@ -880,12 +792,12 @@ static const luaL_reg leaderboards_methods[] = {
 };
 
 static const luaL_reg achievements_methods[] = {
-    { "is_supported", bridge_achievements_isSupported },
-    { "is_get_list_supported", bridge_achievements_isGetListSupported },
-    { "is_native_popup_supported", bridge_achievements_isNativePopupSupported },
-    { "unlock", bridge_achievements_unlock },
-    { "get_list", bridge_achievements_getList },
-    { "show_native_popup", bridge_achievements_showNativePopup },
+    { "is_supported", bridge::achievements::isSupported },
+    { "is_get_list_supported", bridge::achievements::isGetListSupported },
+    { "is_native_popup_supported", bridge::achievements::isNativePopupSupported },
+    { "unlock", bridge::achievements::unlock },
+    { "get_list", bridge::achievements::getList },
+    { "show_native_popup", bridge::achievements::showNativePopup },
     { 0, 0 }
 };
 

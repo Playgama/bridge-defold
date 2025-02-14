@@ -3,96 +3,30 @@
 #if defined(DM_PLATFORM_HTML5)
 #include "bridge.h"
 #include "bridge_achievements.h"
+#include "bridge_helper.h"
 
-namespace { // private
-    void cpp_ShareHandler(dmScript::LuaCallbackInfo* onSuccess,
-                          dmScript::LuaCallbackInfo* onFailure,
-                          const int callbackType) {
-        if (callbackType == 0 && dmScript::IsCallbackValid(onSuccess)) {
-            lua_State* L = dmScript::GetCallbackLuaContext(onSuccess);
-            if (dmScript::SetupCallback(onSuccess)) {
-                dmScript::PCall(L, 1, 0);
-                dmScript::TeardownCallback(onSuccess);
-            } else {
-                dmLogError("Failed to setup onOpen");
-            }
-        }
-
-        if (callbackType == 1 && dmScript::IsCallbackValid(onFailure)) {
-            lua_State* L = dmScript::GetCallbackLuaContext(onFailure);
-            if (dmScript::SetupCallback(onFailure)) {
-                dmScript::PCall(L, 1, 0);
-                dmScript::TeardownCallback(onFailure);
-            } else {
-                dmLogError("Failed to setup onOpen");
-            }
-        }
-
-        if (dmScript::IsCallbackValid(onSuccess)) {
-            dmScript::DestroyCallback(onSuccess);
-        }
-        if (dmScript::IsCallbackValid(onFailure)) {
-            dmScript::DestroyCallback(onFailure);
-        }
-    }
-
-    void cpp_GetListHandler(dmScript::LuaCallbackInfo* onSuccess,
-                            dmScript::LuaCallbackInfo* onFailure,
-                            const int callbackType, char* resultJson) {
-        if (callbackType == 0 && dmScript::IsCallbackValid(onSuccess)) {
-            lua_State* L = dmScript::GetCallbackLuaContext(onSuccess);
-            if (dmScript::SetupCallback(onSuccess)) {
-                dmScript::JsonToLua(L, resultJson, strlen(resultJson));
-                dmScript::PCall(L, 2, 0);
-                dmScript::TeardownCallback(onSuccess);
-            } else {
-                dmLogError("Failed to setup onSuccess");
-            }
-        }
-
-        if (callbackType == 1 && dmScript::IsCallbackValid(onFailure)) {
-            lua_State* L = dmScript::GetCallbackLuaContext(onFailure);
-            if (dmScript::SetupCallback(onFailure)) {
-                lua_pushstring(L, resultJson);
-                dmScript::PCall(L, 2, 0);
-                dmScript::TeardownCallback(onFailure);
-            } else {
-                dmLogError("Failed to setup onOpen");
-            }
-        }
-
-        if (dmScript::IsCallbackValid(onSuccess)) {
-            dmScript::DestroyCallback(onSuccess);
-        }
-        if (dmScript::IsCallbackValid(onFailure)) {
-            dmScript::DestroyCallback(onFailure);
-        }
-        free(resultJson);
-    }
-} // namespace
-
-bool bridge::achievements::isSupported() {
-    return js_bridge_achievements_isSupported();
+int bridge::achievements::isSupported(lua_State* L) {
+    return boolGetter(L, js_bridge_achievements_isSupported);
 }
 
-bool bridge::achievements::isGetListSupported() {
-    return js_bridge_achievements_isGetListSupported();
+int bridge::achievements::isGetListSupported(lua_State* L) {
+    return boolGetter(L, js_bridge_achievements_isGetListSupported);
 }
 
-bool bridge::achievements::isNativePopupSupported() {
-    return js_bridge_achievements_isNativePopupSupported();
+int bridge::achievements::isNativePopupSupported(lua_State* L) {
+    return boolGetter(L, js_bridge_achievements_isNativePopupSupported);
 }
 
-void bridge::achievements::unlock(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure) {
-    js_bridge_achievements_unlock((ShareHandler)cpp_ShareHandler, options, onSuccess, onFailure);
+int bridge::achievements::unlock(lua_State* L) {
+    return voidJsonCallbacksGetter(L, js_bridge_achievements_unlock, true);
 }
 
-void bridge::achievements::getList(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure) {
-    js_bridge_achievements_getList((GetListHandler)cpp_GetListHandler, options, onSuccess, onFailure);
+int bridge::achievements::getList(lua_State* L) {
+    return voidJsonCallbacksGetter(L, js_bridge_achievements_getList, true);
 }
 
-void bridge::achievements::showNativePopup(const char* options, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure) {
-    js_bridge_achievements_showNativePopup((ShareHandler)cpp_ShareHandler, options, onSuccess, onFailure);
+int bridge::achievements::showNativePopup(lua_State* L) {
+    return voidJsonCallbacksGetter(L, js_bridge_achievements_showNativePopup, true);
 }
 
 #endif

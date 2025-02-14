@@ -24,5 +24,6 @@ int stringGetter(lua_State* L, stringFunction func);
 int boolGetter(lua_State* L, boolFunction func);
 int voidCallbacksGetter(lua_State* L, voidCallbacksFunction func, bool isRequiredFirstCallback);
 int voidStringCallbacksGetter(lua_State* L, voidStringCallbacksFunction func, bool isRequiredFirstCallback);
+int voidJsonCallbacksGetter(lua_State* L, voidStringCallbacksFunction func, bool isRequiredFirstCallback);
 int runtimeOnGetter(lua_State* L, runtimeOnFunction func);
 #endif

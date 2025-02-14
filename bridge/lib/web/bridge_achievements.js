@@ -14,24 +14,24 @@ let js_bridge_achievements = {
     js_bridge_achievements_unlock: function (handler, options, onSuccess, onFailure) {
         var jsOptions = JSON.parse(UTF8ToString(options));
         bridge.achievements.unlock(jsOptions)
-            .then((result) => {
-                {{{ makeDynCall('viii', 'handler') }}} (onSuccess, onFailure, 0, result);
+            .then(result => {
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(result));
             })
             .catch(error => {
-                {{{ makeDynCall('viii', 'handler') }}} (onSuccess, onFailure, 1, false);
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
             })
     },
 
     js_bridge_achievements_getList: function (handler, options, onSuccess, onFailure) {
         var jsOptions = JSON.parse(UTF8ToString(options));
         bridge.achievements.getList(jsOptions)
-            .then((result) => {
+            .then(result => {
                 const jsonString = JSON.stringify(result);
                 console.log(jsonString);
-                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, CStrOrNull(jsonString));
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(jsonString));
             })
             .catch(error => {
-                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, CStrOrNull(error));
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
             })
     },
 
@@ -39,10 +39,10 @@ let js_bridge_achievements = {
         var jsOptions = JSON.parse(UTF8ToString(options));
         bridge.achievements.showNativePopup(jsOptions)
             .then(() => {
-                {{{ makeDynCall('viii', 'handler') }}} (onSuccess, onFailure, 0);
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
             })
             .catch(error => {
-                {{{ makeDynCall('viii', 'handler') }}} (onSuccess, onFailure, 1);
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson());
             })
     }
 }

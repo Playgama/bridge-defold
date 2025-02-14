@@ -111,7 +111,30 @@ int runtimeOnGetter(lua_State* L, runtimeOnFunction func) {
     dmScript::LuaCallbackInfo* callback = NULL;
     const char* event_name = luaL_checkstring(L, 1);
     callback = dmScript::CreateCallback(L, 2);
-    func(cppRuntimeHandler ,event_name, callback);
+    func(cppRuntimeHandler, event_name, callback);
+    return 0;
+}
+
+int voidJsonCallbacksGetter(lua_State* L, voidStringCallbacksFunction func, bool isRequiredFirstCallback) {
+    DM_LUA_STACK_CHECK(L, 0);
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    char* json;
+    size_t json_len;
+    int res = dmScript::LuaToJson(L, &json, &json_len);
+
+    if (isRequiredFirstCallback) {
+        onSuccess = dmScript::CreateCallback(L, 2);
+    } else if (lua_isfunction(L, 2)) {
+        onSuccess = dmScript::CreateCallback(L, 2);
+    }
+
+    if (lua_isfunction(L, 3))
+        onFailure = dmScript::CreateCallback(L, 3);
+
+    func((UniversalHandler)cppUniversalHandler, json, onSuccess, onFailure);
+    free(json);
     return 0;
 }
 
