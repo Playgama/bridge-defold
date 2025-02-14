@@ -19,16 +19,12 @@ namespace bridge {
     } // namespace game
 
     namespace storage {
-        char* defaultType();
-        bool isSupported(const char* storageType);
-        bool isAvailable(const char* storageType);
-        void get(const char* key, dmScript::LuaCallbackInfo* onSuccess,
-                 dmScript::LuaCallbackInfo* onFailure, const char* storageType);
-        void set(const char* json,
-                 dmScript::LuaCallbackInfo* onSuccess,
-                 dmScript::LuaCallbackInfo* onFailure, const char* storageType);
-        void deleteData(const char* key, dmScript::LuaCallbackInfo* onSuccess,
-                        dmScript::LuaCallbackInfo* onFailure, const char* storageType);
+        int defaultType(lua_State* L);
+        int isSupported(lua_State* L);
+        int isAvailable(lua_State* L);
+        int get(lua_State* L);
+        int set(lua_State* L);
+        int deleteData(lua_State* L);
     } // namespace store
 
     namespace advertisement {

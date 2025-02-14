@@ -8,108 +8,6 @@
 #include "bridge.h"
 #include <stdio.h>
 
-#pragma region Storage
-
-static int bridge_storage_isAvailable(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    const char* storageType = luaL_checkstring(L, 1);
-    bool isAvailable = bridge::storage::isAvailable(storageType);
-    lua_pushboolean(L, isAvailable);
-    return 1;
-}
-
-static int bridge_storage_defaultType(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    char* defaultType = bridge::storage::defaultType();
-    lua_pushstring(L, defaultType);
-    free(defaultType);
-    return 1;
-}
-
-static int bridge_storage_isSupported(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 1);
-    const char* storageType = luaL_checkstring(L, 1);
-    bool isAvailable = bridge::storage::isSupported(storageType);
-    lua_pushboolean(L, isAvailable);
-    return 1;
-}
-
-static int bridge_storage_get(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    // const char* key = luaL_checkstring(L, 1);
-    luaL_checktype(L, 1, LUA_TTABLE); // table
-    char* json;
-    size_t json_len;
-    int res = dmScript::LuaToJson(L, &json, &json_len);
-
-    dmScript::LuaCallbackInfo* onSuccess = NULL;
-    dmScript::LuaCallbackInfo* onFailure = NULL;
-    const char* storageType = NULL;
-    onSuccess = dmScript::CreateCallback(L, 2);
-
-    if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 3);
-
-    if (lua_isstring(L, 4))
-        storageType = lua_tostring(L, 4);
-
-    bridge::storage::get(json, onSuccess, onFailure, storageType);
-    free(json);
-    return 0;
-}
-
-static int bridge_storage_set(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    luaL_checktype(L, 1, LUA_TTABLE); // table
-
-    char* json;
-    size_t json_len;
-    int res = dmScript::LuaToJson(L, &json, &json_len);
-    // assert(res < 0);
-
-    dmScript::LuaCallbackInfo* onSuccess = NULL;
-    dmScript::LuaCallbackInfo* onFailure = NULL;
-    const char* storageType = NULL;
-
-    if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 2);
-
-    if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 3);
-
-    if (lua_isstring(L, 4))
-        storageType = lua_tostring(L, 4);
-
-    bridge::storage::set(json, onSuccess, onFailure, storageType);
-    free(json);
-    return 0;
-}
-
-static int bridege_storage_delete(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    luaL_checktype(L, 1, LUA_TTABLE); // table
-    char* json;
-    size_t json_len;
-    int res = dmScript::LuaToJson(L, &json, &json_len);
-    dmScript::LuaCallbackInfo* onSuccess = NULL;
-    dmScript::LuaCallbackInfo* onFailure = NULL;
-    const char* storageType = NULL;
-
-    if (lua_isfunction(L, 2))
-        onSuccess = dmScript::CreateCallback(L, 2);
-
-    if (lua_isfunction(L, 3))
-        onFailure = dmScript::CreateCallback(L, 3);
-
-    if (lua_isstring(L, 4))
-        storageType = lua_tostring(L, 4);
-
-    bridge::storage::deleteData(json, onSuccess, onFailure, storageType);
-    free(json);
-    return 0;
-}
-#pragma endregion
-
 #pragma region Advertisement
 
 static int bridege_advertisement_showBanner(lua_State* L) {
@@ -702,12 +600,12 @@ static const luaL_reg game_methods[] = {
 };
 
 static const luaL_reg store_methods[] = {
-    { "default_type", bridge_storage_defaultType },
-    { "is_supported", bridge_storage_isSupported },
-    { "is_available", bridge_storage_isAvailable },
-    { "get", bridge_storage_get },
-    { "set", bridge_storage_set },
-    { "delete", bridege_storage_delete },
+    { "default_type", bridge::storage::defaultType },
+    { "is_supported", bridge::storage::isSupported },
+    { "is_available", bridge::storage::isAvailable },
+    { "get", bridge::storage::get },
+    { "set", bridge::storage::set },
+    { "delete", bridge::storage::deleteData },
     { 0, 0 }
 };
 

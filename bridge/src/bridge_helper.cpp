@@ -138,4 +138,40 @@ int voidJsonCallbacksGetter(lua_State* L, voidStringCallbacksFunction func, bool
     return 0;
 }
 
+int boolStringGetter(lua_State* L, boolStringFunction func) {
+    DM_LUA_STACK_CHECK(L, 1);
+    const char* lstring = luaL_checkstring(L, 1);
+    bool isAvailable = func(lstring);
+    lua_pushboolean(L, isAvailable);
+    return 1;
+}
+
+int storageFunctionGetter(lua_State* L, storageFunction func, bool isRequiredFirstCallback) {
+    DM_LUA_STACK_CHECK(L, 0);
+    luaL_checktype(L, 1, LUA_TTABLE); // table
+    char* json;
+    size_t json_len;
+    int res = dmScript::LuaToJson(L, &json, &json_len);
+
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+    const char* storageType = NULL;
+
+    if (isRequiredFirstCallback) {
+        onSuccess = dmScript::CreateCallback(L, 2);
+    } else if (lua_isfunction(L, 2)) {
+        onSuccess = dmScript::CreateCallback(L, 2);
+    }
+
+    if (lua_isfunction(L, 3))
+        onFailure = dmScript::CreateCallback(L, 3);
+
+    if (lua_isstring(L, 4))
+        storageType = lua_tostring(L, 4);
+
+    func((UniversalHandler)cppUniversalHandler, json, onSuccess, onFailure, storageType);
+    free(json);
+    return 0;
+}
+
 #endif
