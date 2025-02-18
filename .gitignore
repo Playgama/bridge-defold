@@ -10,3 +10,4 @@ Thumbs.db
 builtins
 /.editor_settings
 *.der
+.vscode
