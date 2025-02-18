@@ -1,0 +1,59 @@
+<html>
+  <head> </head>
+  <body>
+    <script type='text/javascript' src='cpp_helper.js'></script>
+    <script id="engine-start" type="text/javascript" merge="keep">
+      var loaded = false;
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src = "./playgama-bridge.js";
+
+      script.onload = function () {
+        let options = {
+            'platforms': {
+                'game_distribution': {
+                    gameId: '{{bridge.game_distribution_game_id}}'
+                },
+                'telegram': {
+                    adsgramBlockId: '{{bridge.adsgram_block_id}}'
+                },
+                'y8': {
+                    gameId: '{{bridge.y8_game_id}}',
+                    adsenseId: '{{bridge.y8_adsense_id}}',
+                    channelId: '{{bridge.y8_channel_id}}',
+                },
+                'lagged': {
+                    devId: '{{bridge.lagged_dev_id}}',
+                    publisherId: '{{bridge.lagged_publisher_id}}'
+                    
+                },
+                'facebook': {
+                    placementId: '{{bridge.facebook_placement_id}}'
+                }
+            }
+        }
+
+        bridge.initialize(options)
+          .then(() => {
+            window.bridge = bridge;
+            console.log("initialize")
+          })
+          .then(() => {
+            if (!loaded) {
+                if (typeof load_engine === "function") {
+                  load_engine();
+                } else {
+                  EngineLoader.load("canvas", "{{exe-name}}");
+                }
+                loaded = true;
+              }
+          })
+          .catch(error => {
+            console.log("error initialize")
+              // error, something went wrong
+          })
+      };
+      document.head.appendChild(script);
+    </script>
+  </body>
+</html>
