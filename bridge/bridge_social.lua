@@ -79,7 +79,7 @@ end
 
 -- External Links
 function social.is_external_links_allowed()
-	return false
+	return true
 end
 
 return social

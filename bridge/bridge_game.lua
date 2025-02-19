@@ -1,7 +1,7 @@
 local game = {}
 
 -- Local variables
-local visibility_state = "hidden"
+local visibility_state = "visible"
 
 function game.visibility_state()
 	return visibility_state

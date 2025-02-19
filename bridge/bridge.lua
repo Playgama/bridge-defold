@@ -17,26 +17,6 @@ end
 
 -- Constants
 
-bridge.PLATFORM_ID = {
-	VK = "vk",
-	OK = "ok",
-	YANDEX = "yandex",
-	CRAZY_GAMES = "crazy_games",
-	ABSOLUTE_GAMES = "absolute_games",
-	GAME_DISTRIBUTION = "game_distribution",
-	PLAYGAMA = "playgama",
-	WORTAL = "wortal",
-	PLAYDECK = "playdeck",
-	TELEGRAM = "telegram",
-	Y8 = "y8",
-	LAGGED = "lagged",
-	FACEBOOK = "facebook",
-	POKI = "poki",
-	MOCK = "mock",
-	QA_TOOL = "qa_tool",
-}
-
-
 bridge.EVENT_NAME = {
 	INTERSTITIAL_STATE_CHANGED = "interstitial_state_changed",
 	REWARDED_STATE_CHANGED = "rewarded_state_changed",
@@ -62,9 +42,9 @@ bridge.INTERSTITIAL_STATE = {
 bridge.REWARDED_STATE = {
 	LOADING = "loading",
 	OPENED = "opened",
+	REWARDED = "rewarded",
 	CLOSED = "closed",
 	FAILED = "failed",
-	REWARDED = "rewarded",
 }
 
 
@@ -97,30 +77,5 @@ bridge.PLATFORM_MESSAGE = {
 	PLAYER_GOT_ACHIEVEMENT = "player_got_achievement",
 	GAME_OVER = "game_over",
 }
-
-bridge.ACTION_NAME = {
-	INITIALIZE = "initialize",
-	AUTHORIZE_PLAYER = "authorize_player",
-	SHARE = "share",
-	INVITE_FRIENDS = "invite_friends",
-	JOIN_COMMUNITY = "join_community",
-	CREATE_POST = "create_post",
-	ADD_TO_HOME_SCREEN = "add_to_home_screen",
-	ADD_TO_FAVORITES = "add_to_favorites",
-	RATE = "rate",
-	SET_LEADERBOARD_SCORE = "set_leaderboard_score",
-	GET_LEADERBOARD_SCORE = "get_leaderboard_score",
-	GET_LEADERBOARD_ENTRIES = "get_leaderboard_entries",
-	GET_PURCHASES = "get_purchases",
-	GET_CATALOG = "get_catalog",
-	PURCHASE = "purchase",
-	CONSUME_PURCHASE = "consume_purchase",
-	GET_REMOTE_CONFIG = "get_remote_config",
-	GET_STORAGE_DATA = "get_storage_data",
-	SHOW_LEADERBOARD_NATIVE_POPUP = "show_leaderboard_native_popup",
-	CLIPBOARD_WRITE = "clipboard_write",
-	ADBLOCK_DETECT = "adblock_detect",
-}
-
 
 return bridge

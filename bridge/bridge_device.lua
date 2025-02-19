@@ -4,7 +4,7 @@ local device = {}
 local sysinfo = sys.get_sys_info()
 
 function device.type()
-	return sysinfo.system_name
+	return "desktop"
 end
 
 return device
