@@ -2,8 +2,8 @@ local advertisement = {}
 
 -- Local variables
 local delay_between_interstitial = 60
-local interstitial_state = "failed"
-local rewarded_state = "failed"
+local interstitial_state = "closed"
+local rewarded_state = "closed"
 
 local interstitial_changed_callback = nil
 local interstitial_states = { "loading", "opened", "closed", "failed"}
@@ -31,10 +31,10 @@ function advertisement.hide_banner()
 end
 
 function advertisement.on(event_name, callback)
-	if event_name == bridge.EVENT_NAME.INTERSTITIAL_STATE_CHANGED then
+	if event_name == "interstitial_state_changed" then
 		interstitial_changed_callback = callback
 		
-	elseif event_name == bridge.EVENT_NAME.REWARDED_STATE_CHANGED then
+	elseif event_name == "rewarded_state_changed" then
 		rewarded_changed_callback = callback
 	end
 end
