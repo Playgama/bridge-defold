@@ -8,7 +8,7 @@ local rewarded_state = "closed"
 local interstitial_changed_callback = nil
 local interstitial_states = { "loading", "opened", "closed", "failed"}
 
-local rewarded_states = {"loading", "opened", "closed", "rewarded", "failed"}
+local rewarded_states = {"loading", "opened", "rewarded", "closed", "failed"}
 local rewarded_changed_callback = nil
 
 local get_state = function(state)
