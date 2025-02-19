@@ -30,7 +30,7 @@ function storage.get(table_keys, on_success, on_failure, storageType)
 
 	local game_data = {}
 
-	for k, v in pairs(data_table) do
+	for k, v in pairs(table_keys) do
 		if load_data[v] then
 			game_data[v] = load_data[v]
 		end
@@ -55,7 +55,7 @@ function storage.set(table_data, on_success, on_failure, storageType)
 end
 
 function storage.delete(table_keys, on_success, on_failure, storageType)
-	for k, v in pairs(data_table) do
+	for k, v in pairs(table_keys) do
 		if load_data[v] then
 			load_data[v] = nil
 		end
