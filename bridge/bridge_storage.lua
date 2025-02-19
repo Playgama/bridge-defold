@@ -42,7 +42,7 @@ function storage.get(table_keys, on_success, on_failure, storageType)
 end
 
 function storage.set(table_data, on_success, on_failure, storageType)
-	for k, v in pairs(data_table) do
+	for k, v in pairs(table_data) do
 		if not load_data[k] then
 			load_data[k] = v
 		end
