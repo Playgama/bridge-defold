@@ -1,5 +1,6 @@
 #define LIB_NAME "Bridge"
 #define MODULE_NAME "Bridge"
+#include <dmsdk/sdk.h>
 
 #if defined(DM_PLATFORM_HTML5)
 #include "bridge.h"

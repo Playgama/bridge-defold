@@ -5,6 +5,10 @@ local app_name = sys.get_config_string("title", "defold_game")
 local path_to_save_file = sys.get_save_file(app_name, "bridge_storage_data")
 local load_data = {}
 
+function storage.default_type()
+	return "local_storage"
+end
+
 function storage.is_supported(storageType)
 	if storageType == "local_storage" then
 		return true
