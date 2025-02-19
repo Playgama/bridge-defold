@@ -18,10 +18,9 @@ scale_mode = stretch
 [project]
 title = Bridge-defold
 dependencies = 
-custom_resources = /bridge/
 
 [library]
-include_dirs = core
+include_dirs = bridge
 
 [bridge]
 game_distribution_game_id = 
@@ -31,5 +30,5 @@ y8_channel_id =
 lagged_dev_id = 
 lagged_publisher_id = 
 adsgram_block_id = 
-facebook_placement_id = asdasdasasd
+facebook_placement_id =  
 
