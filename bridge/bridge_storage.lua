@@ -9,23 +9,23 @@ function storage.default_type()
 	return "local_storage"
 end
 
-function storage.is_supported(storageType)
-	if storageType == "local_storage" then
+function storage.is_supported(storage_type)
+	if storage_type == "local_storage" then
 		return true
-	elseif storageType == "platform_internal" then
+	elseif storage_type == "platform_internal" then
 		return false
 	end
 end
 
-function storage.is_available(storageType)
-	if storageType == "local_storage" then
+function storage.is_available(storage_type)
+	if storage_type == "local_storage" then
 		return true
-	elseif storageType == "platform_internal" then
+	elseif storage_type == "platform_internal" then
 		return false
 	end
 end
 
-function storage.get(table_keys, on_success, on_failure, storageType)
+function storage.get(table_keys, on_success, on_failure, storage_type)
 	load_data = sys.load(path_to_save_file)
 
 	local game_data = {}
@@ -41,7 +41,7 @@ function storage.get(table_keys, on_success, on_failure, storageType)
 	
 end
 
-function storage.set(table_data, on_success, on_failure, storageType)
+function storage.set(table_data, on_success, on_failure, storage_type)
 	for k, v in pairs(table_data) do
 		if not load_data[k] then
 			load_data[k] = v
@@ -54,7 +54,7 @@ function storage.set(table_data, on_success, on_failure, storageType)
 	end
 end
 
-function storage.delete(table_keys, on_success, on_failure, storageType)
+function storage.delete(table_keys, on_success, on_failure, storage_type)
 	for k, v in pairs(table_keys) do
 		if load_data[v] then
 			load_data[v] = nil

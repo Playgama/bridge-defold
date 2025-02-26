@@ -106,7 +106,7 @@
       type: function
       desc: Check if the specified storage type is currently available for use to manage data storage effectively.
       parameters:
-        - name: storageType
+        - name: storage_type
           type: string
       returns:
         - name: result
@@ -116,7 +116,7 @@
       type: function
       desc: Verify if the specified storage type is supported on the platform to ensure compatibility.
       parameters:
-        - name: storageType
+        - name: storage_type
           type: string
       returns:
         - name: result
@@ -134,7 +134,7 @@
         - name: on_failure
           type: function
           desc: function(_, error)
-        - name: storageType
+        - name: storage_type
           type: string
     - name: set
       type: function
@@ -148,7 +148,7 @@
         - name: on_failure
           type: function
           desc: function(_, error)
-        - name: storageType
+        - name: storage_type
           type: string
     - name: delete
       type: function
@@ -162,7 +162,7 @@
         - name: on_failure
           type: function
           desc: function(_, error)
-        - name: storageType
+        - name: storage_type
           type: string
 
 
