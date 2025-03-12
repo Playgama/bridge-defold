@@ -70,7 +70,7 @@
         - name: result
           type: boolean
 
-    - name: is_get_get_game_by_id_supported
+    - name: is_get_game_by_id_supported
       type: function
       desc: Verify if the get_game_by_id is supported on the platform to ensure compatibility.
       returns:
