@@ -63,7 +63,43 @@
           type: function
           desc: function(_, error)
 
+    - name: is_get_all_games_supported
+      type: function
+      desc: Verify if the get_all_games is supported on the platform to ensure compatibility.
+      returns:
+        - name: result
+          type: boolean
 
+    - name: is_get_get_game_by_id_supported
+      type: function
+      desc: Verify if the get_game_by_id is supported on the platform to ensure compatibility.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: get_all_games
+      type: function
+      desc: Get all games on the platform.
+      parameters:
+        - name: on_success
+          type: function
+          desc: function(_, data)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
+    - name: get_game_by_id
+      type: function
+      desc: Get game by ID on the platform.
+      parameters:
+        - name: options
+          type: table
+        - name: on_success
+          type: function
+          desc: function(_, data)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
 
 
   - name: game

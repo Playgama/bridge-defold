@@ -27,4 +27,20 @@ int bridge::platform::sendMessage(lua_State* L) {
     return makeCallbackWithString(L, js_bridge_platform_sendMessage, false);
 }
 
+int bridge::platform::isGetAllGamesSupported(lua_State* L) {
+    return getBoolean(L, js_bridge_platform_isGetAllGamesSupported);
+}
+
+int bridge::platform::getAllGames(lua_State* L) {
+    return makeCallback(L, js_bridge_platform_getAllGames, false);
+}
+
+int bridge::platform::isGetGameByIdSupported(lua_State* L) {
+    return getBoolean(L, js_bridge_platform_isGetGameByIdSupported);
+}
+
+int bridge::platform::getGameById(lua_State* L) {
+    return makeCallbackWithJson(L, js_bridge_platform_getGameById, false);
+}
+
 #endif

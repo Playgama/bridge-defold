@@ -33,7 +33,36 @@ let js_bridge_platform = {
             .catch(error => {
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
             })
-    }
+    },
+
+    js_bridge_platform_isGetAllGamesSupported: function () {
+        return bridge.platform.isGetAllGamesSupported;
+    },
+
+    js_bridge_platform_isGetGameByIdSupported: function () {
+        return bridge.platform.isGetGameByIdSupported;
+    },
+
+    js_bridge_platform_getAllGames: function (handler, onSuccess, onFailure) {
+        bridge.platform.getAllGames()
+            .then(result => {
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(result));
+            })
+            .catch(error => {
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
+            })
+    },
+
+    js_bridge_platform_getGameById: function (handler, options, onSuccess, onFailure) {
+        var jsOptions = JSON.parse(UTF8ToString(options));
+        bridge.platform.getGameById(jsOptions)
+            .then(result => {
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(result));
+            })
+            .catch(error => {
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
+            })
+    },
 };
 
 mergeInto(LibraryManager.library, js_bridge_platform);

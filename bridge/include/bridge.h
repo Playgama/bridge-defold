@@ -11,6 +11,12 @@ namespace bridge {
 
         int sendMessage(lua_State* L);
         int getServerTime(lua_State* L);
+
+        int isGetAllGamesSupported(lua_State* L);
+        int isGetGameByIdSupported(lua_State* L);
+
+        int getAllGames(lua_State* L);
+        int getGameById(lua_State* L);
     } // namespace platform
 
     namespace game {
