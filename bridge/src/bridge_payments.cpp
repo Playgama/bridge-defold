@@ -6,6 +6,10 @@ int bridge::payments::isSupported(lua_State* L) {
     return getBoolean(L, js_bridge_payments_isSupported);
 }
 
+int bridge::payments::isAvailable(lua_State* L) {
+    return getBoolean(L, js_bridge_payments_isAvailable);
+}
+
 int bridge::payments::isGetCatalogSupported(lua_State* L) {
     return getBoolean(L, js_bridge_payments_isGetCatalogSupported);
 }

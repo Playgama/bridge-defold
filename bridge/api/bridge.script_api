@@ -513,6 +513,12 @@
       returns:
       - name: result
         type: boolean
+    - name: is_available
+      type: function
+      desc: Check if in-game purchases are available to offer items or upgrades within the game.
+      returns:
+      - name: result
+        type: boolean
     
     - name: is_get_catalog_supported
       type: function

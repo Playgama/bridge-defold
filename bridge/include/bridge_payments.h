@@ -7,6 +7,8 @@
 extern "C" {
     bool js_bridge_payments_isSupported();
 
+    bool js_bridge_payments_isAvailable();
+
     bool js_bridge_payments_isGetCatalogSupported();
 
     bool js_bridge_payments_isGetPurchasesSupported();

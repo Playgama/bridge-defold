@@ -4,6 +4,10 @@ function payments.is_supported()
 	return false
 end
 
+function payments.is_available()
+	return false
+end
+
 function payments.is_get_catalog_supported()
 	return false
 end
