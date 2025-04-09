@@ -14,6 +14,7 @@ input_method = HiddenInputField
 
 [html5]
 scale_mode = stretch
+htmlfile = /bridge/engine_template.html
 
 [project]
 title = Bridge-defold
