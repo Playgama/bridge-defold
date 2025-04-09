@@ -23,13 +23,3 @@ dependencies =
 [library]
 include_dirs = bridge
 
-[bridge]
-game_distribution_game_id = 
-y8_game_id = 
-y8_adsense_id = 
-y8_channel_id = 
-lagged_dev_id = 
-lagged_publisher_id = 
-adsgram_block_id = 
-facebook_placement_id =  
-
