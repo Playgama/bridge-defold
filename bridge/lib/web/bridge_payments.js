@@ -3,10 +3,6 @@ let js_bridge_payments = {
         return bridge.payments.isSupported;
     },
 
-    js_bridge_payments_isAvailable: function () {
-        return bridge.payments.isAvailable;
-    },
-
     js_bridge_payments_isGetCatalogSupported: function () {
         return bridge.payments.isGetCatalogSupported;
     },
