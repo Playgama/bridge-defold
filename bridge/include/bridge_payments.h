@@ -7,19 +7,13 @@
 extern "C" {
     bool js_bridge_payments_isSupported();
 
-    bool js_bridge_payments_isGetCatalogSupported();
-
-    bool js_bridge_payments_isGetPurchasesSupported();
-
-    bool js_bridge_payments_isConsumePurchaseSupported();
-
     void js_bridge_payments_purchase(UniversalHandler handler,
-                                     const char* options,
+                                     const char* id,
                                      dmScript::LuaCallbackInfo* onSuccess,
                                      dmScript::LuaCallbackInfo* onFailure);
 
     void js_bridge_payments_consumePurchase(UniversalHandler handler,
-                                            const char* options,
+                                            const char* id,
                                             dmScript::LuaCallbackInfo* onSuccess,
                                             dmScript::LuaCallbackInfo* onFailure);
 

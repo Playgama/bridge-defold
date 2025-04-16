@@ -133,9 +133,6 @@ namespace bridge {
 
     namespace payments {
         int isSupported(lua_State* L);
-        int isGetCatalogSupported(lua_State* L);
-        int isGetPurchasesSupported(lua_State* L);
-        int isConsumePurchaseSupported(lua_State* L);
         int purchase(lua_State* L);
         int consumePurchase(lua_State* L);
         int getCatalog(lua_State* L);

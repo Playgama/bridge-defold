@@ -514,33 +514,12 @@
       - name: result
         type: boolean
     
-    - name: is_get_catalog_supported
-      type: function
-      desc: Check if getting catalog is supported.
-      returns:
-      - name: result
-        type: boolean
-    
-    - name: is_get_purchases_supported
-      type: function
-      desc: Check if getting purchases list is supported.
-      returns:
-      - name: result
-        type: boolean
-    
-    - name: is_consume_purchase_supported
-      type: function
-      desc: Check if purchase consuming is supported.
-      returns:
-      - name: result
-        type: boolean
-
     - name: purchase
       type: function
       desc: Allow players to buy items or upgrades in your game to enhance their gameplay experience.
       parameters:
-        - name: options
-          type: table
+        - name: id
+          type: string
         - name: on_success
           type: function
           desc: function(_, purchase)
@@ -552,11 +531,11 @@
       type: function
       desc: Consume purchased items, such as in-game currency, once they are used, to manage inventory and player progression.
       parameters:
-        - name: options
-          type: table
+        - name: id
+          type: string
         - name: on_success
           type: function
-          desc: function(_, catalogItems)
+          desc: function(_)
         - name: on_failure
           type: function
           desc: function(_, error)

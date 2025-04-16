@@ -132,9 +132,6 @@ static const luaL_reg achievements_methods[] = {
 
 static const luaL_reg payments_methods[] = {
     { "is_supported", bridge::payments::isSupported },
-    { "is_get_catalog_supported", bridge::payments::isGetCatalogSupported },
-    { "is_get_purchases_supported", bridge::payments::isGetPurchasesSupported },
-    { "is_consume_purchase_supported", bridge::payments::isConsumePurchaseSupported },
     { "purchase", bridge::payments::purchase },
     { "consume_purchase", bridge::payments::consumePurchase },
     { "get_catalog", bridge::payments::getCatalog },

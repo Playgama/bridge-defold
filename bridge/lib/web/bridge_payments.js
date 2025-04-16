@@ -3,21 +3,8 @@ let js_bridge_payments = {
         return bridge.payments.isSupported;
     },
 
-    js_bridge_payments_isGetCatalogSupported: function () {
-        return bridge.payments.isGetCatalogSupported;
-    },
-
-    js_bridge_payments_isGetPurchasesSupported: function () {
-        return bridge.payments.isGetPurchasesSupported;
-    },
-
-    js_bridge_payments_isConsumePurchaseSupported: function () {
-        return bridge.payments.isConsumePurchaseSupported;
-    },
-
-    js_bridge_payments_purchase: function (handler, options, onSuccess, onFailure) {
-        var jsOptions = JSON.parse(UTF8ToString(options));
-        bridge.payments.purchase(jsOptions)
+    js_bridge_payments_purchase: function (handler, id, onSuccess, onFailure) {
+        bridge.payments.purchase(id)
             .then(purchase => {
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(purchase));
             })
@@ -26,9 +13,8 @@ let js_bridge_payments = {
             })
     },
 
-    js_bridge_payments_consumePurchase: function (handler, options, onSuccess, onFailure) {
-        var jsOptions = JSON.parse(UTF8ToString(options));
-        bridge.payments.consumePurchase(jsOptions)
+    js_bridge_payments_consumePurchase: function (handler, id, onSuccess, onFailure) {
+        bridge.payments.consumePurchase(id)
             .then(() => {
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
             })
