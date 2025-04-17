@@ -4,7 +4,7 @@ let js_bridge_payments = {
     },
 
     js_bridge_payments_purchase: function (handler, id, onSuccess, onFailure) {
-        bridge.payments.purchase(id)
+        bridge.payments.purchase(UTF8ToString(id))
             .then(purchase => {
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(purchase));
             })
@@ -14,7 +14,7 @@ let js_bridge_payments = {
     },
 
     js_bridge_payments_consumePurchase: function (handler, id, onSuccess, onFailure) {
-        bridge.payments.consumePurchase(id)
+        bridge.payments.consumePurchase(UTF8ToString(id))
             .then(() => {
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
             })

@@ -19,6 +19,7 @@ htmlfile = /bridge/engine_template.html
 [project]
 title = Bridge-defold
 dependencies = 
+bundle_resources = /res
 
 [library]
 include_dirs = bridge
