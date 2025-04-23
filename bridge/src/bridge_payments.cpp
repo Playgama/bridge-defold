@@ -11,7 +11,7 @@ int bridge::payments::purchase(lua_State* L) {
 }
 
 int bridge::payments::consumePurchase(lua_State* L) {
-    return makeCallbackWithJson(L, js_bridge_payments_consumePurchase, false);
+    return makeCallbackWithString(L, js_bridge_payments_consumePurchase, true);
 }
 
 int bridge::payments::getCatalog(lua_State* L) {
