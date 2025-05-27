@@ -13,12 +13,14 @@ int bridge::advertisement::isBannerSupported(lua_State* L) {
 
 int bridge::advertisement::showBanner(lua_State* L) {
     DM_LUA_STACK_CHECK(L, 0);
-    
-    size_t position_len;
-    const char* position = luaL_checklstring(L, 1, &position_len);
-    
-    size_t placement_len;
-    const char* placement = luaL_checklstring(L, 2, &placement_len);
+
+    const char* position = NULL;
+    if (lua_isstring(L, 1))
+        position = lua_tostring(L, 1);
+
+    const char* placement = NULL;
+    if (lua_isstring(L, 2))
+        placement = lua_tostring(L, 2);
     
     js_bridge_advertisement_showBanner(position, placement);
     return 0;
@@ -38,8 +40,11 @@ int bridge::advertisement::hideBanner(lua_State* L) {
 #pragma region Interstitial
 int bridge::advertisement::showInterstitial(lua_State* L) {
     DM_LUA_STACK_CHECK(L, 0);
-    size_t len;
-    const char* placement = luaL_checklstring(L, 1, &len);
+
+    const char* placement = NULL;
+    if (lua_isstring(L, 1))
+        placement = lua_tostring(L, 1);
+    
     js_bridge_advertisement_showInterstitial(placement);
     return 0;
 }
@@ -74,8 +79,11 @@ int bridge::advertisement::rewardedPlacement(lua_State* L) {
 
 int bridge::advertisement::showRewarded(lua_State* L) {
     DM_LUA_STACK_CHECK(L, 0);
-    size_t len;
-    const char* placement = luaL_checklstring(L, 1, &len);
+
+    const char* placement = NULL;
+    if (lua_isstring(L, 1))
+    placement = lua_tostring(L, 1);
+    
     js_bridge_advertisement_showRewarded(placement);
     return 0;
 }
