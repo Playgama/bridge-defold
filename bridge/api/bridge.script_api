@@ -212,8 +212,10 @@
       type: function
       desc: Display a banner ad within your game to generate revenue through advertising.
       parameters:
-        - name: options
-          type: table
+        - name: position
+          type: string
+        - name: placement
+          type: string
     
     - name: hide_banner
       type: function
@@ -243,6 +245,9 @@
     - name: show_interstitial
       type: function
       desc: Display an interstitial ad at appropriate moments, such as during level transitions or game over screens.
+      parameters:
+        - name: placement
+          type: string
     
     - name: interstitial_state
       type: function
@@ -267,9 +272,16 @@
       type: function
       desc: Monitor the state of the rewarded ad (loading, opened, closed, rewarded, failed) to manage the reward process.
 
+    - name: rewarded_placement
+      type: function
+      desc: Monitor the placement of the rewarded ad to manage the reward process.
+
     - name: show_rewarded
       type: function
       desc: Display a rewarded ad and provide incentives to players for watching the entire ad.
+      parameters:
+        - name: placement
+          type: string
       
     - name: check_ad_block
       type: function

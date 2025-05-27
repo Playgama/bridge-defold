@@ -49,6 +49,7 @@ namespace bridge {
 
         int showRewarded(lua_State* L);
         int rewardedState(lua_State* L);
+        int rewardedPlacement(lua_State* L);
 
         // AdBlock
         int checkAdBlock(lua_State* L);

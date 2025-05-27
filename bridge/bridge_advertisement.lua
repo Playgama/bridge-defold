@@ -1,15 +1,19 @@
 local advertisement = {}
 
 -- Local variables
+local banner_state = "hidden"
+local banner_changed_callback = nil
+local banner_states = {"loading", "shown", "hidden", "failed"}
+
 local delay_between_interstitial = 60
 local interstitial_state = "closed"
-local rewarded_state = "closed"
-
 local interstitial_changed_callback = nil
-local interstitial_states = { "loading", "opened", "closed", "failed"}
+local interstitial_states = {"loading", "opened", "closed", "failed"}
 
-local rewarded_states = {"loading", "opened", "rewarded", "closed", "failed"}
+local rewarded_state = "closed"
+local rewarded_placement = nil
 local rewarded_changed_callback = nil
+local rewarded_states = {"loading", "opened", "rewarded", "closed", "failed"}
 
 local get_state = function(state)
 	return coroutine.wrap(function()
@@ -21,17 +25,38 @@ end
 
 -- Banner
 function advertisement.is_banner_supported()
-	return false
+	return true
 end
 
-function advertisement.show_banner(options)
+function advertisement.banner_state()
+	return banner_state
+end
+
+function advertisement.show_banner(position, placement)
+	if not banner_changed_callback then
+		return
+	end
+
+	local getter = get_state(banner_states)
+	timer.delay(0.1, true, function(_, handle)
+		local state = getter()
+		if not state then
+			timer.cancel(handle)
+			return
+		end
+		banner_state = state
+		banner_changed_callback(_, state)
+	end)
 end
 
 function advertisement.hide_banner()
 end
 
 function advertisement.on(event_name, callback)
-	if event_name == "interstitial_state_changed" then
+	if event_name == "banner_state_changed" then
+		banner_changed_callback = callback
+		
+	elseif event_name == "interstitial_state_changed" then
 		interstitial_changed_callback = callback
 		
 	elseif event_name == "rewarded_state_changed" then
@@ -52,7 +77,7 @@ function advertisement.interstitial_state()
 	return interstitial_state
 end
 
-function advertisement.show_interstitial()
+function advertisement.show_interstitial(placement)
 	if not interstitial_changed_callback then
 		return
 	end
@@ -74,7 +99,13 @@ function advertisement.rewarded_state()
 	return rewarded_state
 end
 
-function advertisement.show_rewarded()
+function advertisement.rewarded_placement()
+	return rewarded_placement
+end
+
+function advertisement.show_rewarded(placement)
+	rewarded_placement = placement
+	
 	if not rewarded_changed_callback then
 		return
 	end

@@ -14,20 +14,20 @@
         "lagged": {
             "devId": "",
             "publisherId": ""
+        }
+    },
+    "advertisement": {
+        "interstitial": {
+            "preloadOnStart": true
         },
-        "facebook": {
-            "bannerPlacementId": "",
-            "interstitialPlacements": [],
-            "rewardedPlacements": []
+        "rewarded": {
+            "preloadOnStart": true
         }
     },
     "payments": [
         {
             "id": "test_product",
             "playgama": {
-                "amount": 1
-            },
-            "qa_tool": {
                 "amount": 1
             },
             "playdeck": {

@@ -8,7 +8,7 @@ extern "C" {
 #pragma region Banner
     bool js_bridge_advertisement_isBannerSupported();
 
-    void js_bridge_advertisement_showBanner(const char* options);
+    void js_bridge_advertisement_showBanner(const char* position, const char* placement);
 
     void js_bridge_advertisement_hideBanner();
 
@@ -26,13 +26,15 @@ extern "C" {
 
     char* js_bridge_advertisement_interstitialState();
 
-    void js_bridge_advertisement_showInterstitial();
+    void js_bridge_advertisement_showInterstitial(const char* placement);
 #pragma endregion
 
 #pragma region Rewarded
     char* js_bridge_advertisement_rewardedState();
 
-    void js_bridge_advertisement_showRewarded();
+    char* js_bridge_advertisement_rewardedPlacement();
+
+    void js_bridge_advertisement_showRewarded(const char* placement);
 #pragma endregion
 
 #pragma region Adblock

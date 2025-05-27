@@ -52,7 +52,10 @@ static const luaL_reg advertisement_methods[] = {
 
     // Rewarded
     { "rewarded_state", bridge::advertisement::rewardedState },
+    { "rewarded_placement", bridge::advertisement::rewardedPlacement },
     { "show_rewarded", bridge::advertisement::showRewarded },
+
+    // Ad Block
     { "check_ad_block", bridge::advertisement::checkAdBlock },
     { 0, 0 }
 };

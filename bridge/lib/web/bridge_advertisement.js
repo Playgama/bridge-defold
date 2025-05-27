@@ -4,9 +4,8 @@ let js_bridge_advertisement = {
         return bridge.advertisement.isBannerSupported;
     },
 
-    js_bridge_advertisement_showBanner: function (options) {
-        const objOtions = JSON.parse(UTF8ToString(options));
-        bridge.advertisement.showBanner(objOtions);
+    js_bridge_advertisement_showBanner: function (position, placement) {
+        bridge.advertisement.showBanner(UTF8ToString(position), UTF8ToString(placement));
     },
 
     js_bridge_advertisement_bannerState: function() {
@@ -37,8 +36,8 @@ let js_bridge_advertisement = {
         return CStrOrNull(bridge.advertisement.interstitialState);
     },
 
-    js_bridge_advertisement_showInterstitial: function() {
-        bridge.advertisement.showInterstitial();
+    js_bridge_advertisement_showInterstitial: function(placement) {
+        bridge.advertisement.showInterstitial(UTF8ToString(placement));
     },
     // #endregion
 
@@ -47,8 +46,12 @@ let js_bridge_advertisement = {
         return CStrOrNull(bridge.advertisement.rewardedState);
     },
 
-    js_bridge_advertisement_showRewarded: function() {
-        bridge.advertisement.showRewarded();
+    js_bridge_advertisement_rewardedPlacement: function() {
+        return CStrOrNull(bridge.advertisement.rewardedPlacement);
+    },
+
+    js_bridge_advertisement_showRewarded: function(placement) {
+        bridge.advertisement.showRewarded(UTF8ToString(placement));
     },
 
     js_bridge_advertisement_checkAdBlock: function(handler, onSuccess, onFailure) {
