@@ -3,17 +3,17 @@ local advertisement = {}
 -- Local variables
 local banner_state = "hidden"
 local banner_changed_callback = nil
-local banner_states = {"loading", "shown", "hidden", "failed"}
+local simulate_banner_states = {"loading", "shown"}
 
 local delay_between_interstitial = 60
 local interstitial_state = "closed"
 local interstitial_changed_callback = nil
-local interstitial_states = {"loading", "opened", "closed", "failed"}
+local simulate_interstitial_states = {"loading", "opened", "closed"}
 
 local rewarded_state = "closed"
 local rewarded_placement = nil
 local rewarded_changed_callback = nil
-local rewarded_states = {"loading", "opened", "rewarded", "closed", "failed"}
+local simulate_rewarded_states = {"loading", "opened", "rewarded", "closed"}
 
 local get_state = function(state)
 	return coroutine.wrap(function()
@@ -33,23 +33,26 @@ function advertisement.banner_state()
 end
 
 function advertisement.show_banner(position, placement)
-	if not banner_changed_callback then
-		return
-	end
-
-	local getter = get_state(banner_states)
+	local getter = get_state(simulate_banner_states)
 	timer.delay(0.1, true, function(_, handle)
 		local state = getter()
 		if not state then
 			timer.cancel(handle)
 			return
 		end
+		
 		banner_state = state
-		banner_changed_callback(_, state)
+		if banner_changed_callback then
+			banner_changed_callback(_, banner_state)
+		end
 	end)
 end
 
 function advertisement.hide_banner()
+	banner_state = "hidden"
+	if banner_changed_callback then
+		banner_changed_callback(_, banner_state)
+	end
 end
 
 function advertisement.on(event_name, callback)
@@ -78,19 +81,18 @@ function advertisement.interstitial_state()
 end
 
 function advertisement.show_interstitial(placement)
-	if not interstitial_changed_callback then
-		return
-	end
-	
-	local getter = get_state(interstitial_states)
+	local getter = get_state(simulate_interstitial_states)
 	timer.delay(0.1, true, function(_, handle)
 		local state = getter()
 		if not state then
 			timer.cancel(handle)
 			return
 		end
+		
 		interstitial_state = state
-		interstitial_changed_callback(_, state)
+		if interstitial_changed_callback then
+			interstitial_changed_callback(_, interstitial_state)
+		end
 	end)
 end
 
@@ -105,20 +107,19 @@ end
 
 function advertisement.show_rewarded(placement)
 	rewarded_placement = placement
-	
-	if not rewarded_changed_callback then
-		return
-	end
 
-	local getter = get_state(rewarded_states)
+	local getter = get_state(simulate_rewarded_states)
 	timer.delay(0.1, true, function(_, handle)
 		local state = getter()
 		if not state then
 			timer.cancel(handle)
 			return
 		end
+		
 		rewarded_state = state
-		rewarded_changed_callback(_, state)
+		if rewarded_changed_callback then
+			rewarded_changed_callback(_, rewarded_state)
+		end
 	end)
 end
 
