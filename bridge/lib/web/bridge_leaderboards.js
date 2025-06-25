@@ -1,6 +1,6 @@
 let js_bridge_leaderboards = {
     js_bridge_leaderboards_type: function () {
-        return bridge.leaderboards.type;
+        return CStrOrNull(bridge.leaderboards.type);
     },
 
     js_bridge_leaderboards_setScore: function (handler, id, score, onSuccess, onFailure) {
