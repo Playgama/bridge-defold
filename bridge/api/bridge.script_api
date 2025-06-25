@@ -258,7 +258,7 @@
       desc: Minimum time interval between interstitial ad displays to comply with platform requirements and improve user experience.
       returns:
         - name: result
-          type: namber
+          type: number
 
     - name: set_minimum_delay_between_interstitial
       type: function
@@ -644,75 +644,29 @@
 
 
 
-  - name: leaderboard
+  - name: leaderboards
     type: table
     desc: Enhance competitiveness by integrating leaderboards, allowing players to compare their scores and achievements.
     members:
-    - name: is_supported
+    - name: type
       type: function
-      desc: Check if the leaderboard feature is supported on the platform.
+      desc: Check the leaderboards type on the platform.
       returns:
         - name: result
-          type: boolean
-
-    - name: is_native_popup_supported
-      type: function
-      desc: Check if built-in popup is supported.
-      returns:
-        - name: result
-          type: boolean
-
-    - name: is_multiple_boards_supported
-      type: function
-      desc: Check if multiple boards are supported.
-      returns:
-        - name: result
-          type: boolean
-
-    - name: is_set_score_supported
-      type: function
-      desc: Check if user can set score to leaderboard.
-      returns:
-        - name: result
-          type: boolean
-
-    - name: is_get_score_supported
-      type: function
-      desc: Check if user can retrieve their score.
-      returns:
-        - name: result
-          type: boolean
-
-    - name: is_get_entries_supported
-      type: function
-      desc: Check if user can access leaderboard entries including other players' scores.
-      returns:
-        - name: result
-          type: boolean
+          type: string
 
 
     - name: set_score
       type: function
       desc: Submit the player's score to the leaderboard to update their rank and position.
       parameters:
-        - name: options
-          type: table
+        - name: id
+          type: string
+        - name: score
+          type: number
         - name: on_success
           type: function
           desc: function()
-        - name: on_failure
-          type: function
-          desc: function(_, error)
-
-    - name: get_score
-      type: function
-      desc: Retrieve the player's score from the leaderboard to display their current standing.
-      parameters:
-        - name: options
-          type: table
-        - name: on_success
-          type: function
-          desc: function(_, score)
         - name: on_failure
           type: function
           desc: function(_, error)
@@ -721,21 +675,8 @@
       type: function
       desc: Retrieve entries from the leaderboard, including the player's rank and score, to display a comprehensive leaderboard.
       parameters:
-        - name: options
-          type: table
-        - name: on_success
-          type: function
-          desc: function(_, entries)
-        - name: on_failure
-          type: function
-          desc: function(_, error)
-
-    - name: show_native_popup
-      type: function
-      desc: Shows leaderboard entries built-in popup
-      parameters:
-        - name: options
-          type: table
+        - name: id
+          type: string
         - name: on_success
           type: function
           desc: function(_, entries)

@@ -102,25 +102,9 @@ namespace bridge {
     } // namespace device
 
     namespace leaderboards {
-        // Support
-        int isSupported(lua_State* L);
-        int isNativePopupSupported(lua_State* L);
-        int isMultipleBoardsSupported(lua_State* L);
-        int isSetScoreSupported(lua_State* L);
-        int isGetScoreSupported(lua_State* L);
-        int isGetEntriesSupported(lua_State* L);
-
-        // Player Scores. Set
+        int type(lua_State* L);
         int setScore(lua_State* L);
-
-        // Player Scores. Get
-        int getScore(lua_State* L);
-
-        // Get Full Leaderboard
         int getEntries(lua_State* L);
-
-        // Show Native Popup
-        int showNativePopup(lua_State* L);
     } // namespace leaderboards
 
     namespace achievements {

@@ -26,7 +26,7 @@ static const luaL_reg game_methods[] = {
     { 0, 0 }
 };
 
-static const luaL_reg store_methods[] = {
+static const luaL_reg storage_methods[] = {
     { "default_type", bridge::storage::defaultType },
     { "is_supported", bridge::storage::isSupported },
     { "is_available", bridge::storage::isAvailable },
@@ -110,16 +110,9 @@ static const luaL_reg social_methods[] = {
 };
 
 static const luaL_reg leaderboards_methods[] = {
-    { "is_supported", bridge::leaderboards::isSupported },
-    { "is_native_popup_supported", bridge::leaderboards::isNativePopupSupported },
-    { "is_multiple_boards_supported", bridge::leaderboards::isMultipleBoardsSupported },
-    { "is_set_score_supported", bridge::leaderboards::isSetScoreSupported },
-    { "is_get_score_supported", bridge::leaderboards::isGetScoreSupported },
-    { "is_get_entries_supported", bridge::leaderboards::isGetEntriesSupported },
+    { "type", bridge::leaderboards::type },
     { "set_score", bridge::leaderboards::setScore },
-    { "get_score", bridge::leaderboards::getScore },
     { "get_entries", bridge::leaderboards::getEntries },
-    { "show_native_popup", bridge::leaderboards::showNativePopup },
     { 0, 0 }
 };
 
@@ -171,7 +164,7 @@ static void LuaInit(lua_State* L) {
 
         lua_pushstring(L, "storage"); // create storage table
         lua_newtable(L);
-        luaL_register(L, NULL, store_methods);
+        luaL_register(L, NULL, storage_methods);
         lua_settable(L, -3);
 
         lua_pushstring(L, "advertisement"); // create advertisement table
@@ -220,7 +213,7 @@ static void LuaInit(lua_State* L) {
 }
 
 dmExtension::Result InitializeMyExtension(dmExtension::Params* params) {
-    // Init LuaÍ
+    // Init Lua
     LuaInit(params->m_L);
     printf("Registered %s Extension\n", MODULE_NAME);
     return dmExtension::RESULT_OK;
