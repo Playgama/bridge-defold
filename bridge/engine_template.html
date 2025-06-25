@@ -128,6 +128,14 @@
       script.onload = function () {
         bridge.initialize(bridgeOptions)
           .then(() => {
+            if (ProgressUpdater) {
+              bridge.game.setLoadingProgress(0)
+            
+              ProgressUpdater.addListener((progress) => {
+                bridge.game.setLoadingProgress(progress);
+              });
+            }            
+
             var runningFromFileWarning = document.getElementById("running-from-file-warning");
             if (window.location.href.startsWith("file://")) {
               runningFromFileWarning.style.display = "block";
