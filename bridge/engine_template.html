@@ -101,32 +101,8 @@
       var script = document.createElement("script");
       script.type = "text/javascript";
       script.src = "./playgama-bridge.js";
-
-      let bridgeOptions = {
-        "platforms": {
-          "game_distribution": {
-            {{#bridge.game_distribution_game_id}}gameId: "{{bridge.game_distribution_game_id}}",{{/bridge.game_distribution_game_id}}
-          },
-          "telegram": {
-            {{#bridge.adsgram_block_id}}adsgramBlockId: "{{bridge.adsgram_block_id}}",{{/bridge.adsgram_block_id}}
-          },
-          "y8": {
-            {{#bridge.y8_game_id}}gameId: "{{bridge.y8_game_id}}",{{/bridge.y8_game_id}}
-            {{#bridge.y8_adsense_id}}adsenseId: "{{bridge.y8_adsense_id}}",{{/bridge.y8_adsense_id}}
-            {{#bridge.y8_channel_id}}channelId: "{{bridge.y8_channel_id}}",{{/bridge.y8_channel_id}}
-          },
-          "lagged": {
-            {{#bridge.lagged_dev_id}}devId: "{{bridge.lagged_dev_id}}",{{/bridge.lagged_dev_id}}
-            {{#bridge.lagged_publisher_id}}publisherId: "{{bridge.lagged_publisher_id}}",{{/bridge.lagged_publisher_id}}
-          },
-          "facebook": {
-            {{#bridge.facebook_placement_id}}placementId: "{{bridge.facebook_placement_id}}",{{/bridge.facebook_placement_id}}
-          }
-        }
-      }
-
       script.onload = function () {
-        bridge.initialize(bridgeOptions)
+        bridge.initialize()
           .then(() => {
             if (ProgressUpdater) {
               bridge.game.setLoadingProgress(0)
