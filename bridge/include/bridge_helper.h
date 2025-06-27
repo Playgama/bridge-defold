@@ -20,6 +20,7 @@ using BooleanStringFunction = bool(const char*);
 using CallbacksFunction = void(UniversalHandler, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
 using CallbacksWithStringFunction = void(UniversalHandler, const char* option, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
 using OnFunction = void(OnHandler handler, const char* eventName, dmScript::LuaCallbackInfo* onSuccess);
+using LeaderboardsSetScoreFunction = void(UniversalHandler handler, const char* id, int score, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
 using StorageFunction = void(UniversalHandler handler, const char* json, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure, const char* storageType);
 
 int getString(lua_State* L, StringFunction func);
@@ -29,6 +30,7 @@ int makeCallback(lua_State* L, CallbacksFunction func, bool isRequiredFirstCallb
 int makeCallbackWithString(lua_State* L, CallbacksWithStringFunction func, bool isRequiredFirstCallback);
 int makeCallbackWithJson(lua_State* L, CallbacksWithStringFunction func, bool isRequiredFirstCallback);
 int makeCallbackStorage(lua_State* L, StorageFunction func, bool isRequiredFirstCallback);
+int makeCallbackLeaderboardsSetScore(lua_State* L, LeaderboardsSetScoreFunction func, bool isRequiredFirstCallback);
 int makeOnCallback(lua_State* L, OnFunction func);
 
 

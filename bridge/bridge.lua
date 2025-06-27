@@ -5,7 +5,7 @@ if not _bridge then
 	bridge.remote_config = require "bridge.bridge_remote_config"
 	bridge.payments = require "bridge.bridge_payments"
 	bridge.achievements = require "bridge.bridge_achievements"
-	bridge.leaderboard = require "bridge.bridge_leaderboard"
+	bridge.leaderboards = require "bridge.bridge_leaderboards"
 	bridge.social = require "bridge.bridge_social"
 	bridge.device = require "bridge.bridge_device" 
 	bridge.player = require "bridge.bridge_player"
@@ -24,12 +24,10 @@ bridge.EVENT_NAME = {
 	VISIBILITY_STATE_CHANGED = "visibility_state_changed",
 }
 
-
 bridge.VISIBILITY_STATE = {
 	VISIBLE = "visible",
 	HIDDEN = "hidden",
 }
-
 
 bridge.INTERSTITIAL_STATE = {
 	LOADING = "loading",
@@ -38,7 +36,6 @@ bridge.INTERSTITIAL_STATE = {
 	FAILED = "failed",
 }
 
-
 bridge.REWARDED_STATE = {
 	LOADING = "loading",
 	OPENED = "opened",
@@ -46,7 +43,6 @@ bridge.REWARDED_STATE = {
 	CLOSED = "closed",
 	FAILED = "failed",
 }
-
 
 bridge.BANNER_STATE = {
 	LOADING = "loading",
@@ -59,7 +55,6 @@ bridge.STORAGE_TYPE = {
 	LOCAL_STORAGE = "local_storage",
 	PLATFORM_INTERNAL = "platform_internal",
 }
-
 
 bridge.DEVICE_TYPE = {
 	DESKTOP = "desktop",
@@ -76,6 +71,12 @@ bridge.PLATFORM_MESSAGE = {
 	GAMEPLAY_STOPPED = "gameplay_stopped",
 	PLAYER_GOT_ACHIEVEMENT = "player_got_achievement",
 	GAME_OVER = "game_over",
+}
+
+bridge.LEADERBOARD_TYPE = {
+	NOT_AVAILABLE = "not_available",
+	IN_GAME = "in_game",
+	NATIVE = "native",
 }
 
 return bridge

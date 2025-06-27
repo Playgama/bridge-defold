@@ -173,4 +173,27 @@ int makeCallbackStorage(lua_State* L, StorageFunction func, bool isRequiredFirst
     return 0;
 }
 
+int makeCallbackLeaderboardsSetScore(lua_State* L, LeaderboardsSetScoreFunction func, bool isRequiredFirstCallback) {
+    DM_LUA_STACK_CHECK(L, 0);
+
+    size_t len;
+    const char* id = luaL_checklstring(L, 1, &len);
+    int score = luaL_checkinteger(L, 2);
+
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    if (isRequiredFirstCallback) {
+        onSuccess = dmScript::CreateCallback(L, 3);
+    } else if (lua_isfunction(L, 3)) {
+        onSuccess = dmScript::CreateCallback(L, 3);
+    }
+
+    if (lua_isfunction(L, 4))
+        onFailure = dmScript::CreateCallback(L, 4);
+
+    func((UniversalHandler)cppUniversalHandler, id, score, onSuccess, onFailure);
+    return 0;
+}
+
 #endif
