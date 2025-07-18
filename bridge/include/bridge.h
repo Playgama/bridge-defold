@@ -42,11 +42,13 @@ namespace bridge {
         int hideBanner(lua_State* L);
 
         // Interstitial
+        int isInterstitialSupported(lua_State* L);
         int minimumDelayBetweenInterstitial(lua_State* L);
         int setMinimumDelayBetweenInterstitial(lua_State* L);
         int interstitialState(lua_State* L);
         int showInterstitial(lua_State* L);
 
+        int isRewardedSupported(lua_State* L);
         int showRewarded(lua_State* L);
         int rewardedState(lua_State* L);
         int rewardedPlacement(lua_State* L);
