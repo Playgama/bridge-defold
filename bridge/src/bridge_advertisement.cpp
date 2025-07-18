@@ -38,6 +38,10 @@ int bridge::advertisement::hideBanner(lua_State* L) {
 #pragma region
 
 #pragma region Interstitial
+int bridge::advertisement::isInterstitialSupported(lua_State* L) {
+    return getBoolean(L, js_bridge_advertisement_isInterstitialSupported);
+}
+
 int bridge::advertisement::showInterstitial(lua_State* L) {
     DM_LUA_STACK_CHECK(L, 0);
 
@@ -69,6 +73,10 @@ int bridge::advertisement::interstitialState(lua_State* L) {
 #pragma endregion
 
 #pragma region Rewarded
+int bridge::advertisement::isRewardedSupported(lua_State* L) {
+    return getBoolean(L, js_bridge_advertisement_isRewardedSupported);
+}
+
 int bridge::advertisement::rewardedState(lua_State* L) {
     return getString(L, js_bridge_advertisement_rewardedState);
 }

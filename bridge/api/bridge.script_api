@@ -227,7 +227,21 @@
     
     - name: is_banner_supported
       type: function
-      desc: Check if the platform supports displaying banner ads. Use this to determine if you can include banner advertisements in your game
+      desc: Check if the platform supports displaying banner ads. Use this to determine if you can include banner advertisements in your game.
+      returns:
+        - name: result
+          type: string
+
+    - name: is_interstitial_supported
+      type: function
+      desc: Check if the platform supports displaying interstitial ads. Use this to determine if you can include interstitial advertisements in your game.
+      returns:
+        - name: result
+          type: string
+
+    - name: is_rewarded_supported
+      type: function
+      desc: Check if the platform supports displaying rewarded ads. Use this to determine if you can include rewarded advertisements in your game.
       returns:
         - name: result
           type: string

@@ -24,6 +24,10 @@ let js_bridge_advertisement = {
     // #endregion
 
     // #region Interstitial
+    js_bridge_advertisement_isInterstitialSupported: function () {
+        return bridge.advertisement.isInterstitialSupported;
+    },
+
     js_bridge_advertisement_minimumDelayBetweenInterstitial: function() {
         return bridge.advertisement.minimumDelayBetweenInterstitial;
     },
@@ -42,6 +46,10 @@ let js_bridge_advertisement = {
     // #endregion
 
     // #region Rewarded
+    js_bridge_advertisement_isRewardedSupported: function () {
+        return bridge.advertisement.isRewardedSupported;
+    },
+
     js_bridge_advertisement_rewardedState: function() {
         return CStrOrNull(bridge.advertisement.rewardedState);
     },

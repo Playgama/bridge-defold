@@ -20,6 +20,8 @@ extern "C" {
 #pragma region
 
 #pragma region Interstitial
+    bool js_bridge_advertisement_isInterstitialSupported();
+
     int js_bridge_advertisement_minimumDelayBetweenInterstitial();
 
     void js_bridge_advertisement_setMinimumDelayBetweenInterstitial(int delay);
@@ -30,6 +32,8 @@ extern "C" {
 #pragma endregion
 
 #pragma region Rewarded
+    bool js_bridge_advertisement_isRewardedSupported();
+
     char* js_bridge_advertisement_rewardedState();
 
     char* js_bridge_advertisement_rewardedPlacement();
