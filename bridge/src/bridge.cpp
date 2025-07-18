@@ -45,12 +45,14 @@ static const luaL_reg advertisement_methods[] = {
     { "on", bridge::advertisement::on },
 
     // Interstitial
+    { "is_interstitial_supported", bridge::advertisement::isInterstitialSupported },
     { "show_interstitial", bridge::advertisement::showInterstitial },
     { "minimum_delay_between_interstitial", bridge::advertisement::minimumDelayBetweenInterstitial },
     { "set_minimum_delay_between_interstitial", bridge::advertisement::setMinimumDelayBetweenInterstitial },
     { "interstitial_state", bridge::advertisement::interstitialState },
 
     // Rewarded
+    { "is_rewarded_supported", bridge::advertisement::isRewardedSupported },
     { "rewarded_state", bridge::advertisement::rewardedState },
     { "rewarded_placement", bridge::advertisement::rewardedPlacement },
     { "show_rewarded", bridge::advertisement::showRewarded },
