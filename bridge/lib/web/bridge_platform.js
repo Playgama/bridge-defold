@@ -1,4 +1,10 @@
 let js_bridge_platform = {
+    js_bridge_platform_on: function (handler, event_name, callback) {
+        bridge.platform.on(UTF8ToString(event_name), state => {
+            {{{ makeDynCall('vii', 'handler') }}} (callback, packToJson(state));
+        });
+    },
+
     js_bridge_platform_id: function () {
         return CStrOrNull(bridge.platform.id);
     },
@@ -33,6 +39,10 @@ let js_bridge_platform = {
             .catch(error => {
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
             })
+    },
+
+    js_bridge_platform_isAudioEnabled: function () {
+        return bridge.platform.isAudioEnabled;
     },
 
     js_bridge_platform_isGetAllGamesSupported: function () {

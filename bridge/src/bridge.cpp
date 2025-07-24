@@ -7,12 +7,14 @@
 
 // Functions exposed to Lua
 static const luaL_reg platform_methods[] = {
+    { "on", bridge::platform::on },
     { "id", bridge::platform::id },
     { "language", bridge::platform::language },
     { "payload", bridge::platform::payload },
     { "tld", bridge::platform::tld },
     { "send_message", bridge::platform::sendMessage },
     { "get_server_time", bridge::platform::getServerTime },
+    { "is_audio_enabled", bridge::platform::isAudioEnabled },
     { "is_get_all_games_supported", bridge::platform::isGetAllGamesSupported },
     { "is_get_game_by_id_supported", bridge::platform::isGetGameByIdSupported },
     { "get_all_games", bridge::platform::getAllGames },

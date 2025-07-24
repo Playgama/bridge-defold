@@ -6,6 +6,10 @@
 #if defined(DM_PLATFORM_HTML5)
 
 extern "C" {
+    void js_bridge_platform_on(OnHandler handler,
+        const char* eventName,
+        dmScript::LuaCallbackInfo* callback);
+    
     char* js_bridge_platform_id();
 
     char* js_bridge_platform_language();
@@ -23,6 +27,8 @@ extern "C" {
                                         dmScript::LuaCallbackInfo* success,
                                         dmScript::LuaCallbackInfo* failure);
 
+    bool js_bridge_platform_isAudioEnabled();
+    
     bool js_bridge_platform_isGetAllGamesSupported();
 
     void js_bridge_platform_getAllGames(UniversalHandler handler,

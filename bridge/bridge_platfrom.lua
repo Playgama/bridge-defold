@@ -3,6 +3,10 @@ local platform = {}
 -- Local variables
 local sysinfo = sys.get_sys_info()
 
+function platform.on(event_name, callback)
+
+end
+
 function platform.language()
 	return sysinfo.device_language
 end
@@ -27,6 +31,10 @@ end
 
 function platform.get_server_time(on_success, on_failure)
 	on_success(nil, os.time())
+end
+
+function platform.is_audio_enabled()
+	return true
 end
 
 function platform.is_get_all_games_supported()
