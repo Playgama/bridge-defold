@@ -68,6 +68,10 @@ function advertisement.on(event_name, callback)
 end
 
 -- Interstitial
+function advertisement.is_interstitial_supported()
+	return true
+end
+
 function advertisement.minimum_delay_between_interstitial()
 	return delay_between_interstitial
 end
@@ -97,6 +101,10 @@ function advertisement.show_interstitial(placement)
 end
 
 -- Rewarded
+function advertisement.is_rewarded_supported()
+	return true
+end
+
 function advertisement.rewarded_state()
 	return rewarded_state
 end

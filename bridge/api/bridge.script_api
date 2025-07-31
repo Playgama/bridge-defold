@@ -10,6 +10,17 @@
     type: table
     desc: At any time, you can retrieve values for specific parameters that you might use in your game, such as the user's browser language.
     members:
+    - name: on
+      type: function
+      desc: State changed events.
+      parameters:
+        - name: event_name
+          type: string
+
+        - name: callback
+          type: function
+          desc: function(_, state)
+
     - name: id
       type: function
       desc: Identify the platform on which the game is currently running to customize features and settings accordingly.
@@ -62,6 +73,13 @@
         - name: on_failure
           type: function
           desc: function(_, error)
+
+    - name: is_audio_enabled
+      type: function
+      desc: Check if the audio is enabled on the platform.
+      returns:
+        - name: result
+          type: boolean
 
     - name: is_get_all_games_supported
       type: function
@@ -227,14 +245,28 @@
     
     - name: is_banner_supported
       type: function
-      desc: Check if the platform supports displaying banner ads. Use this to determine if you can include banner advertisements in your game
+      desc: Check if the platform supports displaying banner ads. Use this to determine if you can include banner advertisements in your game.
+      returns:
+        - name: result
+          type: string
+
+    - name: is_interstitial_supported
+      type: function
+      desc: Check if the platform supports displaying interstitial ads. Use this to determine if you can include interstitial advertisements in your game.
+      returns:
+        - name: result
+          type: string
+
+    - name: is_rewarded_supported
+      type: function
+      desc: Check if the platform supports displaying rewarded ads. Use this to determine if you can include rewarded advertisements in your game.
       returns:
         - name: result
           type: string
 
     - name: on
       type: function
-      desc: Check if the game tab is visible or hidden, and adjust game behavior accordingly, such as muting sound when hidden.
+      desc: State changed events.
       parameters:
         - name: event_name
           type: string

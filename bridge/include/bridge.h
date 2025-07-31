@@ -4,6 +4,8 @@
 
 namespace bridge {
     namespace platform {
+        int on(lua_State* L);
+        
         int id(lua_State* L);
         int language(lua_State* L);
         int tld(lua_State* L);
@@ -11,6 +13,8 @@ namespace bridge {
 
         int sendMessage(lua_State* L);
         int getServerTime(lua_State* L);
+
+        int isAudioEnabled(lua_State* L);
 
         int isGetAllGamesSupported(lua_State* L);
         int isGetGameByIdSupported(lua_State* L);
@@ -42,11 +46,13 @@ namespace bridge {
         int hideBanner(lua_State* L);
 
         // Interstitial
+        int isInterstitialSupported(lua_State* L);
         int minimumDelayBetweenInterstitial(lua_State* L);
         int setMinimumDelayBetweenInterstitial(lua_State* L);
         int interstitialState(lua_State* L);
         int showInterstitial(lua_State* L);
 
+        int isRewardedSupported(lua_State* L);
         int showRewarded(lua_State* L);
         int rewardedState(lua_State* L);
         int rewardedPlacement(lua_State* L);

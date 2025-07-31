@@ -7,12 +7,14 @@
 
 // Functions exposed to Lua
 static const luaL_reg platform_methods[] = {
+    { "on", bridge::platform::on },
     { "id", bridge::platform::id },
     { "language", bridge::platform::language },
     { "payload", bridge::platform::payload },
     { "tld", bridge::platform::tld },
     { "send_message", bridge::platform::sendMessage },
     { "get_server_time", bridge::platform::getServerTime },
+    { "is_audio_enabled", bridge::platform::isAudioEnabled },
     { "is_get_all_games_supported", bridge::platform::isGetAllGamesSupported },
     { "is_get_game_by_id_supported", bridge::platform::isGetGameByIdSupported },
     { "get_all_games", bridge::platform::getAllGames },
@@ -45,12 +47,14 @@ static const luaL_reg advertisement_methods[] = {
     { "on", bridge::advertisement::on },
 
     // Interstitial
+    { "is_interstitial_supported", bridge::advertisement::isInterstitialSupported },
     { "show_interstitial", bridge::advertisement::showInterstitial },
     { "minimum_delay_between_interstitial", bridge::advertisement::minimumDelayBetweenInterstitial },
     { "set_minimum_delay_between_interstitial", bridge::advertisement::setMinimumDelayBetweenInterstitial },
     { "interstitial_state", bridge::advertisement::interstitialState },
 
     // Rewarded
+    { "is_rewarded_supported", bridge::advertisement::isRewardedSupported },
     { "rewarded_state", bridge::advertisement::rewardedState },
     { "rewarded_placement", bridge::advertisement::rewardedPlacement },
     { "show_rewarded", bridge::advertisement::showRewarded },
