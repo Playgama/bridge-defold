@@ -716,6 +716,19 @@
           type: function
           desc: function(_, error)
 
+    - name: show_native_popup
+      type: function
+      desc: Show native popup leaderboard.
+      parameters:
+        - name: id
+          type: string
+        - name: on_success
+          type: function
+          desc: function()
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
 
 
 
