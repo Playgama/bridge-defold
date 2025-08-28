@@ -22,6 +22,16 @@ let js_bridge_leaderboards = {
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
             })
     },
+
+    js_bridge_leaderboards_showNativePopup: function (handler, id, onSuccess, onFailure) {
+        bridge.leaderboards.showNativePopup(UTF8ToString(id))
+            .then(() => {
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
+            })
+            .catch(error => {
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
+            })
+    },
 }
 
 mergeInto(LibraryManager.library, js_bridge_leaderboards);
