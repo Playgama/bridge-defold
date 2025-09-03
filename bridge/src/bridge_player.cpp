@@ -18,6 +18,14 @@ int bridge::player::name(lua_State* L) {
     return getString(L, js_bridge_player_name);
 }
 
+int bridge::player::extra(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    char* extraJson = js_bridge_player_extra();
+    dmScript::JsonToLua(L, extraJson, strlen(extraJson));
+    free(extraJson);
+    return 1;
+}
+
 int bridge::player::photos(lua_State* L) {
     DM_LUA_STACK_CHECK(L, 1);
     char* photosJson = js_bridge_player_photos();

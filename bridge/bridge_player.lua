@@ -16,6 +16,10 @@ function player.name()
 	return nil
 end
 
+function player.extra()
+	return {}
+end
+
 function player.photos()
 	return {}
 end

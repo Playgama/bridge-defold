@@ -15,6 +15,10 @@ let js_bridge_player = {
         return CStrOrNull(bridge.player.name);
     },
 
+    js_bridge_player_extra: function () {
+        return CStrOrNull(bridge.player.extra);
+    },
+
     js_bridge_player_photos: function () {
         return CStrOrNull(bridge.player.photos);
     },

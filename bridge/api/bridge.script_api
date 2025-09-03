@@ -374,6 +374,13 @@
       returns:
         - name: result
           type: string | nil
+
+    - name: extra
+      type: function
+      desc: Get the extra information about player.
+      returns:
+        - name: result
+          type: table
     
     - name: photos
       type: function
