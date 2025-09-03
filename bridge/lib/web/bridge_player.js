@@ -16,11 +16,11 @@ let js_bridge_player = {
     },
 
     js_bridge_player_extra: function () {
-        return CStrOrNull(bridge.player.extra);
+        return packToJson(bridge.player.extra);
     },
 
     js_bridge_player_photos: function () {
-        return CStrOrNull(bridge.player.photos);
+        return packToJson(bridge.player.photos);
     },
 
     js_bridge_player_authorize: function (handler, options, onSuccess, onFailure) {
