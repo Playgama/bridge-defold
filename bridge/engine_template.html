@@ -102,6 +102,7 @@
       script.type = "text/javascript";
       script.src = "./playgama-bridge.js";
       script.onload = function () {
+        bridge.engine = 'defold'
         bridge.initialize()
           .then(() => {
             if (ProgressUpdater) {

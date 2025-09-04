@@ -15,8 +15,12 @@ let js_bridge_player = {
         return CStrOrNull(bridge.player.name);
     },
 
+    js_bridge_player_extra: function () {
+        return packToJson(bridge.player.extra);
+    },
+
     js_bridge_player_photos: function () {
-        return CStrOrNull(bridge.player.photos);
+        return packToJson(bridge.player.photos);
     },
 
     js_bridge_player_authorize: function (handler, options, onSuccess, onFailure) {

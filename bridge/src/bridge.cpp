@@ -72,6 +72,7 @@ static const luaL_reg device_methods[] = {
 static const luaL_reg player_methods[] = {
     { "id", bridge::player::id },
     { "name", bridge::player::name },
+    { "extra", bridge::player::extra },
     { "photos", bridge::player::photos },
     { "is_authorization_supported", bridge::player::isAuthorizationSupported },
     { "is_authorized", bridge::player::isAuthorized },
@@ -117,6 +118,7 @@ static const luaL_reg leaderboards_methods[] = {
     { "type", bridge::leaderboards::type },
     { "set_score", bridge::leaderboards::setScore },
     { "get_entries", bridge::leaderboards::getEntries },
+    { "show_native_popup", bridge::leaderboards::showNativePopup },
     { 0, 0 }
 };
 

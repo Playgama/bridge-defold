@@ -13,6 +13,8 @@ extern "C" {
 
     char* js_bridge_player_name();
 
+    char* js_bridge_player_extra();
+
     char* js_bridge_player_photos();
 
     void js_bridge_player_authorize(UniversalHandler handler,
