@@ -1,7 +1,7 @@
 local storage = {}
 
 -- Local variables
-local app_name = sys.get_config_string("title", "defold_game")
+local app_name = sys.get_config_string("project.title", "defold_game")
 local path_to_save_file = sys.get_save_file(app_name, "bridge_storage_data")
 local load_data = {}
 
