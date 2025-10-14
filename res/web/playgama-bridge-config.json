@@ -16,15 +16,34 @@
             "devId": "",
             "publisherId": ""
         },
+        "huawei": {
+            "appId": ""
+        },
         "msn": {
             "gameId": ""
         },
-        "discord" : {
+        "discord": {
             "appId": ""
         },
         "gamepush": {
             "projectId": "",
             "publicToken": ""
+        },
+        "crazy_games": {
+            "xsollaProjectId": "",
+            "isSandbox": false,
+            "useUserToken": false
+        },
+        "facebook": {
+            "subscribeForNotificationsOnStart": true,
+            "sendAnalyticsEvents": false
+        },
+        "yandex": {
+            "useSignedData": false,
+            "sendAnalyticsEvents": false
+        },
+        "youtube": {
+            "sendAnalyticsEvents": false
         }
     },
     "advertisement": {
@@ -38,5 +57,6 @@
         "backfillId": ""
     },
     "payments": [],
-    "leaderboards": []
+    "leaderboards": [],
+    "sendAnalyticsEvents": true
 }
