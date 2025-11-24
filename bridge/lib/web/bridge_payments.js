@@ -3,8 +3,10 @@ let js_bridge_payments = {
         return bridge.payments.isSupported;
     },
 
-    js_bridge_payments_purchase: function (handler, id, onSuccess, onFailure) {
-        bridge.payments.purchase(UTF8ToString(id))
+    js_bridge_payments_purchase: function (handler, id, options, onSuccess, onFailure) {
+        var productId = UTF8ToString(id);
+        var jsOptions = options ? JSON.parse(UTF8ToString(options)) : undefined;
+        bridge.payments.purchase(productId, jsOptions)
             .then(purchase => {
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(purchase));
             })

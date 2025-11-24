@@ -4,7 +4,7 @@ function payments.is_supported()
 	return false
 end
 
-function payments.purchase(id, on_success, on_failure)
+function payments.purchase(id, options, on_success, on_failure)
 	if on_failure then
 		on_failure()
 	end
