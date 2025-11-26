@@ -147,8 +147,8 @@ int makeCallbackWithStringAndJson(lua_State* L, CallbacksWithStringAndJsonFuncti
     if (lua_istable(L, 2)) {
         size_t json_len;
         lua_pushvalue(L, 2);
+        lua_replace(L, 1);
         dmScript::LuaToJson(L, &json, &json_len);
-        lua_pop(L, 1);
     }
 
     dmScript::LuaCallbackInfo* onSuccess = NULL;
