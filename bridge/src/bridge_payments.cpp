@@ -7,7 +7,7 @@ int bridge::payments::isSupported(lua_State* L) {
 }
 
 int bridge::payments::purchase(lua_State* L) {
-    return makeCallbackWithString(L, js_bridge_payments_purchase, true);
+    return makeCallbackWithStringAndJson(L, js_bridge_payments_purchase, true);
 }
 
 int bridge::payments::consumePurchase(lua_State* L) {

@@ -137,6 +137,41 @@ int makeCallbackWithJson(lua_State* L, CallbacksWithStringFunction func, bool is
     return 0;
 }
 
+int makeCallbackWithStringAndJson(lua_State* L, CallbacksWithStringAndJsonFunction func, bool isRequiredFirstCallback) {
+    DM_LUA_STACK_CHECK(L, 0);
+
+    size_t len;
+    const char* id = luaL_checklstring(L, 1, &len);
+    char* json = NULL;
+    
+    if (lua_istable(L, 2)) {
+        size_t json_len;
+        lua_pushvalue(L, 2);
+        lua_replace(L, 1);
+        dmScript::LuaToJson(L, &json, &json_len);
+    }
+
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    if (isRequiredFirstCallback) {
+        onSuccess = dmScript::CreateCallback(L, 3);
+    } else if (lua_isfunction(L, 3)) {
+        onSuccess = dmScript::CreateCallback(L, 3);
+    }
+
+    if (lua_isfunction(L, 4))
+        onFailure = dmScript::CreateCallback(L, 4);
+
+    func((UniversalHandler)cppUniversalHandler, id, json, onSuccess, onFailure);
+
+    if (json) {
+        free(json);
+    }
+
+    return 0;
+}
+
 int getBooleanWithString(lua_State* L, BooleanStringFunction func) {
     DM_LUA_STACK_CHECK(L, 1);
     const char* lstring = luaL_checkstring(L, 1);

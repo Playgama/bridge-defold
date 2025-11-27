@@ -9,6 +9,7 @@ extern "C" {
 
     void js_bridge_payments_purchase(UniversalHandler handler,
                                      const char* id,
+                                     const char* json,
                                      dmScript::LuaCallbackInfo* onSuccess,
                                      dmScript::LuaCallbackInfo* onFailure);
 
