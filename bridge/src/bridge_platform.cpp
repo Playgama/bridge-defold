@@ -28,7 +28,36 @@ int bridge::platform::getServerTime(lua_State* L) {
 }
 
 int bridge::platform::sendMessage(lua_State* L) {
-    return makeCallbackWithString(L, js_bridge_platform_sendMessage, false);
+    DM_LUA_STACK_CHECK(L, 0);
+    size_t len;
+    const char* message = luaL_checklstring(L, 1, &len);
+    char* json = NULL;
+
+    int callbackIndex = 2;
+    if (lua_istable(L, 2)) {
+        size_t json_len;
+        lua_pushvalue(L, 2);
+        lua_replace(L, 1);
+        dmScript::LuaToJson(L, &json, &json_len);
+        callbackIndex = 3;
+    }
+
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    if (lua_isfunction(L, callbackIndex))
+        onSuccess = dmScript::CreateCallback(L, callbackIndex);
+
+    if (lua_isfunction(L, callbackIndex + 1))
+        onFailure = dmScript::CreateCallback(L, callbackIndex + 1);
+
+    js_bridge_platform_sendMessage((UniversalHandler)cppUniversalHandler, message, json, onSuccess, onFailure);
+
+    if (json) {
+        free(json);
+    }
+
+    return 0;
 }
 
 int bridge::platform::isAudioEnabled(lua_State* L) {
