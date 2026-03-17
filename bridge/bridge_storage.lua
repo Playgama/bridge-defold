@@ -26,42 +26,41 @@ function storage.is_available(storage_type)
 end
 
 function storage.get(table_keys, on_success, on_failure, storage_type)
-	load_data = sys.load(path_to_save_file)
+	load_data = sys.load(path_to_save_file) or {}
 
 	local game_data = {}
 
-	for k, v in pairs(table_keys) do
-		if load_data[v] then
-			game_data[v] = load_data[v]
+	for _, key in ipairs(table_keys) do
+		if load_data[key] ~= nil then
+			game_data[key] = load_data[key]
 		end
 	end
 	if on_success then
-		on_success(_, game_data)
+		on_success(nil, game_data)
 	end
-	
 end
 
 function storage.set(table_data, on_success, on_failure, storage_type)
+	load_data = sys.load(path_to_save_file) or {}
+
 	for k, v in pairs(table_data) do
-		if not load_data[k] then
-			load_data[k] = v
-		end
+		load_data[k] = v
 	end
 	sys.save(path_to_save_file, load_data)
-	
 	if on_success then
 		on_success()
 	end
 end
 
 function storage.delete(table_keys, on_success, on_failure, storage_type)
-	for k, v in pairs(table_keys) do
-		if load_data[v] then
-			load_data[v] = nil
+	load_data = sys.load(path_to_save_file) or {}
+
+	for _, key in ipairs(table_keys) do
+		if load_data[key] ~= nil then
+			load_data[key] = nil
 		end
 	end
 	sys.save(path_to_save_file, load_data)
-	
 	if on_success then
 		on_success()
 	end

@@ -72,7 +72,11 @@ bridge.PLATFORM_MESSAGE = {
 	GAMEPLAY_STARTED = "gameplay_started",
 	GAMEPLAY_STOPPED = "gameplay_stopped",
 	PLAYER_GOT_ACHIEVEMENT = "player_got_achievement",
-	GAME_OVER = "game_over",
+	LEVEL_STARTED = "level_started",
+	LEVEL_PAUSED = "level_paused",
+	LEVEL_RESUMED = "level_resumed",
+	LEVEL_COMPLETED = "level_completed",
+	LEVEL_FAILED = "level_failed",
 }
 
 bridge.LEADERBOARD_TYPE = {

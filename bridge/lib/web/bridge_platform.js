@@ -21,8 +21,10 @@ let js_bridge_platform = {
         return CStrOrNull(bridge.platform.tld);
     },
 
-    js_bridge_platform_sendMessage: function (handler, message, onSuccess, onFailure) {
-        bridge.platform.sendMessage(UTF8ToString(message))
+    js_bridge_platform_sendMessage: function (handler, message, options, onSuccess, onFailure) {
+        var jsMessage = UTF8ToString(message);
+        var jsOptions = options ? JSON.parse(UTF8ToString(options)) : undefined;
+        bridge.platform.sendMessage(jsMessage, jsOptions)
             .then(() => {
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
             })

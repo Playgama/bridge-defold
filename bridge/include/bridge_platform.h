@@ -20,6 +20,7 @@ extern "C" {
 
     void js_bridge_platform_sendMessage(UniversalHandler handler,
                                         const char* eventName,
+                                        const char* json,
                                         dmScript::LuaCallbackInfo* success,
                                         dmScript::LuaCallbackInfo* failure);
 

@@ -11,3 +11,4 @@ builtins
 /.editor_settings
 *.der
 .vscode
+.claude

@@ -23,7 +23,11 @@ function platform.tld()
 	return nil
 end
 
-function platform.send_message(message, on_success, on_failure)
+function platform.send_message(message, options, on_success, on_failure)
+	if type(options) == "function" then
+		on_failure = on_success
+		on_success = options
+	end
 	if on_success then
 		on_success()
 	end
