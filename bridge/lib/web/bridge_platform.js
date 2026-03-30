@@ -33,6 +33,18 @@ let js_bridge_platform = {
             })
     },
 
+    js_bridge_platform_sendCustomMessage: function (handler, id, options, onSuccess, onFailure) {
+        var jsId = UTF8ToString(id);
+        var jsOptions = options ? JSON.parse(UTF8ToString(options)) : undefined;
+        bridge.platform.sendCustomMessage(jsId, jsOptions)
+            .then(() => {
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
+            })
+            .catch(error => {
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
+            })
+    },
+
     js_bridge_platform_getServerTime: function (handler, onSuccess, onFailure) {
         bridge.platform.getServerTime()
             .then(result => {

@@ -12,6 +12,7 @@ namespace bridge {
         int payload(lua_State* L);
 
         int sendMessage(lua_State* L);
+        int sendCustomMessage(lua_State* L);
         int getServerTime(lua_State* L);
 
         int isAudioEnabled(lua_State* L);
