@@ -41,6 +41,16 @@ extern "C" {
     void js_bridge_advertisement_showRewarded(const char* placement);
 #pragma endregion
 
+#pragma region Advanced Banners
+    bool js_bridge_advertisement_isAdvancedBannersSupported();
+
+    char* js_bridge_advertisement_advancedBannersState();
+
+    void js_bridge_advertisement_showAdvancedBanners(const char* placement);
+
+    void js_bridge_advertisement_hideAdvancedBanners();
+#pragma endregion
+
 #pragma region Adblock
     void js_bridge_advertisement_checkAdBlock(UniversalHandler handler,
                                               dmScript::LuaCallbackInfo* onSuccess,
