@@ -62,6 +62,24 @@ let js_bridge_advertisement = {
         bridge.advertisement.showRewarded(UTF8ToString(placement));
     },
 
+    // #region Advanced Banners
+    js_bridge_advertisement_isAdvancedBannersSupported: function () {
+        return bridge.advertisement.isAdvancedBannersSupported;
+    },
+
+    js_bridge_advertisement_advancedBannersState: function() {
+        return CStrOrNull(bridge.advertisement.advancedBannersState);
+    },
+
+    js_bridge_advertisement_showAdvancedBanners: function(placement) {
+        bridge.advertisement.showAdvancedBanners(UTF8ToString(placement));
+    },
+
+    js_bridge_advertisement_hideAdvancedBanners: function() {
+        bridge.advertisement.hideAdvancedBanners();
+    },
+    // #endregion
+
     js_bridge_advertisement_checkAdBlock: function(handler, onSuccess, onFailure) {
         bridge.advertisement.checkAdBlock()
             .then(result => {

@@ -15,6 +15,10 @@ local rewarded_placement = nil
 local rewarded_changed_callback = nil
 local simulate_rewarded_states = {"loading", "opened", "rewarded", "closed"}
 
+local advanced_banners_state = "hidden"
+local advanced_banners_changed_callback = nil
+local simulate_advanced_banners_states = {"loading", "shown"}
+
 local get_state = function(state)
 	return coroutine.wrap(function()
 		for k, v in pairs(state) do
@@ -58,12 +62,15 @@ end
 function advertisement.on(event_name, callback)
 	if event_name == "banner_state_changed" then
 		banner_changed_callback = callback
-		
+
 	elseif event_name == "interstitial_state_changed" then
 		interstitial_changed_callback = callback
-		
+
 	elseif event_name == "rewarded_state_changed" then
 		rewarded_changed_callback = callback
+
+	elseif event_name == "advanced_banners_state_changed" then
+		advanced_banners_changed_callback = callback
 	end
 end
 
@@ -129,6 +136,38 @@ function advertisement.show_rewarded(placement)
 			rewarded_changed_callback(_, rewarded_state)
 		end
 	end)
+end
+
+-- Advanced Banners
+function advertisement.is_advanced_banners_supported()
+	return true
+end
+
+function advertisement.advanced_banners_state()
+	return advanced_banners_state
+end
+
+function advertisement.show_advanced_banners(placement)
+	local getter = get_state(simulate_advanced_banners_states)
+	timer.delay(0.1, true, function(_, handle)
+		local state = getter()
+		if not state then
+			timer.cancel(handle)
+			return
+		end
+
+		advanced_banners_state = state
+		if advanced_banners_changed_callback then
+			advanced_banners_changed_callback(_, advanced_banners_state)
+		end
+	end)
+end
+
+function advertisement.hide_advanced_banners()
+	advanced_banners_state = "hidden"
+	if advanced_banners_changed_callback then
+		advanced_banners_changed_callback(_, advanced_banners_state)
+	end
 end
 
 function advertisement.check_ad_block(on_success, on_failure)

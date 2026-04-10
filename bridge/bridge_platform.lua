@@ -33,6 +33,16 @@ function platform.send_message(message, options, on_success, on_failure)
 	end
 end
 
+function platform.send_custom_message(id, options, on_success, on_failure)
+	if type(options) == "function" then
+		on_failure = on_success
+		on_success = options
+	end
+	if on_success then
+		on_success()
+	end
+end
+
 function platform.get_server_time(on_success, on_failure)
 	on_success(nil, os.time())
 end

@@ -13,6 +13,7 @@ static const luaL_reg platform_methods[] = {
     { "payload", bridge::platform::payload },
     { "tld", bridge::platform::tld },
     { "send_message", bridge::platform::sendMessage },
+    { "send_custom_message", bridge::platform::sendCustomMessage },
     { "get_server_time", bridge::platform::getServerTime },
     { "is_audio_enabled", bridge::platform::isAudioEnabled },
     { "is_get_all_games_supported", bridge::platform::isGetAllGamesSupported },

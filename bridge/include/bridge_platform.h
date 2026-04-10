@@ -24,6 +24,12 @@ extern "C" {
                                         dmScript::LuaCallbackInfo* success,
                                         dmScript::LuaCallbackInfo* failure);
 
+    void js_bridge_platform_sendCustomMessage(UniversalHandler handler,
+                                        const char* id,
+                                        const char* json,
+                                        dmScript::LuaCallbackInfo* success,
+                                        dmScript::LuaCallbackInfo* failure);
+
     void js_bridge_platform_getServerTime(UniversalHandler handler,
                                         dmScript::LuaCallbackInfo* success,
                                         dmScript::LuaCallbackInfo* failure);
