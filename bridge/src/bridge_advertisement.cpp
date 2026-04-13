@@ -97,6 +97,33 @@ int bridge::advertisement::showRewarded(lua_State* L) {
 }
 #pragma endregion
 
+#pragma region Advanced Banners
+int bridge::advertisement::isAdvancedBannersSupported(lua_State* L) {
+    return getBoolean(L, js_bridge_advertisement_isAdvancedBannersSupported);
+}
+
+int bridge::advertisement::advancedBannersState(lua_State* L) {
+    return getString(L, js_bridge_advertisement_advancedBannersState);
+}
+
+int bridge::advertisement::showAdvancedBanners(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+
+    const char* placement = NULL;
+    if (lua_isstring(L, 1))
+        placement = lua_tostring(L, 1);
+
+    js_bridge_advertisement_showAdvancedBanners(placement);
+    return 0;
+}
+
+int bridge::advertisement::hideAdvancedBanners(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    js_bridge_advertisement_hideAdvancedBanners();
+    return 0;
+}
+#pragma endregion
+
 #pragma region Adblock
 
 int bridge::advertisement::checkAdBlock(lua_State* L) {

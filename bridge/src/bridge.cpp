@@ -60,6 +60,12 @@ static const luaL_reg advertisement_methods[] = {
     { "rewarded_placement", bridge::advertisement::rewardedPlacement },
     { "show_rewarded", bridge::advertisement::showRewarded },
 
+    // Advanced Banners
+    { "is_advanced_banners_supported", bridge::advertisement::isAdvancedBannersSupported },
+    { "advanced_banners_state", bridge::advertisement::advancedBannersState },
+    { "show_advanced_banners", bridge::advertisement::showAdvancedBanners },
+    { "hide_advanced_banners", bridge::advertisement::hideAdvancedBanners },
+
     // Ad Block
     { "check_ad_block", bridge::advertisement::checkAdBlock },
     { 0, 0 }

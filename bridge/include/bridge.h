@@ -58,6 +58,12 @@ namespace bridge {
         int rewardedState(lua_State* L);
         int rewardedPlacement(lua_State* L);
 
+        // Advanced Banners
+        int isAdvancedBannersSupported(lua_State* L);
+        int advancedBannersState(lua_State* L);
+        int showAdvancedBanners(lua_State* L);
+        int hideAdvancedBanners(lua_State* L);
+
         // AdBlock
         int checkAdBlock(lua_State* L);
     } // namespace advertisement
