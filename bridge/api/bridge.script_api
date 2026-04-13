@@ -314,7 +314,29 @@
       parameters:
         - name: placement
           type: string
-      
+
+    - name: is_advanced_banners_supported
+      type: function
+      desc: Check if the platform supports displaying advanced banner ads.
+      returns:
+        - name: result
+          type: string
+
+    - name: advanced_banners_state
+      type: function
+      desc: Track the state of the advanced banners to manage ad display and user experience.
+
+    - name: show_advanced_banners
+      type: function
+      desc: Display advanced banners at appropriate moments of the game.
+      parameters:
+        - name: placement
+          type: string
+
+    - name: hide_advanced_banners
+      type: function
+      desc: Hide the currently displayed advanced banners when they are no longer needed.
+
     - name: check_ad_block
       type: function
       desc: Check if the ad blocker is enabled.
