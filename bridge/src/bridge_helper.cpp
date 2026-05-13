@@ -189,7 +189,6 @@ int makeCallbackStorage(lua_State* L, StorageFunction func, bool isRequiredFirst
 
     dmScript::LuaCallbackInfo* onSuccess = NULL;
     dmScript::LuaCallbackInfo* onFailure = NULL;
-    const char* storageType = NULL;
 
     if (isRequiredFirstCallback) {
         onSuccess = dmScript::CreateCallback(L, 2);
@@ -200,10 +199,7 @@ int makeCallbackStorage(lua_State* L, StorageFunction func, bool isRequiredFirst
     if (lua_isfunction(L, 3))
         onFailure = dmScript::CreateCallback(L, 3);
 
-    if (lua_isstring(L, 4))
-        storageType = lua_tostring(L, 4);
-
-    func((UniversalHandler)cppUniversalHandler, json, onSuccess, onFailure, storageType);
+    func((UniversalHandler)cppUniversalHandler, json, onSuccess, onFailure);
     free(json);
     return 0;
 }

@@ -53,11 +53,6 @@ bridge.BANNER_STATE = {
 	FAILED = "failed",
 }
 
-bridge.STORAGE_TYPE = {
-	LOCAL_STORAGE = "local_storage",
-	PLATFORM_INTERNAL = "platform_internal",
-}
-
 bridge.DEVICE_TYPE = {
 	DESKTOP = "desktop",
 	MOBILE = "mobile",

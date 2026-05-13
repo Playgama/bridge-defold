@@ -30,9 +30,6 @@ static const luaL_reg game_methods[] = {
 };
 
 static const luaL_reg storage_methods[] = {
-    { "default_type", bridge::storage::defaultType },
-    { "is_supported", bridge::storage::isSupported },
-    { "is_available", bridge::storage::isAvailable },
     { "get", bridge::storage::get },
     { "set", bridge::storage::set },
     { "delete", bridge::storage::deleteData },

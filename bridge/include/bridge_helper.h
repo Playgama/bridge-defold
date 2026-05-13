@@ -22,7 +22,7 @@ using CallbacksWithStringFunction = void(UniversalHandler, const char* option, d
 using CallbacksWithStringAndJsonFunction = void(UniversalHandler, const char* id, const char* json, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
 using OnFunction = void(OnHandler handler, const char* eventName, dmScript::LuaCallbackInfo* onSuccess);
 using LeaderboardsSetScoreFunction = void(UniversalHandler handler, const char* id, int score, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
-using StorageFunction = void(UniversalHandler handler, const char* json, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure, const char* storageType);
+using StorageFunction = void(UniversalHandler handler, const char* json, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
 
 int getString(lua_State* L, StringFunction func);
 int getBoolean(lua_State* L, BooleanFunction func);
