@@ -30,9 +30,6 @@ namespace bridge {
     } // namespace game
 
     namespace storage {
-        int defaultType(lua_State* L);
-        int isSupported(lua_State* L);
-        int isAvailable(lua_State* L);
         int get(lua_State* L);
         int set(lua_State* L);
         int deleteData(lua_State* L);
