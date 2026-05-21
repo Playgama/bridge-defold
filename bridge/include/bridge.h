@@ -24,11 +24,6 @@ namespace bridge {
         int getGameById(lua_State* L);
     } // namespace platform
 
-    namespace game {
-        int on(lua_State* L);
-        int visibilityState(lua_State* L);
-    } // namespace game
-
     namespace storage {
         int get(lua_State* L);
         int set(lua_State* L);

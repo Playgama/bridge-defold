@@ -142,9 +142,9 @@
                 bridge.initialize()
                     .then(() => {
                         if (ProgressUpdater) {
-                            bridge.game.setLoadingProgress(0)
+                            bridge.setGameLoadingProgress(0)
                             ProgressUpdater.addListener((progress) => {
-                                bridge.game.setLoadingProgress(progress);
+                                bridge.setGameLoadingProgress(progress);
                             });
                         }            
 

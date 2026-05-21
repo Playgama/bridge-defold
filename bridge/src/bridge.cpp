@@ -23,12 +23,6 @@ static const luaL_reg platform_methods[] = {
     { 0, 0 }
 };
 
-static const luaL_reg game_methods[] = {
-    { "on", bridge::game::on },
-    { "visibility_state", bridge::game::visibilityState },
-    { 0, 0 }
-};
-
 static const luaL_reg storage_methods[] = {
     { "get", bridge::storage::get },
     { "set", bridge::storage::set },
@@ -165,11 +159,6 @@ static void LuaInit(lua_State* L) {
         lua_pushstring(L, "platform"); // create platform table
         lua_newtable(L);
         luaL_register(L, NULL, platform_methods);
-        lua_settable(L, -3);
-
-        lua_pushstring(L, "game"); // create game table
-        lua_newtable(L);
-        luaL_register(L, NULL, game_methods);
         lua_settable(L, -3);
 
         lua_pushstring(L, "storage"); // create storage table

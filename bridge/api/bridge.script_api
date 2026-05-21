@@ -120,31 +120,6 @@
           desc: function(_, error)
 
 
-  - name: game
-    type: table
-    desc: Functions and constants for interacting with game
-    members:
-    - name: on
-      type: function
-      desc: Check if the game tab is visible or hidden, and adjust game behavior accordingly, such as muting sound when hidden.
-      parameters:
-        - name: event_name
-          type: string
-
-        - name: callback
-          type: function
-          desc: function(_, state)
-
-    - name: visibility_state
-      type: function
-      desc: Returns the current visibility state of the game (the tab with the game).
-      returns:
-      - name: result
-        type: string
-
-
-
-
   - name: storage
     type: table
     desc: Store and manage player data to enhance gameplay experience and retain progress.
