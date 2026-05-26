@@ -67,6 +67,10 @@ let js_bridge_platform = {
         return bridge.platform.isGetGameByIdSupported;
     },
 
+    js_bridge_platform_isExternalCallsSupported: function () {
+        return bridge.platform.isExternalCallsSupported;
+    },
+
     js_bridge_platform_getAllGames: function (handler, onSuccess, onFailure) {
         bridge.platform.getAllGames()
             .then(result => {
