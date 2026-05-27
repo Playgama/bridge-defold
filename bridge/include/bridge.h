@@ -19,6 +19,7 @@ namespace bridge {
 
         int isGetAllGamesSupported(lua_State* L);
         int isGetGameByIdSupported(lua_State* L);
+        int isExternalCallsSupported(lua_State* L);
 
         int getAllGames(lua_State* L);
         int getGameById(lua_State* L);

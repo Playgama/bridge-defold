@@ -65,6 +65,10 @@ function platform.is_get_game_by_id_supported()
 	return false
 end
 
+function platform.is_external_calls_supported()
+	return true
+end
+
 function platform.get_game_by_id(options, on_success, on_failure)
 	if on_failure then
 		on_failure()
