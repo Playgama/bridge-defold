@@ -9,6 +9,8 @@ extern "C" {
 
     bool js_bridge_player_isAuthorized();
 
+    bool js_bridge_player_isGuest();
+
     char* js_bridge_player_id();
 
     char* js_bridge_player_name();

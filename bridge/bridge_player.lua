@@ -8,6 +8,10 @@ function player.is_authorized()
 	return false
 end
 
+function player.is_guest()
+	return true
+end
+
 function player.id()
 	return nil
 end

@@ -7,6 +7,10 @@ let js_bridge_player = {
         return bridge.player.isAuthorized;
     },
 
+    js_bridge_player_isGuest: function () {
+        return bridge.player.isGuest;
+    },
+
     js_bridge_player_id: function () {
         return CStrOrNull(bridge.player.id);
     },

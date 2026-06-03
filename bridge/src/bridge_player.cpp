@@ -10,6 +10,10 @@ int bridge::player::isAuthorized(lua_State* L) {
     return getBoolean(L, js_bridge_player_isAuthorized);
 }
 
+int bridge::player::isGuest(lua_State* L) {
+    return getBoolean(L, js_bridge_player_isGuest);
+}
+
 int bridge::player::id(lua_State* L) {
     return getString(L, js_bridge_player_id);
 }
