@@ -18,6 +18,7 @@ static const luaL_reg platform_methods[] = {
     { "is_audio_enabled", bridge::platform::isAudioEnabled },
     { "is_get_all_games_supported", bridge::platform::isGetAllGamesSupported },
     { "is_get_game_by_id_supported", bridge::platform::isGetGameByIdSupported },
+    { "is_external_calls_supported", bridge::platform::isExternalCallsSupported },
     { "get_all_games", bridge::platform::getAllGames },
     { "get_game_by_id", bridge::platform::getGameById },
     { 0, 0 }
