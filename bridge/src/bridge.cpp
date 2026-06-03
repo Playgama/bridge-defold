@@ -75,6 +75,7 @@ static const luaL_reg player_methods[] = {
     { "photos", bridge::player::photos },
     { "is_authorization_supported", bridge::player::isAuthorizationSupported },
     { "is_authorized", bridge::player::isAuthorized },
+    { "is_guest", bridge::player::isGuest },
     { "authorize", bridge::player::authorize },
     { 0, 0 }
 };

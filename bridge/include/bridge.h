@@ -68,6 +68,7 @@ namespace bridge {
     namespace player {
         int isAuthorizationSupported(lua_State* L);
         int isAuthorized(lua_State* L);
+        int isGuest(lua_State* L);
         int id(lua_State* L);
         int name(lua_State* L);
         int extra(lua_State* L);
