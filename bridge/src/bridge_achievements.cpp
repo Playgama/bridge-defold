@@ -16,15 +16,15 @@ int bridge::achievements::isNativePopupSupported(lua_State* L) {
 }
 
 int bridge::achievements::unlock(lua_State* L) {
-    return makeCallbackWithJson(L, js_bridge_achievements_unlock, true);
+    return makeCallbackWithString(L, js_bridge_achievements_unlock, true);
 }
 
 int bridge::achievements::getList(lua_State* L) {
-    return makeCallbackWithJson(L, js_bridge_achievements_getList, true);
+    return makeCallback(L, js_bridge_achievements_getList, true);
 }
 
 int bridge::achievements::showNativePopup(lua_State* L) {
-    return makeCallbackWithJson(L, js_bridge_achievements_showNativePopup, true);
+    return makeCallback(L, js_bridge_achievements_showNativePopup, true);
 }
 
 #endif
