@@ -3,17 +3,8 @@ let js_bridge_achievements = {
         return bridge.achievements.isSupported;
     },
 
-    js_bridge_achievements_isGetListSupported: function () {
-        return bridge.achievements.isGetListSupported;
-    },
-
-    js_bridge_achievements_isNativePopupSupported: function () {
-        return bridge.achievements.isNativePopupSupported;
-    },
-
-    js_bridge_achievements_unlock: function (handler, options, onSuccess, onFailure) {
-        var jsOptions = JSON.parse(UTF8ToString(options));
-        bridge.achievements.unlock(jsOptions)
+    js_bridge_achievements_unlock: function (handler, id, onSuccess, onFailure) {
+        bridge.achievements.unlock(UTF8ToString(id))
             .then(result => {
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(result));
             })
@@ -22,27 +13,14 @@ let js_bridge_achievements = {
             })
     },
 
-    js_bridge_achievements_getList: function (handler, options, onSuccess, onFailure) {
-        var jsOptions = JSON.parse(UTF8ToString(options));
-        bridge.achievements.getList(jsOptions)
+    js_bridge_achievements_getList: function (handler, onSuccess, onFailure) {
+        bridge.achievements.getList()
             .then(result => {
                 const jsonString = JSON.stringify(result);
-                console.log(jsonString);
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(jsonString));
             })
             .catch(error => {
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
-            })
-    },
-
-    js_bridge_achievements_showNativePopup: function (handler, options, onSuccess, onFailure) {
-        var jsOptions = JSON.parse(UTF8ToString(options));
-        bridge.achievements.showNativePopup(jsOptions)
-            .then(() => {
-                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
-            })
-            .catch(error => {
-                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson());
             })
     }
 }

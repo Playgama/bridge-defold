@@ -124,11 +124,8 @@ static const luaL_reg leaderboards_methods[] = {
 
 static const luaL_reg achievements_methods[] = {
     { "is_supported", bridge::achievements::isSupported },
-    { "is_get_list_supported", bridge::achievements::isGetListSupported },
-    { "is_native_popup_supported", bridge::achievements::isNativePopupSupported },
     { "unlock", bridge::achievements::unlock },
     { "get_list", bridge::achievements::getList },
-    { "show_native_popup", bridge::achievements::showNativePopup },
     { 0, 0 }
 };
 

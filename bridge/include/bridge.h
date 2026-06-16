@@ -118,11 +118,8 @@ namespace bridge {
 
     namespace achievements {
         int isSupported(lua_State* L);
-        int isGetListSupported(lua_State* L);
-        int isNativePopupSupported(lua_State* L);
         int unlock(lua_State* L);
         int getList(lua_State* L);
-        int showNativePopup(lua_State* L);
     } // namespace achievements
 
     namespace payments {
