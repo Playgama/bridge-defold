@@ -7,8 +7,9 @@
 extern "C" {
     bool js_bridge_remoteConfig_isSupported();
 
+    void js_bridge_remoteConfig_setDynamicParameters(const char* json);
+
     void js_bridge_remoteConfig_get(UniversalHandler handler,
-                                    const char* json,
                                     dmScript::LuaCallbackInfo* onSuccess,
                                     dmScript::LuaCallbackInfo* onFailure);
 }

@@ -135,6 +135,7 @@ namespace bridge {
 
     namespace remoteConfig {
         int isSupported(lua_State* L);
+        int setDynamicParameters(lua_State* L);
         int get(lua_State* L);
     } // namespace remoteConfig
 

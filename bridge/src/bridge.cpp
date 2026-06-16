@@ -143,6 +143,7 @@ static const luaL_reg payments_methods[] = {
 
 static const luaL_reg remoteConfig_methods[] = {
     { "is_supported", bridge::remoteConfig::isSupported },
+    { "set_dynamic_parameters", bridge::remoteConfig::setDynamicParameters },
     { "get", bridge::remoteConfig::get },
     { 0, 0 }
 };

@@ -3,9 +3,13 @@ let js_bridge_remoteConfig = {
         return bridge.remoteConfig.isSupported;
     },
 
-    js_bridge_remoteConfig_get: function (handler, options, onSuccess, onFailure) {
-        var jsOptions = JSON.parse(UTF8ToString(options));
-        bridge.remoteConfig.get(jsOptions)
+    js_bridge_remoteConfig_setDynamicParameters: function (parameters) {
+        var jsParameters = JSON.parse(UTF8ToString(parameters));
+        bridge.remoteConfig.setDynamicParameters(jsParameters);
+    },
+
+    js_bridge_remoteConfig_get: function (handler, onSuccess, onFailure) {
+        bridge.remoteConfig.get()
             .then(data => {
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(data));
             })

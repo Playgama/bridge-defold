@@ -68,6 +68,16 @@ int getBoolean(lua_State* L, BooleanFunction func) {
     return 1;
 }
 
+int callWithJson(lua_State* L, JsonFunction func) {
+    DM_LUA_STACK_CHECK(L, 0);
+    char* json;
+    size_t json_len;
+    dmScript::LuaToJson(L, &json, &json_len);
+    func(json);
+    free(json);
+    return 0;
+}
+
 int makeCallback(lua_State* L, CallbacksFunction func, bool isRequiredFirstCallback) {
     DM_LUA_STACK_CHECK(L, 0);
     dmScript::LuaCallbackInfo* onSuccess = NULL;

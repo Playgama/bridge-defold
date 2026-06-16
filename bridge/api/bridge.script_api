@@ -747,12 +747,17 @@
         - name: result
           type: boolean
 
+    - name: set_dynamic_parameters
+      type: function
+      desc: Set dynamic game/player parameters used for config segmentation. Accumulates across calls; only used by platforms that support it.
+      parameters:
+        - name: parameters
+          type: table
+
     - name: get
       type: function
       desc: Encourage players to rate your game, providing valuable feedback and improving visibility.
       parameters:
-        - name: options
-          type: table
         - name: on_success
           type: function
           desc: function(_, data)
