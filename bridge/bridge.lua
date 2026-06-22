@@ -1,6 +1,7 @@
 local bridge = {}
 if not _bridge then
 	bridge.platform = require "bridge.bridge_platform"
+	bridge.cross_promo = require "bridge.bridge_cross_promo"
 	bridge.remote_config = require "bridge.bridge_remote_config"
 	bridge.payments = require "bridge.bridge_payments"
 	bridge.achievements = require "bridge.bridge_achievements"

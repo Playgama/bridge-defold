@@ -17,13 +17,15 @@ namespace bridge {
 
         int isAudioEnabled(lua_State* L);
 
-        int isGetAllGamesSupported(lua_State* L);
-        int isGetGameByIdSupported(lua_State* L);
         int isExternalCallsSupported(lua_State* L);
-
-        int getAllGames(lua_State* L);
-        int getGameById(lua_State* L);
     } // namespace platform
+
+    namespace crossPromo {
+        int getGamesList(lua_State* L);
+        int show(lua_State* L);
+        int hide(lua_State* L);
+        int isVisible(lua_State* L);
+    } // namespace crossPromo
 
     namespace storage {
         int get(lua_State* L);
