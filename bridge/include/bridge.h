@@ -20,6 +20,7 @@ namespace bridge {
         int isGetAllGamesSupported(lua_State* L);
         int isGetGameByIdSupported(lua_State* L);
         int isExternalCallsSupported(lua_State* L);
+        int isExternalLinksAllowed(lua_State* L);
 
         int getAllGames(lua_State* L);
         int getGameById(lua_State* L);
@@ -104,9 +105,6 @@ namespace bridge {
         // Rate Game
         int isRateSupported(lua_State* L);
         int rate(lua_State* L);
-
-        // External Links
-        int isExternalLinksAllowed(lua_State* L);
     } // namespace device
 
     namespace leaderboards {

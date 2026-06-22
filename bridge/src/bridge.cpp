@@ -19,6 +19,7 @@ static const luaL_reg platform_methods[] = {
     { "is_get_all_games_supported", bridge::platform::isGetAllGamesSupported },
     { "is_get_game_by_id_supported", bridge::platform::isGetGameByIdSupported },
     { "is_external_calls_supported", bridge::platform::isExternalCallsSupported },
+    { "is_external_links_allowed", bridge::platform::isExternalLinksAllowed },
     { "get_all_games", bridge::platform::getAllGames },
     { "get_game_by_id", bridge::platform::getGameById },
     { 0, 0 }
@@ -108,9 +109,6 @@ static const luaL_reg social_methods[] = {
     // Rate Game
     { "is_rate_supported", bridge::social::isRateSupported },
     { "rate", bridge::social::rate },
-
-    // External Links
-    { "is_external_links_allowed", bridge::social::isExternalLinksAllowed },
     { 0, 0 }
 };
 

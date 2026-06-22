@@ -46,6 +46,8 @@ extern "C" {
 
     bool js_bridge_platform_isExternalCallsSupported();
 
+    bool js_bridge_platform_isExternalLinksAllowed();
+
     void js_bridge_platform_getGameById(UniversalHandler handler,
                                         const char* json,
                                         dmScript::LuaCallbackInfo* success,

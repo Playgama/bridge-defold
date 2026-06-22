@@ -65,9 +65,4 @@ int bridge::social::rate(lua_State* L) {
     return makeCallback(L, js_bridge_social_rate, false);
 }
 
-// External Links
-int bridge::social::isExternalLinksAllowed(lua_State* L) {
-    return getBoolean(L, js_bridge_social_isExternalLinksAllowed);
-}
-
 #endif
