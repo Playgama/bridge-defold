@@ -101,4 +101,12 @@ int bridge::platform::isExternalCallsSupported(lua_State* L) {
     return getBoolean(L, js_bridge_platform_isExternalCallsSupported);
 }
 
+int bridge::platform::isExternalLinksAllowed(lua_State* L) {
+    return getBoolean(L, js_bridge_platform_isExternalLinksAllowed);
+}
+
+int bridge::platform::getGameById(lua_State* L) {
+    return makeCallbackWithJson(L, js_bridge_platform_getGameById, false);
+}
+
 #endif

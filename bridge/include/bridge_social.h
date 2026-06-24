@@ -48,8 +48,6 @@ extern "C" {
     void js_bridge_social_rate(UniversalHandler handler,
                                dmScript::LuaCallbackInfo* onSuccess,
                                dmScript::LuaCallbackInfo* onFailure);
-    // External Links
-    bool js_bridge_social_isExternalLinksAllowed();
 }
 
 #endif

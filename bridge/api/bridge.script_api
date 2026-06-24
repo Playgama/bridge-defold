@@ -83,6 +83,14 @@
 
 
 
+    - name: is_external_links_allowed
+      type: function
+      desc: Check if external links are allowed on the platform.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: get_all_games
 
   - name: cross_promo
     type: table
@@ -535,13 +543,6 @@
         - name: on_failure
           type: function
           desc: function(_)
-
-    - name: is_external_links_allowed
-      type: function
-      desc: Check if external links are allowed on the platform.
-      returns:
-        - name: result
-          type: boolean
 
 
 
