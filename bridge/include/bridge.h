@@ -19,9 +19,6 @@ namespace bridge {
 
         int isExternalCallsSupported(lua_State* L);
         int isExternalLinksAllowed(lua_State* L);
-
-        int getAllGames(lua_State* L);
-        int getGameById(lua_State* L);
     } // namespace platform
 
     namespace crossPromo {
