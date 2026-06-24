@@ -81,19 +81,7 @@
         - name: result
           type: boolean
 
-    - name: is_get_all_games_supported
-      type: function
-      desc: Verify if the get_all_games is supported on the platform to ensure compatibility.
-      returns:
-        - name: result
-          type: boolean
 
-    - name: is_get_game_by_id_supported
-      type: function
-      desc: Verify if the get_game_by_id is supported on the platform to ensure compatibility.
-      returns:
-        - name: result
-          type: boolean
 
     - name: is_external_links_allowed
       type: function
@@ -103,28 +91,36 @@
           type: boolean
 
     - name: get_all_games
+
+  - name: cross_promo
+    type: table
+    desc: Promote your other games with a built-in cross-promo overlay and access the games list for custom UI.
+    members:
+    - name: get_games_list
       type: function
-      desc: Get all games on the platform.
+      desc: Get the cross-promo games list. Resolves to an empty array when unsupported. Each game has the shape { id, name, url, icon_url, cover_url, payload }.
       parameters:
         - name: on_success
           type: function
-          desc: function(_, data)
+          desc: function(_, games)
         - name: on_failure
           type: function
           desc: function(_, error)
 
-    - name: get_game_by_id
+    - name: show
       type: function
-      desc: Get game by ID on the platform.
-      parameters:
-        - name: options
-          type: table
-        - name: on_success
-          type: function
-          desc: function(_, data)
-        - name: on_failure
-          type: function
-          desc: function(_, error)
+      desc: Show the built-in cross-promo HTML overlay.
+
+    - name: hide
+      type: function
+      desc: Hide the built-in cross-promo HTML overlay.
+
+    - name: is_visible
+      type: function
+      desc: Check whether the cross-promo overlay is currently shown.
+      returns:
+        - name: result
+          type: boolean
 
 
   - name: storage

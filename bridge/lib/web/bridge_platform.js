@@ -59,14 +59,6 @@ let js_bridge_platform = {
         return bridge.platform.isAudioEnabled;
     },
 
-    js_bridge_platform_isGetAllGamesSupported: function () {
-        return bridge.platform.isGetAllGamesSupported;
-    },
-
-    js_bridge_platform_isGetGameByIdSupported: function () {
-        return bridge.platform.isGetGameByIdSupported;
-    },
-
     js_bridge_platform_isExternalCallsSupported: function () {
         return bridge.platform.isExternalCallsSupported;
     },

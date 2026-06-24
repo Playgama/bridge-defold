@@ -16,12 +16,18 @@ static const luaL_reg platform_methods[] = {
     { "send_custom_message", bridge::platform::sendCustomMessage },
     { "get_server_time", bridge::platform::getServerTime },
     { "is_audio_enabled", bridge::platform::isAudioEnabled },
-    { "is_get_all_games_supported", bridge::platform::isGetAllGamesSupported },
-    { "is_get_game_by_id_supported", bridge::platform::isGetGameByIdSupported },
     { "is_external_calls_supported", bridge::platform::isExternalCallsSupported },
     { "is_external_links_allowed", bridge::platform::isExternalLinksAllowed },
     { "get_all_games", bridge::platform::getAllGames },
     { "get_game_by_id", bridge::platform::getGameById },
+    { 0, 0 }
+};
+
+static const luaL_reg cross_promo_methods[] = {
+    { "get_games_list", bridge::crossPromo::getGamesList },
+    { "show", bridge::crossPromo::show },
+    { "hide", bridge::crossPromo::hide },
+    { "is_visible", bridge::crossPromo::isVisible },
     { 0, 0 }
 };
 
@@ -157,6 +163,11 @@ static void LuaInit(lua_State* L) {
         lua_pushstring(L, "platform"); // create platform table
         lua_newtable(L);
         luaL_register(L, NULL, platform_methods);
+        lua_settable(L, -3);
+
+        lua_pushstring(L, "cross_promo"); // create cross_promo table
+        lua_newtable(L);
+        luaL_register(L, NULL, cross_promo_methods);
         lua_settable(L, -3);
 
         lua_pushstring(L, "storage"); // create storage table
