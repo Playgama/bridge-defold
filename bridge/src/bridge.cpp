@@ -131,6 +131,13 @@ static const luaL_reg achievements_methods[] = {
     { 0, 0 }
 };
 
+static const luaL_reg tasks_methods[] = {
+    { "get_tasks", bridge::tasks::getTasks },
+    { "add_progress", bridge::tasks::addProgress },
+    { "claim_reward", bridge::tasks::claimReward },
+    { 0, 0 }
+};
+
 static const luaL_reg payments_methods[] = {
     { "is_supported", bridge::payments::isSupported },
     { "purchase", bridge::payments::purchase },
@@ -201,6 +208,11 @@ static void LuaInit(lua_State* L) {
         lua_pushstring(L, "achievements"); // create achievements table
         lua_newtable(L);
         luaL_register(L, NULL, achievements_methods);
+        lua_settable(L, -3);
+
+        lua_pushstring(L, "tasks"); // create tasks table
+        lua_newtable(L);
+        luaL_register(L, NULL, tasks_methods);
         lua_settable(L, -3);
 
         lua_pushstring(L, "payments"); // create payments table

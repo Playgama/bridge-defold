@@ -5,6 +5,7 @@ if not _bridge then
 	bridge.remote_config = require "bridge.bridge_remote_config"
 	bridge.payments = require "bridge.bridge_payments"
 	bridge.achievements = require "bridge.bridge_achievements"
+	bridge.tasks = require "bridge.bridge_tasks"
 	bridge.leaderboards = require "bridge.bridge_leaderboards"
 	bridge.social = require "bridge.bridge_social"
 	bridge.device = require "bridge.bridge_device" 
