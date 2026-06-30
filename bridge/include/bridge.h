@@ -122,6 +122,12 @@ namespace bridge {
         int getList(lua_State* L);
     } // namespace achievements
 
+    namespace tasks {
+        int getTasks(lua_State* L);
+        int addProgress(lua_State* L);
+        int claimReward(lua_State* L);
+    } // namespace tasks
+
     namespace payments {
         int isSupported(lua_State* L);
         int purchase(lua_State* L);
