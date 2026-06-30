@@ -1,8 +1,4 @@
 let js_bridge_achievements = {
-    js_bridge_achievements_isSupported: function () {
-        return bridge.achievements.isSupported;
-    },
-
     js_bridge_achievements_unlock: function (handler, id, onSuccess, onFailure) {
         bridge.achievements.unlock(UTF8ToString(id))
             .then(result => {
@@ -14,7 +10,7 @@ let js_bridge_achievements = {
     },
 
     js_bridge_achievements_getList: function (handler, onSuccess, onFailure) {
-        bridge.achievements.getList()
+        bridge.achievements.getAchievements()
             .then(result => {
                 const jsonString = JSON.stringify(result);
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(jsonString));

@@ -3,9 +3,9 @@ let js_bridge_remoteConfig = {
         return bridge.remoteConfig.isSupported;
     },
 
-    js_bridge_remoteConfig_setDynamicParameters: function (parameters) {
+    js_bridge_remoteConfig_setContext: function (parameters) {
         var jsParameters = JSON.parse(UTF8ToString(parameters));
-        bridge.remoteConfig.setDynamicParameters(jsParameters);
+        bridge.remoteConfig.setContext(jsParameters);
     },
 
     js_bridge_remoteConfig_get: function (handler, onSuccess, onFailure) {

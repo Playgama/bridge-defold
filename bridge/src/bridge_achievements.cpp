@@ -3,10 +3,6 @@
 #include "bridge.h"
 #include "bridge_helper.h"
 
-int bridge::achievements::isSupported(lua_State* L) {
-    return getBoolean(L, js_bridge_achievements_isSupported);
-}
-
 int bridge::achievements::unlock(lua_State* L) {
     return makeCallbackWithString(L, js_bridge_achievements_unlock, true);
 }

@@ -4,7 +4,7 @@ function remote_config.is_supported()
 	return false
 end
 
-function remote_config.set_dynamic_parameters(parameters)
+function remote_config.set_context(parameters)
 end
 
 function remote_config.get(on_success, on_failure)

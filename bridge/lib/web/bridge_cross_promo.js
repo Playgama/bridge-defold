@@ -1,6 +1,6 @@
 let js_bridge_cross_promo = {
     js_bridge_cross_promo_getGamesList: function (handler, onSuccess, onFailure) {
-        bridge.crossPromo.getGamesList()
+        bridge.crossPromo.getGames()
             .then(result => {
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(result));
             })

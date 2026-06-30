@@ -5,8 +5,6 @@
 #include <dmsdk/sdk.h>
 
 extern "C" {
-    bool js_bridge_achievements_isSupported();
-
     void js_bridge_achievements_unlock(UniversalHandler handler,
                                        const char* id,
                                        dmScript::LuaCallbackInfo* onSuccess,

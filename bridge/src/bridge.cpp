@@ -22,7 +22,7 @@ static const luaL_reg platform_methods[] = {
 };
 
 static const luaL_reg cross_promo_methods[] = {
-    { "get_games_list", bridge::crossPromo::getGamesList },
+    { "get_games", bridge::crossPromo::getGamesList },
     { "show", bridge::crossPromo::show },
     { "hide", bridge::crossPromo::hide },
     { "is_visible", bridge::crossPromo::isVisible },
@@ -125,9 +125,8 @@ static const luaL_reg leaderboards_methods[] = {
 };
 
 static const luaL_reg achievements_methods[] = {
-    { "is_supported", bridge::achievements::isSupported },
     { "unlock", bridge::achievements::unlock },
-    { "get_list", bridge::achievements::getList },
+    { "get_achievements", bridge::achievements::getList },
     { 0, 0 }
 };
 
@@ -135,6 +134,14 @@ static const luaL_reg tasks_methods[] = {
     { "get_tasks", bridge::tasks::getTasks },
     { "add_progress", bridge::tasks::addProgress },
     { "claim_reward", bridge::tasks::claimReward },
+    { 0, 0 }
+};
+
+static const luaL_reg daily_rewards_methods[] = {
+    { "get_rewards", bridge::dailyRewards::getRewards },
+    { "get_current_day", bridge::dailyRewards::getCurrentDay },
+    { "get_current_reward", bridge::dailyRewards::getCurrentReward },
+    { "claim_current_reward", bridge::dailyRewards::claimCurrentReward },
     { 0, 0 }
 };
 
@@ -149,7 +156,7 @@ static const luaL_reg payments_methods[] = {
 
 static const luaL_reg remoteConfig_methods[] = {
     { "is_supported", bridge::remoteConfig::isSupported },
-    { "set_dynamic_parameters", bridge::remoteConfig::setDynamicParameters },
+    { "set_context", bridge::remoteConfig::setContext },
     { "get", bridge::remoteConfig::get },
     { 0, 0 }
 };
@@ -213,6 +220,11 @@ static void LuaInit(lua_State* L) {
         lua_pushstring(L, "tasks"); // create tasks table
         lua_newtable(L);
         luaL_register(L, NULL, tasks_methods);
+        lua_settable(L, -3);
+
+        lua_pushstring(L, "daily_rewards"); // create daily_rewards table
+        lua_newtable(L);
+        luaL_register(L, NULL, daily_rewards_methods);
         lua_settable(L, -3);
 
         lua_pushstring(L, "payments"); // create payments table

@@ -59,10 +59,4 @@ function platform.is_external_links_allowed()
 	return true
 end
 
-function platform.get_game_by_id(options, on_success, on_failure)
-	if on_failure then
-		on_failure()
-	end
-end
-
 return platform
