@@ -10,7 +10,7 @@ extern "C" {
                                        dmScript::LuaCallbackInfo* onSuccess,
                                        dmScript::LuaCallbackInfo* onFailure);
 
-    void js_bridge_achievements_getList(UniversalHandler handler,
+    void js_bridge_achievements_getAchievements(UniversalHandler handler,
                                         dmScript::LuaCallbackInfo* onSuccess,
                                         dmScript::LuaCallbackInfo* onFailure);
 }

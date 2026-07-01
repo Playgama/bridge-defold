@@ -9,7 +9,7 @@ let js_bridge_achievements = {
             })
     },
 
-    js_bridge_achievements_getList: function (handler, onSuccess, onFailure) {
+    js_bridge_achievements_getAchievements: function (handler, onSuccess, onFailure) {
         bridge.achievements.getAchievements()
             .then(result => {
                 const jsonString = JSON.stringify(result);

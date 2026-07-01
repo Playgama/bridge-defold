@@ -7,8 +7,8 @@ int bridge::achievements::unlock(lua_State* L) {
     return makeCallbackWithString(L, js_bridge_achievements_unlock, true);
 }
 
-int bridge::achievements::getList(lua_State* L) {
-    return makeCallback(L, js_bridge_achievements_getList, true);
+int bridge::achievements::getAchievements(lua_State* L) {
+    return makeCallback(L, js_bridge_achievements_getAchievements, true);
 }
 
 #endif

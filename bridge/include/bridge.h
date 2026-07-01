@@ -22,7 +22,7 @@ namespace bridge {
     } // namespace platform
 
     namespace crossPromo {
-        int getGamesList(lua_State* L);
+        int getGames(lua_State* L);
         int show(lua_State* L);
         int hide(lua_State* L);
         int isVisible(lua_State* L);
@@ -118,7 +118,7 @@ namespace bridge {
 
     namespace achievements {
         int unlock(lua_State* L);
-        int getList(lua_State* L);
+        int getAchievements(lua_State* L);
     } // namespace achievements
 
     namespace tasks {

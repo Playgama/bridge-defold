@@ -58,6 +58,24 @@
           desc: "One of message types:
                 `game_ready`
                 `in_game_loading_started`"
+        - name: options
+          type: table
+          desc: Optional message-specific options (may be omitted).
+        - name: on_success
+          type: function
+        - name: on_failure
+          type: function
+
+    - name: send_custom_message
+      type: function
+      desc: Send a custom message with an arbitrary id to the platform.
+      parameters:
+        - name: id
+          type: string
+          desc: The custom message id.
+        - name: options
+          type: table
+          desc: Optional message-specific options (may be omitted).
         - name: on_success
           type: function
         - name: on_failure
@@ -661,6 +679,55 @@
         - name: on_success
           type: function
           desc: function(_)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
+
+
+
+  - name: tasks
+    type: table
+    desc: Declare task/quest groups in the config, report gameplay through add_progress, and claim rewards once a task is complete. Progress is persisted between sessions.
+    members:
+    - name: get_tasks
+      type: function
+      desc: Returns every active task across all groups, with live progress, as a JSON string.
+      parameters:
+        - name: on_success
+          type: function
+          desc: function(_, tasks)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
+    - name: add_progress
+      type: function
+      desc: Advances every active target whose id equals the given metric, clamped to the target amount.
+      parameters:
+        - name: metric
+          type: string
+          desc: The metric id to advance.
+        - name: amount
+          type: number
+          desc: The amount to add (defaults to 1).
+        - name: on_success
+          type: function
+          desc: function(_)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
+    - name: claim_reward
+      type: function
+      desc: Claims a completed task's rewards. Calls on_success with true when claimed, false otherwise.
+      parameters:
+        - name: task_id
+          type: string
+          desc: The id of the task to claim.
+        - name: on_success
+          type: function
+          desc: function(_, claimed)
         - name: on_failure
           type: function
           desc: function(_, error)

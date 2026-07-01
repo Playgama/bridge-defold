@@ -6,7 +6,7 @@
 #if defined(DM_PLATFORM_HTML5)
 
 extern "C" {
-    void js_bridge_cross_promo_getGamesList(UniversalHandler handler,
+    void js_bridge_cross_promo_getGames(UniversalHandler handler,
                                             dmScript::LuaCallbackInfo* success,
                                             dmScript::LuaCallbackInfo* failure);
 

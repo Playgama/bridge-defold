@@ -3,8 +3,8 @@
 #include "bridge.h"
 #include "bridge_helper.h"
 
-int bridge::crossPromo::getGamesList(lua_State* L) {
-    return makeCallback(L, js_bridge_cross_promo_getGamesList, false);
+int bridge::crossPromo::getGames(lua_State* L) {
+    return makeCallback(L, js_bridge_cross_promo_getGames, false);
 }
 
 int bridge::crossPromo::show(lua_State* L) {

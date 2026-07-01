@@ -22,7 +22,7 @@ static const luaL_reg platform_methods[] = {
 };
 
 static const luaL_reg cross_promo_methods[] = {
-    { "get_games", bridge::crossPromo::getGamesList },
+    { "get_games", bridge::crossPromo::getGames },
     { "show", bridge::crossPromo::show },
     { "hide", bridge::crossPromo::hide },
     { "is_visible", bridge::crossPromo::isVisible },
@@ -100,7 +100,7 @@ static const luaL_reg social_methods[] = {
 
     // Create Post
     { "is_create_post_supported", bridge::social::isCreatePostSupported },
-    { "createPost", bridge::social::createPost },
+    { "create_post", bridge::social::createPost },
 
     //  Add to Home Screen
     { "is_add_to_home_screen_supported", bridge::social::isAddToHomeScreenSupported },
@@ -126,7 +126,7 @@ static const luaL_reg leaderboards_methods[] = {
 
 static const luaL_reg achievements_methods[] = {
     { "unlock", bridge::achievements::unlock },
-    { "get_achievements", bridge::achievements::getList },
+    { "get_achievements", bridge::achievements::getAchievements },
     { 0, 0 }
 };
 
