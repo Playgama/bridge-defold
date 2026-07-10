@@ -5,26 +5,14 @@
 #include <dmsdk/sdk.h>
 
 extern "C" {
-    bool js_bridge_achievements_isSupported();
-
-    bool js_bridge_achievements_isGetListSupported();
-
-    bool js_bridge_achievements_isNativePopupSupported();
-
     void js_bridge_achievements_unlock(UniversalHandler handler,
-                                       const char* options,
+                                       const char* id,
                                        dmScript::LuaCallbackInfo* onSuccess,
                                        dmScript::LuaCallbackInfo* onFailure);
 
-    void js_bridge_achievements_getList(UniversalHandler handler,
-                                        const char* options,
+    void js_bridge_achievements_getAchievements(UniversalHandler handler,
                                         dmScript::LuaCallbackInfo* onSuccess,
                                         dmScript::LuaCallbackInfo* onFailure);
-
-    void js_bridge_achievements_showNativePopup(UniversalHandler handler,
-                                                const char* options,
-                                                dmScript::LuaCallbackInfo* onSuccess,
-                                                dmScript::LuaCallbackInfo* onFailure);
 }
 
 #endif

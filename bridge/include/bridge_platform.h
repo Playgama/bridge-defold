@@ -35,19 +35,10 @@ extern "C" {
                                         dmScript::LuaCallbackInfo* failure);
 
     bool js_bridge_platform_isAudioEnabled();
-    
-    bool js_bridge_platform_isGetAllGamesSupported();
 
-    void js_bridge_platform_getAllGames(UniversalHandler handler,
-                                        dmScript::LuaCallbackInfo* success,
-                                        dmScript::LuaCallbackInfo* failure);
+    bool js_bridge_platform_isExternalCallsSupported();
 
-    bool js_bridge_platform_isGetGameByIdSupported();
-
-    void js_bridge_platform_getGameById(UniversalHandler handler,
-                                        const char* json,
-                                        dmScript::LuaCallbackInfo* success,
-                                        dmScript::LuaCallbackInfo* failure);
+    bool js_bridge_platform_isExternalLinksAllowed();
 }
 
 #endif

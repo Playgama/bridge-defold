@@ -17,22 +17,18 @@ namespace bridge {
 
         int isAudioEnabled(lua_State* L);
 
-        int isGetAllGamesSupported(lua_State* L);
-        int isGetGameByIdSupported(lua_State* L);
-
-        int getAllGames(lua_State* L);
-        int getGameById(lua_State* L);
+        int isExternalCallsSupported(lua_State* L);
+        int isExternalLinksAllowed(lua_State* L);
     } // namespace platform
 
-    namespace game {
-        int on(lua_State* L);
-        int visibilityState(lua_State* L);
-    } // namespace game
+    namespace crossPromo {
+        int getGames(lua_State* L);
+        int show(lua_State* L);
+        int hide(lua_State* L);
+        int isVisible(lua_State* L);
+    } // namespace crossPromo
 
     namespace storage {
-        int defaultType(lua_State* L);
-        int isSupported(lua_State* L);
-        int isAvailable(lua_State* L);
         int get(lua_State* L);
         int set(lua_State* L);
         int deleteData(lua_State* L);
@@ -75,6 +71,7 @@ namespace bridge {
     namespace player {
         int isAuthorizationSupported(lua_State* L);
         int isAuthorized(lua_State* L);
+        int isGuest(lua_State* L);
         int id(lua_State* L);
         int name(lua_State* L);
         int extra(lua_State* L);
@@ -110,9 +107,6 @@ namespace bridge {
         // Rate Game
         int isRateSupported(lua_State* L);
         int rate(lua_State* L);
-
-        // External Links
-        int isExternalLinksAllowed(lua_State* L);
     } // namespace device
 
     namespace leaderboards {
@@ -123,13 +117,22 @@ namespace bridge {
     } // namespace leaderboards
 
     namespace achievements {
-        int isSupported(lua_State* L);
-        int isGetListSupported(lua_State* L);
-        int isNativePopupSupported(lua_State* L);
         int unlock(lua_State* L);
-        int getList(lua_State* L);
-        int showNativePopup(lua_State* L);
+        int getAchievements(lua_State* L);
     } // namespace achievements
+
+    namespace tasks {
+        int getTasks(lua_State* L);
+        int addProgress(lua_State* L);
+        int claimReward(lua_State* L);
+    } // namespace tasks
+
+    namespace dailyRewards {
+        int getRewards(lua_State* L);
+        int getCurrentDay(lua_State* L);
+        int getCurrentReward(lua_State* L);
+        int claimCurrentReward(lua_State* L);
+    } // namespace dailyRewards
 
     namespace payments {
         int isSupported(lua_State* L);
@@ -141,6 +144,7 @@ namespace bridge {
 
     namespace remoteConfig {
         int isSupported(lua_State* L);
+        int setContext(lua_State* L);
         int get(lua_State* L);
     } // namespace remoteConfig
 

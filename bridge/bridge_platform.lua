@@ -51,24 +51,12 @@ function platform.is_audio_enabled()
 	return true
 end
 
-function platform.is_get_all_games_supported()
-	return false
+function platform.is_external_calls_supported()
+	return true
 end
 
-function platform.get_all_games(on_success, on_failure)
-	if on_failure then
-		on_failure()
-	end
-end
-
-function platform.is_get_game_by_id_supported()
-	return false
-end
-
-function platform.get_game_by_id(options, on_success, on_failure)
-	if on_failure then
-		on_failure()
-	end
+function platform.is_external_links_allowed()
+	return true
 end
 
 return platform

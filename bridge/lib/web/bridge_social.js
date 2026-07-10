@@ -114,12 +114,6 @@ let js_bridge_social = {
             })
     },
     // #endregion
-
-    // #region External Links
-    js_bridge_social_isExternalLinksAllowed: function () {
-        return bridge.social.isExternalLinksAllowed;
-    },
-    // #endregion
 }
 
 mergeInto(LibraryManager.library, js_bridge_social);

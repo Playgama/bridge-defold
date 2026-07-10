@@ -77,9 +77,4 @@ function social.rate(on_success, on_failure)
 	end
 end
 
--- External Links
-function social.is_external_links_allowed()
-	return true
-end
-
 return social

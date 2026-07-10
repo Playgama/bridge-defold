@@ -6,8 +6,12 @@ int bridge::remoteConfig::isSupported(lua_State* L) {
     return getBoolean(L, js_bridge_remoteConfig_isSupported);
 }
 
+int bridge::remoteConfig::setContext(lua_State* L) {
+    return callWithJson(L, js_bridge_remoteConfig_setContext);
+}
+
 int bridge::remoteConfig::get(lua_State* L) {
-    return makeCallbackWithJson(L, js_bridge_remoteConfig_get, true);
+    return makeCallback(L, js_bridge_remoteConfig_get, true);
 }
 
 #endif

@@ -5,27 +5,7 @@ local app_name = sys.get_config_string("project.title", "defold_game")
 local path_to_save_file = sys.get_save_file(app_name, "bridge_storage_data")
 local load_data = {}
 
-function storage.default_type()
-	return "local_storage"
-end
-
-function storage.is_supported(storage_type)
-	if storage_type == "local_storage" then
-		return true
-	elseif storage_type == "platform_internal" then
-		return false
-	end
-end
-
-function storage.is_available(storage_type)
-	if storage_type == "local_storage" then
-		return true
-	elseif storage_type == "platform_internal" then
-		return false
-	end
-end
-
-function storage.get(table_keys, on_success, on_failure, storage_type)
+function storage.get(table_keys, on_success, on_failure)
 	load_data = sys.load(path_to_save_file) or {}
 
 	local game_data = {}
@@ -40,7 +20,7 @@ function storage.get(table_keys, on_success, on_failure, storage_type)
 	end
 end
 
-function storage.set(table_data, on_success, on_failure, storage_type)
+function storage.set(table_data, on_success, on_failure)
 	load_data = sys.load(path_to_save_file) or {}
 
 	for k, v in pairs(table_data) do
@@ -52,7 +32,7 @@ function storage.set(table_data, on_success, on_failure, storage_type)
 	end
 end
 
-function storage.delete(table_keys, on_success, on_failure, storage_type)
+function storage.delete(table_keys, on_success, on_failure)
 	load_data = sys.load(path_to_save_file) or {}
 
 	for _, key in ipairs(table_keys) do

@@ -58,6 +58,24 @@
           desc: "One of message types:
                 `game_ready`
                 `in_game_loading_started`"
+        - name: options
+          type: table
+          desc: Optional message-specific options (may be omitted).
+        - name: on_success
+          type: function
+        - name: on_failure
+          type: function
+
+    - name: send_custom_message
+      type: function
+      desc: Send a custom message with an arbitrary id to the platform.
+      parameters:
+        - name: id
+          type: string
+          desc: The custom message id.
+        - name: options
+          type: table
+          desc: Optional message-specific options (may be omitted).
         - name: on_success
           type: function
         - name: on_failure
@@ -81,101 +99,55 @@
         - name: result
           type: boolean
 
-    - name: is_get_all_games_supported
+    - name: is_external_calls_supported
       type: function
-      desc: Verify if the get_all_games is supported on the platform to ensure compatibility.
+      desc: Check if external calls are supported on the platform.
       returns:
         - name: result
           type: boolean
 
-    - name: is_get_game_by_id_supported
+    - name: is_external_links_allowed
       type: function
-      desc: Verify if the get_game_by_id is supported on the platform to ensure compatibility.
+      desc: Check if external links are allowed on the platform.
       returns:
         - name: result
           type: boolean
 
-    - name: get_all_games
-      type: function
-      desc: Get all games on the platform.
-      parameters:
-        - name: on_success
-          type: function
-          desc: function(_, data)
-        - name: on_failure
-          type: function
-          desc: function(_, error)
-
-    - name: get_game_by_id
-      type: function
-      desc: Get game by ID on the platform.
-      parameters:
-        - name: options
-          type: table
-        - name: on_success
-          type: function
-          desc: function(_, data)
-        - name: on_failure
-          type: function
-          desc: function(_, error)
-
-
-  - name: game
+  - name: cross_promo
     type: table
-    desc: Functions and constants for interacting with game
+    desc: Promote your other games with a built-in cross-promo overlay and access the games list for custom UI.
     members:
-    - name: on
+    - name: get_games
       type: function
-      desc: Check if the game tab is visible or hidden, and adjust game behavior accordingly, such as muting sound when hidden.
+      desc: Get the cross-promo games list. Resolves to an empty array when unsupported. Each game has the shape { id, name, url, icon_url, cover_url, payload }.
       parameters:
-        - name: event_name
-          type: string
-
-        - name: callback
+        - name: on_success
           type: function
-          desc: function(_, state)
+          desc: function(_, games)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
 
-    - name: visibility_state
+    - name: show
       type: function
-      desc: Returns the current visibility state of the game (the tab with the game).
+      desc: Show the built-in cross-promo HTML overlay.
+
+    - name: hide
+      type: function
+      desc: Hide the built-in cross-promo HTML overlay.
+
+    - name: is_visible
+      type: function
+      desc: Check whether the cross-promo overlay is currently shown.
       returns:
-      - name: result
-        type: string
-
-
+        - name: result
+          type: boolean
 
 
   - name: storage
     type: table
     desc: Store and manage player data to enhance gameplay experience and retain progress.
     members:
-    - name: default_type
-      type: function
-      desc: Identify the default storage type to understand where data is being saved (local or server).
-      returns:
-      - name: result
-        type: string
-
-    - name: is_available
-      type: function
-      desc: Check if the specified storage type is currently available for use to manage data storage effectively.
-      parameters:
-        - name: storage_type
-          type: string
-      returns:
-        - name: result
-          type: boolean
-
-    - name: is_supported
-      type: function
-      desc: Verify if the specified storage type is supported on the platform to ensure compatibility.
-      parameters:
-        - name: storage_type
-          type: string
-      returns:
-        - name: result
-          type: boolean
-
     - name: get
       type: function
       desc: Retrieve stored data based on a key or multiple keys to restore player progress or settings.
@@ -188,11 +160,9 @@
         - name: on_failure
           type: function
           desc: function(_, error)
-        - name: storage_type
-          type: string
     - name: set
       type: function
-      desc: Save data to the specified storage with a key to retain player progress or settings.
+      desc: Save data to the storage with a key to retain player progress or settings.
       parameters:
         - name: table_data
           type: table
@@ -202,11 +172,9 @@
         - name: on_failure
           type: function
           desc: function(_, error)
-        - name: storage_type
-          type: string
     - name: delete
       type: function
-      desc: Remove data from the specified storage by key to manage player data and settings effectively.
+      desc: Remove data from the storage by key to manage player data and settings effectively.
       parameters:
         - name: table_keys
           type: table
@@ -216,8 +184,6 @@
         - name: on_failure
           type: function
           desc: function(_, error)
-        - name: storage_type
-          type: string
 
 
 
@@ -379,6 +345,13 @@
     - name: is_authorized
       type: function
       desc: Verify if the player is currently authorized on the platform. This allows you to enable personalized features, such as saving high scores or providing user-specific content.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: is_guest
+      type: function
+      desc: Check if the player is unauthorized or running as a guest.
       returns:
         - name: result
           type: boolean
@@ -566,13 +539,6 @@
           type: function
           desc: function(_)
 
-    - name: is_external_links_allowed
-      type: function
-      desc: Check if external links are allowed on the platform.
-      returns:
-        - name: result
-          type: boolean
-
 
 
 
@@ -642,33 +608,12 @@
     type: table
     desc: Achievements in HTML5 games are an exciting and rewarding feature that adds an extra layer of engagement for players. They serve as milestones, celebrating a player's progress, skill, and dedication.
     members:
-    - name: is_supported
-      type: function
-      desc: Use this to determine if you can implement achievements for your game on the current platform.
-      returns:
-        - name: result
-          type: boolean
-
-    - name: is_get_list_supported
-      type: function
-      desc: Check if getting list of achievements is supported.
-      returns:
-        - name: result
-          type: boolean
-
-    - name: is_native_popup_supported
-      type: function
-      desc: Check if built-in popup is supported.
-      returns:
-        - name: result
-          type: boolean
-
     - name: unlock
       type: function
       desc: Unlocks achievement for a player.
       parameters:
-        - name: options
-          type: table
+        - name: id
+          type: string
         - name: on_success
           type: function
           desc: function(_, result)
@@ -676,12 +621,10 @@
           type: function
           desc: function(_, error)
 
-    - name: get_list
+    - name: get_achievements
       type: function
       desc: Returns the achievement list in JSON.
       parameters:
-        - name: options
-          type: table
         - name: on_success
           type: function
           desc: function(_, list)
@@ -689,15 +632,102 @@
           type: function
           desc: function(_, error)
 
-    - name: show_native_popup
+
+
+
+  - name: daily_rewards
+    type: table
+    desc: Reward returning players with a configurable streak of daily rewards. The module tracks the current day, the reward claimable now, and persists progress between sessions.
+    members:
+    - name: get_rewards
       type: function
-      desc: Returns the achievement list in JSON.
+      desc: Returns the configured ordered list of reward ids as a JSON string.
       parameters:
-        - name: options
-          type: table
         - name: on_success
           type: function
-          desc: function()
+          desc: function(_, rewards)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
+    - name: get_current_day
+      type: function
+      desc: Returns the 0-based index of the reward the player is currently on.
+      parameters:
+        - name: on_success
+          type: function
+          desc: function(_, day)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
+    - name: get_current_reward
+      type: function
+      desc: Returns the id of the reward claimable today, or nil when nothing can be claimed.
+      parameters:
+        - name: on_success
+          type: function
+          desc: function(_, reward)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
+    - name: claim_current_reward
+      type: function
+      desc: Claims the reward available today. Calls on_success when claimed, on_failure otherwise.
+      parameters:
+        - name: on_success
+          type: function
+          desc: function(_)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
+
+
+
+  - name: tasks
+    type: table
+    desc: Declare task/quest groups in the config, report gameplay through add_progress, and claim rewards once a task is complete. Progress is persisted between sessions.
+    members:
+    - name: get_tasks
+      type: function
+      desc: Returns every active task across all groups, with live progress, as a JSON string.
+      parameters:
+        - name: on_success
+          type: function
+          desc: function(_, tasks)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
+    - name: add_progress
+      type: function
+      desc: Advances every active target whose id equals the given metric, clamped to the target amount.
+      parameters:
+        - name: metric
+          type: string
+          desc: The metric id to advance.
+        - name: amount
+          type: number
+          desc: The amount to add (defaults to 1).
+        - name: on_success
+          type: function
+          desc: function(_)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
+    - name: claim_reward
+      type: function
+      desc: Claims a completed task's rewards. Calls on_success with true when claimed, false otherwise.
+      parameters:
+        - name: task_id
+          type: string
+          desc: The id of the task to claim.
+        - name: on_success
+          type: function
+          desc: function(_, claimed)
         - name: on_failure
           type: function
           desc: function(_, error)
@@ -772,12 +802,17 @@
         - name: result
           type: boolean
 
+    - name: set_context
+      type: function
+      desc: Set dynamic game/player parameters used for config segmentation. Accumulates across calls; only used by platforms that support it.
+      parameters:
+        - name: parameters
+          type: table
+
     - name: get
       type: function
       desc: Encourage players to rate your game, providing valuable feedback and improving visibility.
       parameters:
-        - name: options
-          type: table
         - name: on_success
           type: function
           desc: function(_, data)

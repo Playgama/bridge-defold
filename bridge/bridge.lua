@@ -1,10 +1,12 @@
 local bridge = {}
 if not _bridge then
-	bridge.game = require "bridge.bridge_game"
 	bridge.platform = require "bridge.bridge_platform"
+	bridge.cross_promo = require "bridge.bridge_cross_promo"
 	bridge.remote_config = require "bridge.bridge_remote_config"
 	bridge.payments = require "bridge.bridge_payments"
 	bridge.achievements = require "bridge.bridge_achievements"
+	bridge.tasks = require "bridge.bridge_tasks"
+	bridge.daily_rewards = require "bridge.bridge_daily_rewards"
 	bridge.leaderboards = require "bridge.bridge_leaderboards"
 	bridge.social = require "bridge.bridge_social"
 	bridge.device = require "bridge.bridge_device" 
@@ -21,14 +23,10 @@ bridge.EVENT_NAME = {
 	INTERSTITIAL_STATE_CHANGED = "interstitial_state_changed",
 	REWARDED_STATE_CHANGED = "rewarded_state_changed",
 	BANNER_STATE_CHANGED = "banner_state_changed",
-	VISIBILITY_STATE_CHANGED = "visibility_state_changed",
 	AUDIO_STATE_CHANGED = "audio_state_changed",
-	PAUSE_STATE_CHANGED = "pause_state_changed"
-}
-
-bridge.VISIBILITY_STATE = {
-	VISIBLE = "visible",
-	HIDDEN = "hidden",
+	PAUSE_STATE_CHANGED = "pause_state_changed",
+	ADVANCED_BANNERS_STATE_CHANGED = "advanced_banners_state_changed",
+	PLATFORM_STORAGE_AVAILABILITY_CHANGED = "platform_storage_availability_changed"
 }
 
 bridge.INTERSTITIAL_STATE = {
@@ -51,11 +49,6 @@ bridge.BANNER_STATE = {
 	SHOWN = "shown",
 	HIDDEN = "hidden",
 	FAILED = "failed",
-}
-
-bridge.STORAGE_TYPE = {
-	LOCAL_STORAGE = "local_storage",
-	PLATFORM_INTERNAL = "platform_internal",
 }
 
 bridge.DEVICE_TYPE = {

@@ -16,23 +16,20 @@ static const luaL_reg platform_methods[] = {
     { "send_custom_message", bridge::platform::sendCustomMessage },
     { "get_server_time", bridge::platform::getServerTime },
     { "is_audio_enabled", bridge::platform::isAudioEnabled },
-    { "is_get_all_games_supported", bridge::platform::isGetAllGamesSupported },
-    { "is_get_game_by_id_supported", bridge::platform::isGetGameByIdSupported },
-    { "get_all_games", bridge::platform::getAllGames },
-    { "get_game_by_id", bridge::platform::getGameById },
+    { "is_external_calls_supported", bridge::platform::isExternalCallsSupported },
+    { "is_external_links_allowed", bridge::platform::isExternalLinksAllowed },
     { 0, 0 }
 };
 
-static const luaL_reg game_methods[] = {
-    { "on", bridge::game::on },
-    { "visibility_state", bridge::game::visibilityState },
+static const luaL_reg cross_promo_methods[] = {
+    { "get_games", bridge::crossPromo::getGames },
+    { "show", bridge::crossPromo::show },
+    { "hide", bridge::crossPromo::hide },
+    { "is_visible", bridge::crossPromo::isVisible },
     { 0, 0 }
 };
 
 static const luaL_reg storage_methods[] = {
-    { "default_type", bridge::storage::defaultType },
-    { "is_supported", bridge::storage::isSupported },
-    { "is_available", bridge::storage::isAvailable },
     { "get", bridge::storage::get },
     { "set", bridge::storage::set },
     { "delete", bridge::storage::deleteData },
@@ -83,6 +80,7 @@ static const luaL_reg player_methods[] = {
     { "photos", bridge::player::photos },
     { "is_authorization_supported", bridge::player::isAuthorizationSupported },
     { "is_authorized", bridge::player::isAuthorized },
+    { "is_guest", bridge::player::isGuest },
     { "authorize", bridge::player::authorize },
     { 0, 0 }
 };
@@ -102,7 +100,7 @@ static const luaL_reg social_methods[] = {
 
     // Create Post
     { "is_create_post_supported", bridge::social::isCreatePostSupported },
-    { "createPost", bridge::social::createPost },
+    { "create_post", bridge::social::createPost },
 
     //  Add to Home Screen
     { "is_add_to_home_screen_supported", bridge::social::isAddToHomeScreenSupported },
@@ -115,9 +113,6 @@ static const luaL_reg social_methods[] = {
     // Rate Game
     { "is_rate_supported", bridge::social::isRateSupported },
     { "rate", bridge::social::rate },
-
-    // External Links
-    { "is_external_links_allowed", bridge::social::isExternalLinksAllowed },
     { 0, 0 }
 };
 
@@ -130,12 +125,23 @@ static const luaL_reg leaderboards_methods[] = {
 };
 
 static const luaL_reg achievements_methods[] = {
-    { "is_supported", bridge::achievements::isSupported },
-    { "is_get_list_supported", bridge::achievements::isGetListSupported },
-    { "is_native_popup_supported", bridge::achievements::isNativePopupSupported },
     { "unlock", bridge::achievements::unlock },
-    { "get_list", bridge::achievements::getList },
-    { "show_native_popup", bridge::achievements::showNativePopup },
+    { "get_achievements", bridge::achievements::getAchievements },
+    { 0, 0 }
+};
+
+static const luaL_reg tasks_methods[] = {
+    { "get_tasks", bridge::tasks::getTasks },
+    { "add_progress", bridge::tasks::addProgress },
+    { "claim_reward", bridge::tasks::claimReward },
+    { 0, 0 }
+};
+
+static const luaL_reg daily_rewards_methods[] = {
+    { "get_rewards", bridge::dailyRewards::getRewards },
+    { "get_current_day", bridge::dailyRewards::getCurrentDay },
+    { "get_current_reward", bridge::dailyRewards::getCurrentReward },
+    { "claim_current_reward", bridge::dailyRewards::claimCurrentReward },
     { 0, 0 }
 };
 
@@ -150,6 +156,7 @@ static const luaL_reg payments_methods[] = {
 
 static const luaL_reg remoteConfig_methods[] = {
     { "is_supported", bridge::remoteConfig::isSupported },
+    { "set_context", bridge::remoteConfig::setContext },
     { "get", bridge::remoteConfig::get },
     { 0, 0 }
 };
@@ -170,9 +177,9 @@ static void LuaInit(lua_State* L) {
         luaL_register(L, NULL, platform_methods);
         lua_settable(L, -3);
 
-        lua_pushstring(L, "game"); // create game table
+        lua_pushstring(L, "cross_promo"); // create cross_promo table
         lua_newtable(L);
-        luaL_register(L, NULL, game_methods);
+        luaL_register(L, NULL, cross_promo_methods);
         lua_settable(L, -3);
 
         lua_pushstring(L, "storage"); // create storage table
@@ -208,6 +215,16 @@ static void LuaInit(lua_State* L) {
         lua_pushstring(L, "achievements"); // create achievements table
         lua_newtable(L);
         luaL_register(L, NULL, achievements_methods);
+        lua_settable(L, -3);
+
+        lua_pushstring(L, "tasks"); // create tasks table
+        lua_newtable(L);
+        luaL_register(L, NULL, tasks_methods);
+        lua_settable(L, -3);
+
+        lua_pushstring(L, "daily_rewards"); // create daily_rewards table
+        lua_newtable(L);
+        luaL_register(L, NULL, daily_rewards_methods);
         lua_settable(L, -3);
 
         lua_pushstring(L, "payments"); // create payments table
