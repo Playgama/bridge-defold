@@ -139,6 +139,7 @@
             function initializeBridge() {
                 clearTimeout(bridgeTimeout)
                 bridge.engine = 'defold'
+                bridge.gameVersion = '{{project.version}}'
                 bridge.initialize()
                     .then(() => {
                         if (ProgressUpdater) {
