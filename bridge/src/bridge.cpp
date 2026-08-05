@@ -154,6 +154,14 @@ static const luaL_reg payments_methods[] = {
     { 0, 0 }
 };
 
+static const luaL_reg notifications_methods[] = {
+    { "is_supported", bridge::notifications::isSupported },
+    { "schedule", bridge::notifications::schedule },
+    { "cancel", bridge::notifications::cancel },
+    { "cancel_all", bridge::notifications::cancelAll },
+    { 0, 0 }
+};
+
 static const luaL_reg remoteConfig_methods[] = {
     { "is_supported", bridge::remoteConfig::isSupported },
     { "set_context", bridge::remoteConfig::setContext },
@@ -230,6 +238,11 @@ static void LuaInit(lua_State* L) {
         lua_pushstring(L, "payments"); // create payments table
         lua_newtable(L);
         luaL_register(L, NULL, payments_methods);
+        lua_settable(L, -3);
+
+        lua_pushstring(L, "notifications"); // create notifications table
+        lua_newtable(L);
+        luaL_register(L, NULL, notifications_methods);
         lua_settable(L, -3);
 
         lua_pushstring(L, "remote_config"); // create remote_config table

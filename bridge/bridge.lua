@@ -13,6 +13,7 @@ if not _bridge then
 	bridge.player = require "bridge.bridge_player"
 	bridge.advertisement = require "bridge.bridge_advertisement"
 	bridge.storage = require "bridge.bridge_storage"
+	bridge.notifications = require "bridge.bridge_notifications"
 else
 	bridge = _bridge
 end
