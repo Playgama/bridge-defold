@@ -819,3 +819,52 @@
         - name: on_failure
           type: function
           desc: function(_)
+
+
+  - name: notifications
+    type: table
+    desc: Schedule notifications the platform shows after the player leaves the game.
+    members:
+    - name: is_supported
+      type: function
+      desc: Check if scheduling notifications is supported on the current platform.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: schedule
+      type: function
+      desc: Schedule a notification. The notification table has the shape { id, title, description, delaySeconds, image, callToAction, payload }, where id is mapped to the platform value in the config file. The payload of the notification the game was launched from is available via bridge.platform.payload().
+      parameters:
+        - name: notification
+          type: table
+        - name: on_success
+          type: function
+          desc: function(_)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
+    - name: cancel
+      type: function
+      desc: Cancel a previously scheduled notification with the given id.
+      parameters:
+        - name: id
+          type: string
+        - name: on_success
+          type: function
+          desc: function(_)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
+    - name: cancel_all
+      type: function
+      desc: Cancel every notification scheduled by the game.
+      parameters:
+        - name: on_success
+          type: function
+          desc: function(_)
+        - name: on_failure
+          type: function
+          desc: function(_, error)

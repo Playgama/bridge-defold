@@ -142,6 +142,13 @@ namespace bridge {
         int getPurchases(lua_State* L);
     } // namespace payments
 
+    namespace notifications {
+        int isSupported(lua_State* L);
+        int schedule(lua_State* L);
+        int cancel(lua_State* L);
+        int cancelAll(lua_State* L);
+    } // namespace notifications
+
     namespace remoteConfig {
         int isSupported(lua_State* L);
         int setContext(lua_State* L);
