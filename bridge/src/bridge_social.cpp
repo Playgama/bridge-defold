@@ -35,7 +35,7 @@ int bridge::social::isCreatePostSupported(lua_State* L) {
 }
 
 int bridge::social::createPost(lua_State* L) {
-    return makeCallbackWithJson(L, js_bridge_social_createPost, false);
+    return makeCallbackWithJsonAndString(L, js_bridge_social_createPost, false);
 }
 
 // Add to Favorites
@@ -63,6 +63,15 @@ int bridge::social::isRateSupported(lua_State* L) {
 
 int bridge::social::rate(lua_State* L) {
     return makeCallback(L, js_bridge_social_rate, false);
+}
+
+// Post Reward
+int bridge::social::isPostRewardSupported(lua_State* L) {
+    return getBoolean(L, js_bridge_social_isPostRewardSupported);
+}
+
+int bridge::social::getPostReward(lua_State* L) {
+    return makeCallback(L, js_bridge_social_getPostReward, false);
 }
 
 #endif

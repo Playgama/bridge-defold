@@ -21,6 +21,14 @@ let js_bridge_platform = {
         return CStrOrNull(bridge.platform.tld);
     },
 
+    js_bridge_platform_launchSource: function () {
+        return CStrOrNull(bridge.platform.launchSource);
+    },
+
+    js_bridge_platform_data: function () {
+        return packToJson(bridge.platform.data);
+    },
+
     js_bridge_platform_sendMessage: function (handler, message, options, onSuccess, onFailure) {
         var jsMessage = UTF8ToString(message);
         var jsOptions = options ? JSON.parse(UTF8ToString(options)) : undefined;

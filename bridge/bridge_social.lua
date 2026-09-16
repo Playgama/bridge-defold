@@ -38,7 +38,11 @@ function social.is_create_post_supported()
 	return false
 end
 
-function social.create_post(options, on_success, on_failure)
+function social.create_post(options, payload, on_success, on_failure)
+	if type(payload) == "function" then
+		on_failure = on_success
+		on_success = payload
+	end
 	if on_failure then
 		on_failure()
 	end
@@ -72,6 +76,17 @@ function social.is_rate_supported()
 end
 
 function social.rate(on_success, on_failure)
+	if on_failure then
+		on_failure()
+	end
+end
+
+-- Post Reward
+function social.is_post_reward_supported()
+	return false
+end
+
+function social.get_post_reward(on_success, on_failure)
 	if on_failure then
 		on_failure()
 	end

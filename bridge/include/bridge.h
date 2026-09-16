@@ -10,6 +10,8 @@ namespace bridge {
         int language(lua_State* L);
         int tld(lua_State* L);
         int payload(lua_State* L);
+        int launchSource(lua_State* L);
+        int data(lua_State* L);
 
         int sendMessage(lua_State* L);
         int sendCustomMessage(lua_State* L);
@@ -107,6 +109,10 @@ namespace bridge {
         // Rate Game
         int isRateSupported(lua_State* L);
         int rate(lua_State* L);
+
+        // Post Reward
+        int isPostRewardSupported(lua_State* L);
+        int getPostReward(lua_State* L);
     } // namespace device
 
     namespace leaderboards {

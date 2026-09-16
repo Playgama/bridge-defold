@@ -55,9 +55,10 @@ let js_bridge_social = {
         return bridge.social.isCreatePostSupported;
     },
 
-    js_bridge_social_createPost: function (handler, options, onSuccess, onFailure) {
+    js_bridge_social_createPost: function (handler, options, payload, onSuccess, onFailure) {
         var jsOptions = JSON.parse(UTF8ToString(options));
-        bridge.social.createPost(jsOptions)
+        var jsPayload = payload ? UTF8ToString(payload) : undefined;
+        bridge.social.createPost(jsOptions, jsPayload)
             .then(() => {
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
             })
@@ -108,6 +109,22 @@ let js_bridge_social = {
         bridge.social.rate()
             .then(() => {
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
+            })
+            .catch(error => {
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
+            })
+    },
+    // #endregion
+
+    // #region Post Reward
+    js_bridge_social_isPostRewardSupported: function () {
+        return bridge.social.isPostRewardSupported;
+    },
+
+    js_bridge_social_getPostReward: function (handler, onSuccess, onFailure) {
+        bridge.social.getPostReward()
+            .then(rewards => {
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(rewards));
             })
             .catch(error => {
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
