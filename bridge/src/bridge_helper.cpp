@@ -182,6 +182,38 @@ int makeCallbackWithStringAndJson(lua_State* L, CallbacksWithStringAndJsonFuncti
     return 0;
 }
 
+// The first argument (a table or a string) travels as JSON; an optional second
+// string travels as is, and the callbacks follow whichever arguments are present.
+int makeCallbackWithJsonAndString(lua_State* L, CallbacksWithJsonAndStringFunction func, bool isRequiredFirstCallback) {
+    DM_LUA_STACK_CHECK(L, 0);
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    char* json;
+    size_t json_len;
+    dmScript::LuaToJson(L, &json, &json_len);
+
+    const char* str = NULL;
+    int callbackIndex = 2;
+    if (lua_isstring(L, 2)) {
+        str = lua_tostring(L, 2);
+        callbackIndex = 3;
+    }
+
+    if (isRequiredFirstCallback) {
+        onSuccess = dmScript::CreateCallback(L, callbackIndex);
+    } else if (lua_isfunction(L, callbackIndex)) {
+        onSuccess = dmScript::CreateCallback(L, callbackIndex);
+    }
+
+    if (lua_isfunction(L, callbackIndex + 1))
+        onFailure = dmScript::CreateCallback(L, callbackIndex + 1);
+
+    func((UniversalHandler)cppUniversalHandler, json, str, onSuccess, onFailure);
+    free(json);
+    return 0;
+}
+
 int getBooleanWithString(lua_State* L, BooleanStringFunction func) {
     DM_LUA_STACK_CHECK(L, 1);
     const char* lstring = luaL_checkstring(L, 1);

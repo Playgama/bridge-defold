@@ -23,6 +23,26 @@ int bridge::platform::payload(lua_State* L) {
     return getString(L, js_bridge_platform_payload);
 }
 
+int bridge::platform::launchSource(lua_State* L) {
+    return getString(L, js_bridge_platform_launchSource);
+}
+
+int bridge::platform::data(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 1);
+    char* dataJson = js_bridge_platform_data();
+    if (!dataJson) {
+        lua_newtable(L);
+        return 1;
+    }
+
+    dmScript::JsonToLua(L, dataJson, strlen(dataJson));
+    lua_pushstring(L, "data");
+    lua_gettable(L, -2); // get data from table
+    lua_replace(L, -2); // replace table to data
+    free(dataJson);
+    return 1;
+}
+
 int bridge::platform::getServerTime(lua_State* L) {
     return makeCallback(L, js_bridge_platform_getServerTime, true);
 }

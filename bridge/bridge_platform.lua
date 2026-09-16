@@ -23,6 +23,14 @@ function platform.tld()
 	return nil
 end
 
+function platform.launch_source()
+	return nil
+end
+
+function platform.data()
+	return {}
+end
+
 function platform.send_message(message, options, on_success, on_failure)
 	if type(options) == "function" then
 		on_failure = on_success

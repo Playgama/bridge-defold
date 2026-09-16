@@ -12,6 +12,8 @@ static const luaL_reg platform_methods[] = {
     { "language", bridge::platform::language },
     { "payload", bridge::platform::payload },
     { "tld", bridge::platform::tld },
+    { "launch_source", bridge::platform::launchSource },
+    { "data", bridge::platform::data },
     { "send_message", bridge::platform::sendMessage },
     { "send_custom_message", bridge::platform::sendCustomMessage },
     { "get_server_time", bridge::platform::getServerTime },
@@ -113,6 +115,10 @@ static const luaL_reg social_methods[] = {
     // Rate Game
     { "is_rate_supported", bridge::social::isRateSupported },
     { "rate", bridge::social::rate },
+
+    // Post Reward
+    { "is_post_reward_supported", bridge::social::isPostRewardSupported },
+    { "get_post_reward", bridge::social::getPostReward },
     { 0, 0 }
 };
 

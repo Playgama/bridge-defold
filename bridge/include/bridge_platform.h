@@ -18,6 +18,10 @@ extern "C" {
 
     char* js_bridge_platform_tld();
 
+    char* js_bridge_platform_launchSource();
+
+    char* js_bridge_platform_data();
+
     void js_bridge_platform_sendMessage(UniversalHandler handler,
                                         const char* eventName,
                                         const char* json,

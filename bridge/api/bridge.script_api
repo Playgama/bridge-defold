@@ -49,6 +49,20 @@
       - name: result
         type: string | nil
 
+    - name: launch_source
+      type: function
+      desc: Where the game was opened from - "notification" or "post" (one of the game's own posts, see bridge.social.create_post). nil when the platform did not say.
+      returns:
+      - name: result
+        type: string | nil
+
+    - name: data
+      type: function
+      desc: Everything the launch carries - the parameters the platform passed to the game and, when it was opened from one of the game's own posts, postId - the id of that post's config entry.
+      returns:
+      - name: result
+        type: table
+
     - name: send_message
       type: function
       desc: Send predefined messages to the platform to trigger specific actions or events, such as signaling that the game is ready.
@@ -481,6 +495,9 @@
         - name: options
           type: [table, string]
           desc: A table with the content, or the id of a social.posts entry declared in playgama-bridge-config.json.
+        - name: payload
+          type: string
+          desc: Optional. The game's own string for this one post - a level, a seed, a challenge - handed back as bridge.platform.payload() when someone opens it. May be omitted, the callbacks then follow options.
         - name: on_success
           type: function
           desc: function(_)
@@ -541,6 +558,24 @@
         - name: on_failure
           type: function
           desc: function(_)
+
+    - name: is_post_reward_supported
+      type: function
+      desc: Check if rewards around posts created with create_post are supported on the platform.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: get_post_reward
+      type: function
+      desc: Everything the player has coming from posts right now - the reward for the post the game was opened from and what the author earned from the players who came through their posts. Resolves to an empty array when there is nothing, so grant what you get and stay quiet otherwise. Each reward has the shape { id, amount, type }, where type is "visit" or "author".
+      parameters:
+        - name: on_success
+          type: function
+          desc: function(_, rewards)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
 
 
 

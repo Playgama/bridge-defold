@@ -36,6 +36,7 @@ extern "C" {
     bool js_bridge_social_isCreatePostSupported();
     void js_bridge_social_createPost(UniversalHandler handler,
                                      const char* json,
+                                     const char* payload,
                                      dmScript::LuaCallbackInfo* onSuccess,
                                      dmScript::LuaCallbackInfo* onFailure);
     //  Add to Favorites
@@ -48,6 +49,11 @@ extern "C" {
     void js_bridge_social_rate(UniversalHandler handler,
                                dmScript::LuaCallbackInfo* onSuccess,
                                dmScript::LuaCallbackInfo* onFailure);
+    // Post Reward
+    bool js_bridge_social_isPostRewardSupported();
+    void js_bridge_social_getPostReward(UniversalHandler handler,
+                                        dmScript::LuaCallbackInfo* onSuccess,
+                                        dmScript::LuaCallbackInfo* onFailure);
 }
 
 #endif
