@@ -416,7 +416,8 @@
       desc: Use this to allow players to share game content or achievements on social media platforms.
       parameters:
         - name: options
-          type: table
+          type: [table, string]
+          desc: A table with the content, or the id of a social.shares entry declared in playgama-bridge-config.json.
         - name: on_success
           type: function
           desc: function(_)
@@ -457,7 +458,8 @@
       desc: Allow players to invite their friends to play the game, helping to grow your player base organically.
       parameters:
         - name: options
-          type: table
+          type: [table, string]
+          desc: A table with the content, or the id of a social.invites entry declared in playgama-bridge-config.json.
         - name: on_success
           type: function
           desc: function(_)
@@ -477,7 +479,8 @@
       desc: Use this to let players create posts about their achievements or updates directly from the game.
       parameters:
         - name: options
-          type: table
+          type: [table, string]
+          desc: A table with the content, or the id of a social.posts entry declared in playgama-bridge-config.json.
         - name: on_success
           type: function
           desc: function(_)
