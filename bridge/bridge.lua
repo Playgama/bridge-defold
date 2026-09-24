@@ -14,6 +14,7 @@ if not _bridge then
 	bridge.advertisement = require "bridge.bridge_advertisement"
 	bridge.storage = require "bridge.bridge_storage"
 	bridge.notifications = require "bridge.bridge_notifications"
+	bridge.analytics = require "bridge.bridge_analytics"
 else
 	bridge = _bridge
 end

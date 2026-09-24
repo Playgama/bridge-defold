@@ -175,6 +175,11 @@ static const luaL_reg remoteConfig_methods[] = {
     { 0, 0 }
 };
 
+static const luaL_reg analytics_methods[] = {
+    { "send", bridge::analytics::send },
+    { 0, 0 }
+};
+
 #endif
 
 #pragma region Defold
@@ -254,6 +259,11 @@ static void LuaInit(lua_State* L) {
         lua_pushstring(L, "remote_config"); // create remote_config table
         lua_newtable(L);
         luaL_register(L, NULL, remoteConfig_methods);
+        lua_settable(L, -3);
+
+        lua_pushstring(L, "analytics"); // create analytics table
+        lua_newtable(L);
+        luaL_register(L, NULL, analytics_methods);
         lua_settable(L, -3);
     }
     lua_pop(L, 1);

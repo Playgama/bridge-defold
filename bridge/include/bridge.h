@@ -161,4 +161,8 @@ namespace bridge {
         int get(lua_State* L);
     } // namespace remoteConfig
 
+    namespace analytics {
+        int send(lua_State* L);
+    } // namespace analytics
+
 } // namespace bridge

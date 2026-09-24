@@ -906,3 +906,18 @@
         - name: on_failure
           type: function
           desc: function(_, error)
+
+  - name: analytics
+    type: table
+    desc: Send the game's own events to Playgama analytics.
+    members:
+    - name: send
+      type: function
+      desc: Send a game event. The event name and the data are entirely up to the game — they are never matched against the SDK's own event names.
+      parameters:
+        - name: event_name
+          type: string
+          desc: The event name.
+        - name: data
+          type: table
+          desc: Optional event payload (may be omitted).
