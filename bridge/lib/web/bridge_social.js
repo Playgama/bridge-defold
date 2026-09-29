@@ -4,9 +4,8 @@ let js_bridge_social = {
         return bridge.social.isShareSupported;
     },
 
-    js_bridge_social_share: function (handler, options, onSuccess, onFailure) {
-        var jsOptions = JSON.parse(UTF8ToString(options));
-        bridge.social.share(jsOptions)
+    js_bridge_social_share: function (handler, id, onSuccess, onFailure) {
+        bridge.social.share(UTF8ToString(id) || undefined)
             .then(() => {
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
             })
@@ -21,9 +20,8 @@ let js_bridge_social = {
         return bridge.social.isJoinCommunitySupported;
     },
 
-    js_bridge_social_joinCommunity: function (handler, options, onSuccess, onFailure) {
-        var jsOptions = JSON.parse(UTF8ToString(options));
-        bridge.social.joinCommunity(jsOptions)
+    js_bridge_social_joinCommunity: function (handler, onSuccess, onFailure) {
+        bridge.social.joinCommunity()
             .then(() => {
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
             })
@@ -38,9 +36,8 @@ let js_bridge_social = {
         return bridge.social.isInviteFriendsSupported;
     },
 
-    js_bridge_social_inviteFriends: function (handler, options, onSuccess, onFailure) {
-        var jsOptions = JSON.parse(UTF8ToString(options));
-        bridge.social.inviteFriends(jsOptions)
+    js_bridge_social_inviteFriends: function (handler, id, onSuccess, onFailure) {
+        bridge.social.inviteFriends(UTF8ToString(id) || undefined)
             .then(() => {
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
             })
@@ -55,10 +52,9 @@ let js_bridge_social = {
         return bridge.social.isCreatePostSupported;
     },
 
-    js_bridge_social_createPost: function (handler, options, payload, onSuccess, onFailure) {
-        var jsOptions = JSON.parse(UTF8ToString(options));
+    js_bridge_social_createPost: function (handler, id, payload, onSuccess, onFailure) {
         var jsPayload = payload ? UTF8ToString(payload) : undefined;
-        bridge.social.createPost(jsOptions, jsPayload)
+        bridge.social.createPost(UTF8ToString(id) || undefined, jsPayload)
             .then(() => {
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson());
             })

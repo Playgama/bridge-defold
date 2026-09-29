@@ -8,7 +8,7 @@ int bridge::social::isShareSupported(lua_State* L) {
 }
 
 int bridge::social::share(lua_State* L) {
-    return makeCallbackWithJson(L, js_bridge_social_share, false);
+    return makeCallbackWithString(L, js_bridge_social_share, false);
 }
 
 // Join Community
@@ -17,7 +17,7 @@ int bridge::social::isJoinCommunitySupported(lua_State* L) {
 }
 
 int bridge::social::joinCommunity(lua_State* L) {
-    return makeCallbackWithJson(L, js_bridge_social_joinCommunity, false);
+    return makeCallback(L, js_bridge_social_joinCommunity, false);
 }
 
 // Invite Friends
@@ -26,7 +26,7 @@ int bridge::social::isInviteFriendsSupported(lua_State* L) {
 }
 
 int bridge::social::inviteFriends(lua_State* L) {
-    return makeCallbackWithJson(L, js_bridge_social_inviteFriends, false);
+    return makeCallbackWithString(L, js_bridge_social_inviteFriends, false);
 }
 
 // Create Post
@@ -35,7 +35,7 @@ int bridge::social::isCreatePostSupported(lua_State* L) {
 }
 
 int bridge::social::createPost(lua_State* L) {
-    return makeCallbackWithJsonAndString(L, js_bridge_social_createPost, false);
+    return makeCallbackWithStringAndOptionalString(L, js_bridge_social_createPost, false);
 }
 
 // Add to Favorites

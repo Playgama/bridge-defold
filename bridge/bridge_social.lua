@@ -5,7 +5,7 @@ function social.is_share_supported()
 	return false
 end
 
-function social.share(options, on_success, on_failure)
+function social.share(id, on_success, on_failure)
 	if on_failure then
 		on_failure()
 	end
@@ -16,7 +16,7 @@ function social.is_join_community_supported()
 	return false
 end
 
-function social.join_community(options, on_success, on_failure)
+function social.join_community(on_success, on_failure)
 	if on_failure then
 		on_failure()
 	end
@@ -27,7 +27,7 @@ function social.is_invite_friends_supported()
 	return false
 end
 
-function social.invite_friends(options, on_success, on_failure)
+function social.invite_friends(id, on_success, on_failure)
 	if on_failure then
 		on_failure()
 	end
@@ -38,7 +38,7 @@ function social.is_create_post_supported()
 	return false
 end
 
-function social.create_post(options, payload, on_success, on_failure)
+function social.create_post(id, payload, on_success, on_failure)
 	if type(payload) == "function" then
 		on_failure = on_success
 		on_success = payload

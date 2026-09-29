@@ -11,19 +11,18 @@ extern "C" {
     // Share
     bool js_bridge_social_isShareSupported();
     void js_bridge_social_share(UniversalHandler handler,
-                                const char* json,
+                                const char* id,
                                 dmScript::LuaCallbackInfo* onSuccess,
                                 dmScript::LuaCallbackInfo* onFailure);
     // Join Community
     bool js_bridge_social_isJoinCommunitySupported();
     void js_bridge_social_joinCommunity(UniversalHandler handler,
-                                        const char* json,
                                         dmScript::LuaCallbackInfo* onSuccess,
                                         dmScript::LuaCallbackInfo* onFailure);
     // Invite Friends
     bool js_bridge_social_isInviteFriendsSupported();
     void js_bridge_social_inviteFriends(UniversalHandler handler,
-                                        const char* json,
+                                        const char* id,
                                         dmScript::LuaCallbackInfo* onSuccess,
                                         dmScript::LuaCallbackInfo* onFailure);
     // Add to Favorites
@@ -35,7 +34,7 @@ extern "C" {
     // Create Post
     bool js_bridge_social_isCreatePostSupported();
     void js_bridge_social_createPost(UniversalHandler handler,
-                                     const char* json,
+                                     const char* id,
                                      const char* payload,
                                      dmScript::LuaCallbackInfo* onSuccess,
                                      dmScript::LuaCallbackInfo* onFailure);

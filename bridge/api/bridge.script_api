@@ -429,9 +429,9 @@
       type: function
       desc: Use this to allow players to share game content or achievements on social media platforms.
       parameters:
-        - name: options
-          type: [table, string]
-          desc: A table with the content, or the id of a social.shares entry declared in playgama-bridge-config.json.
+        - name: id
+          type: string
+          desc: The id of a social.shares entry declared in playgama-bridge-config.json.
         - name: on_success
           type: function
           desc: function(_)
@@ -449,10 +449,8 @@
 
     - name: join_community
       type: function
-      desc: Use this to allow players to share game content or achievements on social media platforms.
+      desc: Invite players to join your community. The data is taken from social.joinCommunity in playgama-bridge-config.json.
       parameters:
-        - name: options
-          type: table
         - name: on_success
           type: function
           desc: function(_)
@@ -471,9 +469,9 @@
       type: function
       desc: Allow players to invite their friends to play the game, helping to grow your player base organically.
       parameters:
-        - name: options
-          type: [table, string]
-          desc: A table with the content, or the id of a social.invites entry declared in playgama-bridge-config.json.
+        - name: id
+          type: string
+          desc: The id of a social.invites entry declared in playgama-bridge-config.json.
         - name: on_success
           type: function
           desc: function(_)
@@ -492,12 +490,12 @@
       type: function
       desc: Use this to let players create posts about their achievements or updates directly from the game.
       parameters:
-        - name: options
-          type: [table, string]
-          desc: A table with the content, or the id of a social.posts entry declared in playgama-bridge-config.json.
+        - name: id
+          type: string
+          desc: The id of a social.posts entry declared in playgama-bridge-config.json.
         - name: payload
           type: string
-          desc: Optional. The game's own string for this one post - a level, a seed, a challenge - handed back as bridge.platform.payload() when someone opens it. May be omitted, the callbacks then follow options.
+          desc: Optional. The game's own string for this one post - a level, a seed, a challenge - handed back as bridge.platform.payload() when someone opens it. May be omitted, the callbacks then follow id.
         - name: on_success
           type: function
           desc: function(_)
