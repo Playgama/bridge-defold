@@ -180,6 +180,33 @@ static const luaL_reg analytics_methods[] = {
     { 0, 0 }
 };
 
+static const luaL_reg multiplayer_methods[] = {
+    { "on", bridge::multiplayer::on },
+    { "is_supported", bridge::multiplayer::isSupported },
+    { "state", bridge::multiplayer::state },
+    { "is_in_room", bridge::multiplayer::isInRoom },
+    { "is_host", bridge::multiplayer::isHost },
+    { "player_id", bridge::multiplayer::playerId },
+    { "host_id", bridge::multiplayer::hostId },
+    { "room_id", bridge::multiplayer::roomId },
+    { "room", bridge::multiplayer::room },
+    { "players", bridge::multiplayer::players },
+    { "is_invite_supported", bridge::multiplayer::isInviteSupported },
+    { "launch_room_id", bridge::multiplayer::launchRoomId },
+    { "create_room", bridge::multiplayer::createRoom },
+    { "join_room", bridge::multiplayer::joinRoom },
+    { "join_or_create_room", bridge::multiplayer::joinOrCreateRoom },
+    { "get_rooms", bridge::multiplayer::getRooms },
+    { "invite_to_room", bridge::multiplayer::inviteToRoom },
+    { "leave_room", bridge::multiplayer::leaveRoom },
+    { "set_room_open", bridge::multiplayer::setRoomOpen },
+    { "set_room_visible", bridge::multiplayer::setRoomVisible },
+    { "set_room_properties", bridge::multiplayer::setRoomProperties },
+    { "set_player_properties", bridge::multiplayer::setPlayerProperties },
+    { "send", bridge::multiplayer::send },
+    { 0, 0 }
+};
+
 #endif
 
 #pragma region Defold
@@ -264,6 +291,11 @@ static void LuaInit(lua_State* L) {
         lua_pushstring(L, "analytics"); // create analytics table
         lua_newtable(L);
         luaL_register(L, NULL, analytics_methods);
+        lua_settable(L, -3);
+
+        lua_pushstring(L, "multiplayer"); // create multiplayer table
+        lua_newtable(L);
+        luaL_register(L, NULL, multiplayer_methods);
         lua_settable(L, -3);
     }
     lua_pop(L, 1);

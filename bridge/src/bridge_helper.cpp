@@ -68,6 +68,23 @@ int getBoolean(lua_State* L, BooleanFunction func) {
     return 1;
 }
 
+// Pushes the value packed by packToJson, or nil when the JS value is empty.
+int getJson(lua_State* L, StringFunction func) {
+    DM_LUA_STACK_CHECK(L, 1);
+    char* json = func();
+    if (!json) {
+        lua_pushnil(L);
+        return 1;
+    }
+
+    dmScript::JsonToLua(L, json, strlen(json));
+    lua_pushstring(L, "data");
+    lua_gettable(L, -2); // get data from table
+    lua_replace(L, -2); // replace table to data
+    free(json);
+    return 1;
+}
+
 int callWithJson(lua_State* L, JsonFunction func) {
     DM_LUA_STACK_CHECK(L, 0);
     char* json;
@@ -75,6 +92,13 @@ int callWithJson(lua_State* L, JsonFunction func) {
     dmScript::LuaToJson(L, &json, &json_len);
     func(json);
     free(json);
+    return 0;
+}
+
+int callWithBoolean(lua_State* L, BooleanArgFunction func) {
+    DM_LUA_STACK_CHECK(L, 0);
+    luaL_checktype(L, 1, LUA_TBOOLEAN);
+    func(lua_toboolean(L, 1));
     return 0;
 }
 
@@ -147,6 +171,39 @@ int makeCallbackWithJson(lua_State* L, CallbacksWithStringFunction func, bool is
     return 0;
 }
 
+// The options table may be omitted, the callbacks then come first.
+int makeCallbackWithOptionalJson(lua_State* L, CallbacksWithStringFunction func, bool isRequiredFirstCallback) {
+    DM_LUA_STACK_CHECK(L, 0);
+    char* json = NULL;
+
+    if (lua_istable(L, 1)) {
+        size_t json_len;
+        dmScript::LuaToJson(L, &json, &json_len);
+    }
+
+    int callbackIndex = lua_isfunction(L, 1) ? 1 : 2;
+
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    if (isRequiredFirstCallback) {
+        onSuccess = dmScript::CreateCallback(L, callbackIndex);
+    } else if (lua_isfunction(L, callbackIndex)) {
+        onSuccess = dmScript::CreateCallback(L, callbackIndex);
+    }
+
+    if (lua_isfunction(L, callbackIndex + 1))
+        onFailure = dmScript::CreateCallback(L, callbackIndex + 1);
+
+    func((UniversalHandler)cppUniversalHandler, json, onSuccess, onFailure);
+
+    if (json) {
+        free(json);
+    }
+
+    return 0;
+}
+
 int makeCallbackWithStringAndJson(lua_State* L, CallbacksWithStringAndJsonFunction func, bool isRequiredFirstCallback) {
     DM_LUA_STACK_CHECK(L, 0);
 
@@ -174,6 +231,45 @@ int makeCallbackWithStringAndJson(lua_State* L, CallbacksWithStringAndJsonFuncti
         onFailure = dmScript::CreateCallback(L, 4);
 
     func((UniversalHandler)cppUniversalHandler, id, json, onSuccess, onFailure);
+
+    if (json) {
+        free(json);
+    }
+
+    return 0;
+}
+
+// The string is required; the options table after it may be omitted, the
+// callbacks then follow the string.
+int makeCallbackWithStringAndOptionalJson(lua_State* L, CallbacksWithStringAndJsonFunction func, bool isRequiredFirstCallback) {
+    DM_LUA_STACK_CHECK(L, 0);
+
+    size_t len;
+    const char* str = luaL_checklstring(L, 1, &len);
+    int callbackIndex = lua_isfunction(L, 2) ? 2 : 3;
+
+    dmScript::LuaCallbackInfo* onSuccess = NULL;
+    dmScript::LuaCallbackInfo* onFailure = NULL;
+
+    if (isRequiredFirstCallback) {
+        onSuccess = dmScript::CreateCallback(L, callbackIndex);
+    } else if (lua_isfunction(L, callbackIndex)) {
+        onSuccess = dmScript::CreateCallback(L, callbackIndex);
+    }
+
+    if (lua_isfunction(L, callbackIndex + 1))
+        onFailure = dmScript::CreateCallback(L, callbackIndex + 1);
+
+    // Encoded last: it replaces the string at index 1 with the options table
+    char* json = NULL;
+    if (lua_istable(L, 2)) {
+        size_t json_len;
+        lua_pushvalue(L, 2);
+        lua_replace(L, 1);
+        dmScript::LuaToJson(L, &json, &json_len);
+    }
+
+    func((UniversalHandler)cppUniversalHandler, str, json, onSuccess, onFailure);
 
     if (json) {
         free(json);

@@ -25,15 +25,20 @@ using OnFunction = void(OnHandler handler, const char* eventName, dmScript::LuaC
 using LeaderboardsSetScoreFunction = void(UniversalHandler handler, const char* id, int score, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
 using StorageFunction = void(UniversalHandler handler, const char* json, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
 using JsonFunction = void(const char* json);
+using BooleanArgFunction = void(bool value);
 
 int getString(lua_State* L, StringFunction func);
 int getBoolean(lua_State* L, BooleanFunction func);
 int getBooleanWithString(lua_State* L, BooleanStringFunction func);
+int getJson(lua_State* L, StringFunction func);
 int callWithJson(lua_State* L, JsonFunction func);
+int callWithBoolean(lua_State* L, BooleanArgFunction func);
 int makeCallback(lua_State* L, CallbacksFunction func, bool isRequiredFirstCallback);
 int makeCallbackWithString(lua_State* L, CallbacksWithStringFunction func, bool isRequiredFirstCallback);
 int makeCallbackWithJson(lua_State* L, CallbacksWithStringFunction func, bool isRequiredFirstCallback);
+int makeCallbackWithOptionalJson(lua_State* L, CallbacksWithStringFunction func, bool isRequiredFirstCallback);
 int makeCallbackWithStringAndJson(lua_State* L, CallbacksWithStringAndJsonFunction func, bool isRequiredFirstCallback);
+int makeCallbackWithStringAndOptionalJson(lua_State* L, CallbacksWithStringAndJsonFunction func, bool isRequiredFirstCallback);
 int makeCallbackWithStringAndOptionalString(lua_State* L, CallbacksWithTwoStringsFunction func, bool isRequiredFirstCallback);
 int makeCallbackStorage(lua_State* L, StorageFunction func, bool isRequiredFirstCallback);
 int makeCallbackLeaderboardsSetScore(lua_State* L, LeaderboardsSetScoreFunction func, bool isRequiredFirstCallback);

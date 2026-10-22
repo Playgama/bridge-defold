@@ -15,6 +15,7 @@ if not _bridge then
 	bridge.storage = require "bridge.bridge_storage"
 	bridge.notifications = require "bridge.bridge_notifications"
 	bridge.analytics = require "bridge.bridge_analytics"
+	bridge.multiplayer = require "bridge.bridge_multiplayer"
 else
 	bridge = _bridge
 end
@@ -28,7 +29,15 @@ bridge.EVENT_NAME = {
 	AUDIO_STATE_CHANGED = "audio_state_changed",
 	PAUSE_STATE_CHANGED = "pause_state_changed",
 	ADVANCED_BANNERS_STATE_CHANGED = "advanced_banners_state_changed",
-	PLATFORM_STORAGE_AVAILABILITY_CHANGED = "platform_storage_availability_changed"
+	PLATFORM_STORAGE_AVAILABILITY_CHANGED = "platform_storage_availability_changed",
+	MULTIPLAYER_STATE_CHANGED = "multiplayer_state_changed",
+	MULTIPLAYER_ROOM_LEFT = "multiplayer_room_left",
+	MULTIPLAYER_ROOM_UPDATED = "multiplayer_room_updated",
+	MULTIPLAYER_PLAYER_JOINED = "multiplayer_player_joined",
+	MULTIPLAYER_PLAYER_LEFT = "multiplayer_player_left",
+	MULTIPLAYER_PLAYER_UPDATED = "multiplayer_player_updated",
+	MULTIPLAYER_HOST_CHANGED = "multiplayer_host_changed",
+	MULTIPLAYER_MESSAGE_RECEIVED = "multiplayer_message_received",
 }
 
 bridge.INTERSTITIAL_STATE = {
@@ -79,6 +88,29 @@ bridge.LEADERBOARD_TYPE = {
 	IN_GAME = "in_game",
 	NATIVE = "native",
 	NATIVE_POPUP = "native_popup",
+}
+
+bridge.MULTIPLAYER_STATE = {
+	DISCONNECTED = "disconnected",
+	CONNECTING = "connecting",
+	CONNECTED = "connected",
+	RECONNECTING = "reconnecting",
+}
+
+bridge.MULTIPLAYER_TARGET = {
+	ALL = "all",
+	OTHERS = "others",
+	HOST = "host",
+}
+
+bridge.MULTIPLAYER_TYPE = {
+	RELAY = "relay",
+}
+
+bridge.ROOM_LEAVE_REASON = {
+	LEFT = "left",
+	CONNECTION_LOST = "connection_lost",
+	ROOM_CLOSED = "room_closed",
 }
 
 return bridge

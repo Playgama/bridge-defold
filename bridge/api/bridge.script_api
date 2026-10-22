@@ -919,3 +919,220 @@
         - name: data
           type: table
           desc: Optional event payload (may be omitted).
+
+
+  - name: multiplayer
+    type: table
+    desc: Room-based realtime multiplayer. One player hosts the room and runs the game logic, the server relays messages between players. Room, player and message data are passed as Lua tables.
+    members:
+    - name: on
+      type: function
+      desc: "Subscribe to multiplayer events. Use the bridge.EVENT_NAME.MULTIPLAYER_* constants. The callback receives:
+            `multiplayer_state_changed` - state string (see bridge.MULTIPLAYER_STATE)
+            `multiplayer_room_left` - reason string (see bridge.ROOM_LEAVE_REASON)
+            `multiplayer_room_updated` - room table
+            `multiplayer_player_joined` - player table
+            `multiplayer_player_left` - player table
+            `multiplayer_player_updated` - player table
+            `multiplayer_host_changed` - new host player table or nil
+            `multiplayer_message_received` - message table { type, data, from }"
+      parameters:
+        - name: event_name
+          type: string
+        - name: callback
+          type: function
+          desc: function(_, data)
+
+    - name: is_supported
+      type: function
+      desc: Check if multiplayer is supported on the current platform.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: state
+      type: function
+      desc: Connection state - "disconnected", "connecting", "connected" or "reconnecting" (see bridge.MULTIPLAYER_STATE).
+      returns:
+        - name: result
+          type: string
+
+    - name: is_in_room
+      type: function
+      desc: Check if the player is in a room (connected or reconnecting).
+      returns:
+        - name: result
+          type: boolean
+
+    - name: is_host
+      type: function
+      desc: Check if the local player is the room host.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: player_id
+      type: function
+      desc: The local player id in the room, nil outside of a room.
+      returns:
+        - name: result
+          type: string | nil
+
+    - name: host_id
+      type: function
+      desc: The room host player id, nil outside of a room.
+      returns:
+        - name: result
+          type: string | nil
+
+    - name: room_id
+      type: function
+      desc: The room code other players type to join, nil outside of a room.
+      returns:
+        - name: result
+          type: string | nil
+
+    - name: room
+      type: function
+      desc: The current room with the shape { id, type, maxPlayers, isOpen, isVisible, hostId, properties }, nil outside of a room.
+      returns:
+        - name: result
+          type: table | nil
+
+    - name: players
+      type: function
+      desc: The players in the current room, each with the shape { id, name, isHost, isConnected, properties }. Empty outside of a room.
+      returns:
+        - name: result
+          type: table
+
+    - name: is_invite_supported
+      type: function
+      desc: Check if the platform can share an invite link to the current room, see invite_to_room.
+      returns:
+        - name: result
+          type: boolean
+
+    - name: launch_room_id
+      type: function
+      desc: The room code from the invite link the game was opened with, pass it to join_room. nil when there is none or once the player has entered any room.
+      returns:
+        - name: result
+          type: string | nil
+
+    - name: create_room
+      type: function
+      desc: Create a room and enter it as the host. A hidden room (the default) is for friends - only players the room code was shared with can join.
+      parameters:
+        - name: options
+          type: table
+          desc: Optional (may be omitted) { maxPlayers, isVisible (default false), isOpen (default true), properties, playerName, playerProperties }.
+        - name: on_success
+          type: function
+          desc: function(_, room_id)
+        - name: on_failure
+          type: function
+          desc: function(_, error), error is the code, e.g. MULTIPLAYER_ROOM_FULL
+
+    - name: join_room
+      type: function
+      desc: Join a room by its code.
+      parameters:
+        - name: room_id
+          type: string
+        - name: options
+          type: table
+          desc: Optional (may be omitted) { playerName, playerProperties }.
+        - name: on_success
+          type: function
+          desc: function(_)
+        - name: on_failure
+          type: function
+          desc: function(_, error), error is the code, e.g. MULTIPLAYER_ROOM_FULL
+
+    - name: join_or_create_room
+      type: function
+      desc: Quick match - enter a matching visible room or create a visible one (its creator becomes the host).
+      parameters:
+        - name: options
+          type: table
+          desc: Optional (may be omitted) { maxPlayers, filter, properties, playerName, playerProperties }.
+        - name: on_success
+          type: function
+          desc: function(_, room_id)
+        - name: on_failure
+          type: function
+          desc: function(_, error), error is the code, e.g. MULTIPLAYER_ROOM_FULL
+
+    - name: get_rooms
+      type: function
+      desc: Get visible open rooms with a free seat, for a room browser. Each room has the shape { id, type, maxPlayers, playerCount, properties }.
+      parameters:
+        - name: options
+          type: table
+          desc: Optional (may be omitted) { filter, maxPlayers, limit }.
+        - name: on_success
+          type: function
+          desc: function(_, rooms)
+        - name: on_failure
+          type: function
+          desc: function(_, error), error is the code, e.g. MULTIPLAYER_ROOM_FULL
+
+    - name: invite_to_room
+      type: function
+      desc: Ask the platform to share a link to the current room. Whoever opens it starts the game with the room code in launch_room_id.
+      parameters:
+        - name: options
+          type: table
+          desc: Optional (may be omitted) { text, image, ... }.
+        - name: on_success
+          type: function
+          desc: function(_, result)
+        - name: on_failure
+          type: function
+          desc: function(_, error), error is the code, e.g. MULTIPLAYER_ROOM_FULL
+
+    - name: leave_room
+      type: function
+      desc: Leave the current room.
+
+    - name: set_room_open
+      type: function
+      desc: Host only. Stop (or resume) accepting new players, e.g. once the match starts.
+      parameters:
+        - name: is_open
+          type: boolean
+
+    - name: set_room_visible
+      type: function
+      desc: Host only. Show (or hide) the room in the room list and matchmaking.
+      parameters:
+        - name: is_visible
+          type: boolean
+
+    - name: set_room_properties
+      type: function
+      desc: Host only. Update the room properties - keys are merged, a json.null value removes the key.
+      parameters:
+        - name: properties
+          type: table
+
+    - name: set_player_properties
+      type: function
+      desc: Update the local player properties - keys are merged, a json.null value removes the key.
+      parameters:
+        - name: properties
+          type: table
+
+    - name: send
+      type: function
+      desc: Send a message to other players in the room. It arrives in the multiplayer_message_received event as { type, data, from }.
+      parameters:
+        - name: message_type
+          type: string
+        - name: data
+          type: table | string | number | boolean | nil
+          desc: Optional message data (any JSON-compatible value).
+        - name: options
+          type: table
+          desc: "Optional { to }, where to is \"all\", \"others\" (default), \"host\" (see bridge.MULTIPLAYER_TARGET), a player id or a table of player ids."

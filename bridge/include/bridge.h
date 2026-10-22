@@ -165,4 +165,33 @@ namespace bridge {
         int send(lua_State* L);
     } // namespace analytics
 
+    namespace multiplayer {
+        int on(lua_State* L);
+
+        int isSupported(lua_State* L);
+        int state(lua_State* L);
+        int isInRoom(lua_State* L);
+        int isHost(lua_State* L);
+        int playerId(lua_State* L);
+        int hostId(lua_State* L);
+        int roomId(lua_State* L);
+        int room(lua_State* L);
+        int players(lua_State* L);
+        int isInviteSupported(lua_State* L);
+        int launchRoomId(lua_State* L);
+
+        int createRoom(lua_State* L);
+        int joinRoom(lua_State* L);
+        int joinOrCreateRoom(lua_State* L);
+        int getRooms(lua_State* L);
+        int inviteToRoom(lua_State* L);
+        int leaveRoom(lua_State* L);
+
+        int setRoomOpen(lua_State* L);
+        int setRoomVisible(lua_State* L);
+        int setRoomProperties(lua_State* L);
+        int setPlayerProperties(lua_State* L);
+        int send(lua_State* L);
+    } // namespace multiplayer
+
 } // namespace bridge
