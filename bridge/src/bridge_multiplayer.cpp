@@ -98,13 +98,18 @@ int bridge::multiplayer::send(lua_State* L) {
     DM_LUA_STACK_CHECK(L, 0);
     luaL_checkstring(L, 1);
 
-    // Pack type, data (any value) and options into one table at index 1 to encode it as a single JSON
+    // Pack type, data (any value) and options into one table at index 1 to encode it as a single JSON.
+    // Arguments are checked against the original top: the new table takes the first free index,
+    // which must not be read back as data or options
+    int top = lua_gettop(L);
     lua_newtable(L);
     lua_pushvalue(L, 1);
     lua_setfield(L, -2, "type");
-    lua_pushvalue(L, 2);
-    lua_setfield(L, -2, "data");
-    if (lua_istable(L, 3)) {
+    if (top >= 2) {
+        lua_pushvalue(L, 2);
+        lua_setfield(L, -2, "data");
+    }
+    if (top >= 3 && lua_istable(L, 3)) {
         lua_pushvalue(L, 3);
         lua_setfield(L, -2, "options");
     }
