@@ -1026,7 +1026,7 @@
       parameters:
         - name: options
           type: table
-          desc: Optional (may be omitted) { maxPlayers, isVisible (default false), isOpen (default true), properties, playerName, playerProperties }.
+          desc: Optional (may be omitted) { maxPlayers, isVisible (default false), isOpen (default true), filter (lets quick match and filtered room lists find a visible room), properties, playerName, playerProperties }.
         - name: on_success
           type: function
           desc: function(_, room_id)
@@ -1052,7 +1052,7 @@
 
     - name: join_or_create_room
       type: function
-      desc: Quick match - enter a matching visible room or create a visible one (its creator becomes the host).
+      desc: Quick match - enter a visible room with the same maxPlayers and exactly the same filter, or create a visible one (its creator becomes the host). A created room also gets the filter values in its properties.
       parameters:
         - name: options
           type: table
@@ -1066,11 +1066,11 @@
 
     - name: get_rooms
       type: function
-      desc: Get visible open rooms with a free seat, for a room browser. Each room has the shape { id, type, maxPlayers, playerCount, properties }.
+      desc: Get visible open rooms with a free seat, for a room browser. Each room has the shape { id, type, maxPlayers, playerCount, filter, properties }.
       parameters:
         - name: options
           type: table
-          desc: Optional (may be omitted) { filter, maxPlayers, limit }.
+          desc: Optional (may be omitted) { filter (only rooms created with exactly this filter), maxPlayers, limit }.
         - name: on_success
           type: function
           desc: function(_, rooms)
