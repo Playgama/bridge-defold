@@ -193,6 +193,7 @@ static const luaL_reg multiplayer_methods[] = {
     { "players", bridge::multiplayer::players },
     { "is_invite_supported", bridge::multiplayer::isInviteSupported },
     { "launch_room_id", bridge::multiplayer::launchRoomId },
+    { "sync_state", bridge::multiplayer::syncState },
     { "create_room", bridge::multiplayer::createRoom },
     { "join_room", bridge::multiplayer::joinRoom },
     { "join_or_create_room", bridge::multiplayer::joinOrCreateRoom },
@@ -204,6 +205,7 @@ static const luaL_reg multiplayer_methods[] = {
     { "set_room_properties", bridge::multiplayer::setRoomProperties },
     { "set_player_properties", bridge::multiplayer::setPlayerProperties },
     { "send", bridge::multiplayer::send },
+    { "set_sync_state", bridge::multiplayer::setSyncState },
     { 0, 0 }
 };
 

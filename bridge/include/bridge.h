@@ -179,6 +179,7 @@ namespace bridge {
         int players(lua_State* L);
         int isInviteSupported(lua_State* L);
         int launchRoomId(lua_State* L);
+        int syncState(lua_State* L);
 
         int createRoom(lua_State* L);
         int joinRoom(lua_State* L);
@@ -192,6 +193,7 @@ namespace bridge {
         int setRoomProperties(lua_State* L);
         int setPlayerProperties(lua_State* L);
         int send(lua_State* L);
+        int setSyncState(lua_State* L);
     } // namespace multiplayer
 
 } // namespace bridge

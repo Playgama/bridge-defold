@@ -32,6 +32,8 @@ extern "C" {
 
     char* js_bridge_multiplayer_launchRoomId();
 
+    char* js_bridge_multiplayer_syncState();
+
     void js_bridge_multiplayer_createRoom(UniversalHandler handler,
                                           const char* json,
                                           dmScript::LuaCallbackInfo* onSuccess,
@@ -69,6 +71,8 @@ extern "C" {
     void js_bridge_multiplayer_setPlayerProperties(const char* json);
 
     void js_bridge_multiplayer_send(const char* json);
+
+    void js_bridge_multiplayer_setSyncState(const char* json);
 }
 
 #endif

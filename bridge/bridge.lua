@@ -38,6 +38,7 @@ bridge.EVENT_NAME = {
 	MULTIPLAYER_PLAYER_UPDATED = "multiplayer_player_updated",
 	MULTIPLAYER_HOST_CHANGED = "multiplayer_host_changed",
 	MULTIPLAYER_MESSAGE_RECEIVED = "multiplayer_message_received",
+	MULTIPLAYER_SYNC_STATE_RECEIVED = "multiplayer_sync_state_received",
 }
 
 bridge.INTERSTITIAL_STATE = {

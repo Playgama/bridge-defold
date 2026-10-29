@@ -49,6 +49,10 @@ let js_bridge_multiplayer = {
         return CStrOrNull(bridge.multiplayer.launchRoomId);
     },
 
+    js_bridge_multiplayer_syncState: function () {
+        return packToJson(bridge.multiplayer.syncState);
+    },
+
     js_bridge_multiplayer_createRoom: function (handler, options, onSuccess, onFailure) {
         var jsOptions = options ? JSON.parse(UTF8ToString(options)) : undefined;
         bridge.multiplayer.createRoom(jsOptions)
@@ -129,6 +133,10 @@ let js_bridge_multiplayer = {
         // The message is packed by the C++ side as { type, data, options }
         var jsMessage = JSON.parse(UTF8ToString(message));
         bridge.multiplayer.send(jsMessage.type, jsMessage.data, jsMessage.options);
+    },
+
+    js_bridge_multiplayer_setSyncState: function (state) {
+        bridge.multiplayer.setSyncState(JSON.parse(UTF8ToString(state)));
     },
 };
 

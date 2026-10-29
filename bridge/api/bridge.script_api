@@ -923,7 +923,7 @@
 
   - name: multiplayer
     type: table
-    desc: Room-based realtime multiplayer. One player hosts the room and runs the game logic, the server relays messages between players. Room, player and message data are passed as Lua tables.
+    desc: Room-based realtime multiplayer. One player hosts the room and runs the game logic, the server relays messages between players. Room, player, message data and the synced world are passed as Lua tables.
     members:
     - name: on
       type: function
@@ -935,7 +935,8 @@
             `multiplayer_player_left` - player table
             `multiplayer_player_updated` - player table
             `multiplayer_host_changed` - new host player table or nil
-            `multiplayer_message_received` - message table { type, data, from }"
+            `multiplayer_message_received` - message table { type, data, from }
+            `multiplayer_sync_state_received` - world table (see set_sync_state)"
       parameters:
         - name: event_name
           type: string
@@ -1020,13 +1021,20 @@
         - name: result
           type: string | nil
 
+    - name: sync_state
+      type: function
+      desc: The last world - set with set_sync_state or received. Empty when there is none.
+      returns:
+        - name: result
+          type: table
+
     - name: create_room
       type: function
       desc: Create a room and enter it as the host. A hidden room (the default) is for friends - only players the room code was shared with can join.
       parameters:
         - name: options
           type: table
-          desc: Optional (may be omitted) { maxPlayers, isVisible (default false), isOpen (default true), filter (lets quick match and filtered room lists find a visible room), properties, playerName, playerProperties }.
+          desc: Optional (may be omitted) { maxPlayers, isVisible (default false), isOpen (default true), filter (lets quick match and filtered room lists find a visible room), properties, playerName, playerProperties, syncState (true or { updatesPerSecond }, see set_sync_state) }.
         - name: on_success
           type: function
           desc: function(_, room_id)
@@ -1042,7 +1050,7 @@
           type: string
         - name: options
           type: table
-          desc: Optional (may be omitted) { playerName, playerProperties }.
+          desc: Optional (may be omitted) { playerName, playerProperties, syncState (true or { updatesPerSecond }, see set_sync_state) }.
         - name: on_success
           type: function
           desc: function(_)
@@ -1056,7 +1064,7 @@
       parameters:
         - name: options
           type: table
-          desc: Optional (may be omitted) { maxPlayers, filter, properties, playerName, playerProperties }.
+          desc: Optional (may be omitted) { maxPlayers, filter, properties, playerName, playerProperties, syncState (true or { updatesPerSecond }, see set_sync_state) }.
         - name: on_success
           type: function
           desc: function(_, room_id)
@@ -1136,3 +1144,11 @@
         - name: options
           type: table
           desc: "Optional { to }, where to is \"all\", \"others\" (default), \"host\" (see bridge.MULTIPLAYER_TARGET), a player id or a table of player ids."
+
+    - name: set_sync_state
+      type: function
+      desc: "Set the local game world. When the room is entered with syncState, the host sends its world to the other players up to updatesPerSecond times a second (1-10, default 10) and they get it in the multiplayer_sync_state_received event. The server keeps the last world - a new host gets it in the same event and goes on from it. Works outside a room too, e.g. to set the starting world before create_room. Reset to an empty table when the room is left."
+      parameters:
+        - name: state
+          type: table
+          desc: The whole world (JSON-compatible), up to 64 KB.

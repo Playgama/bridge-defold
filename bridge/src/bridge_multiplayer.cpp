@@ -50,6 +50,10 @@ int bridge::multiplayer::launchRoomId(lua_State* L) {
     return getString(L, js_bridge_multiplayer_launchRoomId);
 }
 
+int bridge::multiplayer::syncState(lua_State* L) {
+    return getJson(L, js_bridge_multiplayer_syncState);
+}
+
 int bridge::multiplayer::createRoom(lua_State* L) {
     return makeCallbackWithOptionalJson(L, js_bridge_multiplayer_createRoom, false);
 }
@@ -121,6 +125,11 @@ int bridge::multiplayer::send(lua_State* L) {
     js_bridge_multiplayer_send(json);
     free(json);
     return 0;
+}
+
+int bridge::multiplayer::setSyncState(lua_State* L) {
+    luaL_checktype(L, 1, LUA_TTABLE);
+    return callWithJson(L, js_bridge_multiplayer_setSyncState);
 }
 
 #endif

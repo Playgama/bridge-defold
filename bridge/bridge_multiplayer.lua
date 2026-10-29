@@ -48,6 +48,10 @@ function multiplayer.launch_room_id()
 	return nil
 end
 
+function multiplayer.sync_state()
+	return {}
+end
+
 function multiplayer.create_room(options, on_success, on_failure)
 	if type(options) == "function" then
 		on_failure = on_success
@@ -119,6 +123,10 @@ function multiplayer.set_player_properties(properties)
 end
 
 function multiplayer.send(message_type, data, options)
+
+end
+
+function multiplayer.set_sync_state(state)
 
 end
 
