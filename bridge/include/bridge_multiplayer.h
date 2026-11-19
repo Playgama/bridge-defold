@@ -24,6 +24,8 @@ extern "C" {
 
     char* js_bridge_multiplayer_roomId();
 
+    char* js_bridge_multiplayer_region();
+
     char* js_bridge_multiplayer_room();
 
     char* js_bridge_multiplayer_players();
@@ -54,6 +56,12 @@ extern "C" {
                                         const char* json,
                                         dmScript::LuaCallbackInfo* onSuccess,
                                         dmScript::LuaCallbackInfo* onFailure);
+
+    void js_bridge_multiplayer_getRegions(UniversalHandler handler,
+                                          dmScript::LuaCallbackInfo* onSuccess,
+                                          dmScript::LuaCallbackInfo* onFailure);
+
+    void js_bridge_multiplayer_setRegion(const char* region);
 
     void js_bridge_multiplayer_inviteToRoom(UniversalHandler handler,
                                             const char* json,

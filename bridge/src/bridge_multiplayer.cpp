@@ -34,6 +34,10 @@ int bridge::multiplayer::roomId(lua_State* L) {
     return getString(L, js_bridge_multiplayer_roomId);
 }
 
+int bridge::multiplayer::region(lua_State* L) {
+    return getString(L, js_bridge_multiplayer_region);
+}
+
 int bridge::multiplayer::room(lua_State* L) {
     return getJson(L, js_bridge_multiplayer_room);
 }
@@ -68,6 +72,16 @@ int bridge::multiplayer::joinOrCreateRoom(lua_State* L) {
 
 int bridge::multiplayer::getRooms(lua_State* L) {
     return makeCallbackWithOptionalJson(L, js_bridge_multiplayer_getRooms, false);
+}
+
+int bridge::multiplayer::getRegions(lua_State* L) {
+    return makeCallback(L, js_bridge_multiplayer_getRegions, false);
+}
+
+int bridge::multiplayer::setRegion(lua_State* L) {
+    DM_LUA_STACK_CHECK(L, 0);
+    js_bridge_multiplayer_setRegion(luaL_checkstring(L, 1));
+    return 0;
 }
 
 int bridge::multiplayer::inviteToRoom(lua_State* L) {

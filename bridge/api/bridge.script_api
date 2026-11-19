@@ -993,6 +993,13 @@
         - name: result
           type: string | nil
 
+    - name: region
+      type: function
+      desc: Region of the next created or matched room and of get_rooms, e.g. "eu". nil until set_region, get_regions or the first room call.
+      returns:
+        - name: result
+          type: string | nil
+
     - name: room
       type: function
       desc: The current room with the shape { id, type, maxPlayers, isOpen, isVisible, hostId, properties }, nil outside of a room.
@@ -1085,6 +1092,24 @@
         - name: on_failure
           type: function
           desc: function(_, error), error is the code, e.g. MULTIPLAYER_ROOM_FULL
+
+    - name: get_regions
+      type: function
+      desc: Get region ids for a region picker, e.g. { "eu", "us", "ap" }. Also sets region to the default one if it is still unknown.
+      parameters:
+        - name: on_success
+          type: function
+          desc: function(_, regions)
+        - name: on_failure
+          type: function
+          desc: function(_, error), error is the code, e.g. MULTIPLAYER_NOT_SUPPORTED
+
+    - name: set_region
+      type: function
+      desc: Set the region (an id from get_regions) of the next created or matched room and of get_rooms. The current room stays where it is; join_room by code always enters the region of the code.
+      parameters:
+        - name: region
+          type: string
 
     - name: invite_to_room
       type: function

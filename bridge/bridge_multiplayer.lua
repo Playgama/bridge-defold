@@ -32,6 +32,10 @@ function multiplayer.room_id()
 	return nil
 end
 
+function multiplayer.region()
+	return nil
+end
+
 function multiplayer.room()
 	return nil
 end
@@ -90,6 +94,16 @@ function multiplayer.get_rooms(options, on_success, on_failure)
 	if on_failure then
 		on_failure()
 	end
+end
+
+function multiplayer.get_regions(on_success, on_failure)
+	if on_failure then
+		on_failure()
+	end
+end
+
+function multiplayer.set_region(region)
+
 end
 
 function multiplayer.invite_to_room(options, on_success, on_failure)

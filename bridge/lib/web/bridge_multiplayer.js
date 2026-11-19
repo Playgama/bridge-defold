@@ -33,6 +33,10 @@ let js_bridge_multiplayer = {
         return CStrOrNull(bridge.multiplayer.roomId);
     },
 
+    js_bridge_multiplayer_region: function () {
+        return CStrOrNull(bridge.multiplayer.region);
+    },
+
     js_bridge_multiplayer_room: function () {
         return packToJson(bridge.multiplayer.room);
     },
@@ -96,6 +100,20 @@ let js_bridge_multiplayer = {
             .catch(error => {
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error && error.code));
             })
+    },
+
+    js_bridge_multiplayer_getRegions: function (handler, onSuccess, onFailure) {
+        bridge.multiplayer.getRegions()
+            .then(regions => {
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(regions));
+            })
+            .catch(error => {
+                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error && error.code));
+            })
+    },
+
+    js_bridge_multiplayer_setRegion: function (region) {
+        bridge.multiplayer.setRegion(UTF8ToString(region));
     },
 
     js_bridge_multiplayer_inviteToRoom: function (handler, options, onSuccess, onFailure) {

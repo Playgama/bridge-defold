@@ -175,6 +175,7 @@ namespace bridge {
         int playerId(lua_State* L);
         int hostId(lua_State* L);
         int roomId(lua_State* L);
+        int region(lua_State* L);
         int room(lua_State* L);
         int players(lua_State* L);
         int isInviteSupported(lua_State* L);
@@ -185,6 +186,8 @@ namespace bridge {
         int joinRoom(lua_State* L);
         int joinOrCreateRoom(lua_State* L);
         int getRooms(lua_State* L);
+        int getRegions(lua_State* L);
+        int setRegion(lua_State* L);
         int inviteToRoom(lua_State* L);
         int leaveRoom(lua_State* L);
 
