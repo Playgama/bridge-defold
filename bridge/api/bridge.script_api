@@ -785,7 +785,7 @@
 
     - name: set_score
       type: function
-      desc: Submit the player's score to the leaderboard to update their rank and position.
+      desc: Submit the player's score to the leaderboard to update their rank and position. A leaderboard with score mode "best" keeps the best score, one with "sum" adds the score to the player's total, so send what was earned (see get_info).
       parameters:
         - name: id
           type: string
@@ -804,6 +804,9 @@
       parameters:
         - name: id
           type: string
+        - name: period
+          type: string
+          desc: Optional. The standings to read, one of bridge.LEADERBOARD_PERIOD - "permanent" (default), "daily", "weekly" or "monthly"; the ones the leaderboard has are listed by get_info. May be omitted, the callbacks then follow id.
         - name: on_success
           type: function
           desc: function(_, entries)
@@ -813,7 +816,7 @@
 
     - name: get_info
       type: function
-      desc: Get the leaderboard period with the shape { id, period, timeLeft }. period is one of bridge.LEADERBOARD_PERIOD - "permanent", "daily", "weekly" or "monthly". Daily, weekly and monthly exist only for Playgama leaderboards and reset at 00:00 UTC (weekly on Monday, monthly on the 1st); native platform leaderboards are always permanent. timeLeft is whole seconds until the current period resets, nil for permanent. Fails when leaderboards are not available.
+      desc: Get what the game needs to build leaderboard tabs, with the shape { id, scoreMode, periods, timeLeft }. scoreMode is one of bridge.LEADERBOARD_SCORE_MODE - "best" or "sum". periods lists the standings get_entries can read - { "permanent", "daily", "weekly", "monthly" } on Playgama leaderboards, { "permanent" } on native platform ones. timeLeft has the whole seconds until each period resets (00:00 UTC, weeks on Monday, months on the 1st) as { daily, weekly, monthly }; a period the leaderboard does not have is nil. Fails when leaderboards are not available.
       parameters:
         - name: id
           type: string

@@ -10,7 +10,11 @@ function leaderboards.set_score(id, score, on_success, on_failure)
 	end
 end
 
-function leaderboards.get_entries(id, on_success, on_failure)
+function leaderboards.get_entries(id, period, on_success, on_failure)
+	if type(period) == "function" then
+		on_failure = on_success
+		on_success = period
+	end
 	if on_failure then
 		on_failure()
 	end

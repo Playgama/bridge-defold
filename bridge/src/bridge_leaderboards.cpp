@@ -11,7 +11,7 @@ int bridge::leaderboards::setScore(lua_State* L) {
 }
 
 int bridge::leaderboards::getEntries(lua_State* L) {
-    return makeCallbackWithString(L, js_bridge_leaderboards_getEntries, true);
+    return makeCallbackWithStringAndOptionalString(L, js_bridge_leaderboards_getEntries, true);
 }
 
 int bridge::leaderboards::getInfo(lua_State* L) {

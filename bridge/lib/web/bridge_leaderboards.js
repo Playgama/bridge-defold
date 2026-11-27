@@ -13,8 +13,9 @@ let js_bridge_leaderboards = {
             })
     },
 
-    js_bridge_leaderboards_getEntries: function (handler, id, onSuccess, onFailure) {
-        bridge.leaderboards.getEntries(UTF8ToString(id))
+    js_bridge_leaderboards_getEntries: function (handler, id, period, onSuccess, onFailure) {
+        var jsOptions = period ? { period: UTF8ToString(period) } : undefined;
+        bridge.leaderboards.getEntries(UTF8ToString(id), jsOptions)
             .then(entries => {
                 {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(entries));
             })
@@ -23,7 +24,6 @@ let js_bridge_leaderboards = {
             })
     },
 
-    // timeLeft null (permanent leaderboard) arrives in Lua as nil
     js_bridge_leaderboards_getInfo: function (handler, id, onSuccess, onFailure) {
         bridge.leaderboards.getInfo(UTF8ToString(id))
             .then(info => {
