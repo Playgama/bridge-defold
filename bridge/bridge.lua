@@ -98,11 +98,6 @@ bridge.LEADERBOARD_PERIOD = {
 	MONTHLY = "monthly",
 }
 
-bridge.LEADERBOARD_SCORE_MODE = {
-	BEST = "best",
-	SUM = "sum",
-}
-
 bridge.MULTIPLAYER_STATE = {
 	DISCONNECTED = "disconnected",
 	CONNECTING = "connecting",

@@ -9,7 +9,6 @@ extern "C" {
 
     void js_bridge_leaderboards_setScore(UniversalHandler handler, const char* id, int score, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
     void js_bridge_leaderboards_getEntries(UniversalHandler handler, const char* id, const char* period, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
-    void js_bridge_leaderboards_getInfo(UniversalHandler handler, const char* id, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
     void js_bridge_leaderboards_showNativePopup(UniversalHandler handler, const char* id, dmScript::LuaCallbackInfo* onSuccess, dmScript::LuaCallbackInfo* onFailure);
 }
 

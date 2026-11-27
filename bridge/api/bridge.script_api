@@ -785,7 +785,7 @@
 
     - name: set_score
       type: function
-      desc: Submit the player's score to the leaderboard to update their rank and position. A leaderboard with score mode "best" keeps the best score, one with "sum" adds the score to the player's total, so send what was earned (see get_info).
+      desc: Submit the player's score to the leaderboard to update their rank and position. On a leaderboard set to "sum" in the developer console the score is added to the player's total, so send what was earned.
       parameters:
         - name: id
           type: string
@@ -806,23 +806,10 @@
           type: string
         - name: period
           type: string
-          desc: Optional. The standings to read, one of bridge.LEADERBOARD_PERIOD - "permanent" (default), "daily", "weekly" or "monthly"; the ones the leaderboard has are listed by get_info. May be omitted, the callbacks then follow id.
+          desc: Optional. The standings to read, one of bridge.LEADERBOARD_PERIOD - "permanent" (default), "daily", "weekly" or "monthly". Daily, weekly and monthly exist only on Playgama leaderboards and reset at 00:00 UTC (weekly on Monday, monthly on the 1st); on other leaderboards they fail. May be omitted, the callbacks then follow id.
         - name: on_success
           type: function
           desc: function(_, entries)
-        - name: on_failure
-          type: function
-          desc: function(_, error)
-
-    - name: get_info
-      type: function
-      desc: Get what the game needs to build leaderboard tabs, with the shape { id, scoreMode, periods, timeLeft }. scoreMode is one of bridge.LEADERBOARD_SCORE_MODE - "best" or "sum". periods lists the standings get_entries can read - { "permanent", "daily", "weekly", "monthly" } on Playgama leaderboards, { "permanent" } on native platform ones. timeLeft has the whole seconds until each period resets (00:00 UTC, weeks on Monday, months on the 1st) as { daily, weekly, monthly }; a period the leaderboard does not have is nil. Fails when leaderboards are not available.
-      parameters:
-        - name: id
-          type: string
-        - name: on_success
-          type: function
-          desc: function(_, info)
         - name: on_failure
           type: function
           desc: function(_, error)

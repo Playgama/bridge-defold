@@ -24,16 +24,6 @@ let js_bridge_leaderboards = {
             })
     },
 
-    js_bridge_leaderboards_getInfo: function (handler, id, onSuccess, onFailure) {
-        bridge.leaderboards.getInfo(UTF8ToString(id))
-            .then(info => {
-                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 0, packToJson(info));
-            })
-            .catch(error => {
-                {{{ makeDynCall('viiii', 'handler') }}} (onSuccess, onFailure, 1, packToJson(error));
-            })
-    },
-
     js_bridge_leaderboards_showNativePopup: function (handler, id, onSuccess, onFailure) {
         bridge.leaderboards.showNativePopup(UTF8ToString(id))
             .then(() => {

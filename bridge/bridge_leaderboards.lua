@@ -20,12 +20,6 @@ function leaderboards.get_entries(id, period, on_success, on_failure)
 	end
 end
 
-function leaderboards.get_info(id, on_success, on_failure)
-	if on_failure then
-		on_failure()
-	end
-end
-
 function leaderboards.show_native_popup(id, on_success, on_failure)
 	if on_failure then
 		on_failure()
