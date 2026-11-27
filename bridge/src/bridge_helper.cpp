@@ -292,6 +292,9 @@ int makeCallbackWithStringAndOptionalString(lua_State* L, CallbacksWithTwoString
     if (lua_isstring(L, 2)) {
         str = lua_tostring(L, 2);
         callbackIndex = 3;
+    } else if (lua_isnil(L, 2) && lua_isfunction(L, 3)) {
+        // An explicit nil in place of the optional string, e.g. get_entries(id, nil, on_success).
+        callbackIndex = 3;
     }
 
     if (isRequiredFirstCallback) {

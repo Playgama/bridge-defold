@@ -785,7 +785,7 @@
 
     - name: set_score
       type: function
-      desc: Submit the player's score to the leaderboard to update their rank and position.
+      desc: Submit the player's score to the leaderboard to update their rank and position. On a leaderboard set to "sum" in the developer console the score is added to the player's total, so send what was earned.
       parameters:
         - name: id
           type: string
@@ -804,6 +804,9 @@
       parameters:
         - name: id
           type: string
+        - name: period
+          type: string
+          desc: Optional. The standings to read, one of bridge.LEADERBOARD_PERIOD - "permanent" (default), "daily", "weekly" or "monthly". Daily, weekly and monthly exist only on Playgama leaderboards and reset at 00:00 UTC (weekly on Monday, monthly on the 1st); on other leaderboards they fail. May be omitted, the callbacks then follow id.
         - name: on_success
           type: function
           desc: function(_, entries)
