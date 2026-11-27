@@ -126,6 +126,7 @@ static const luaL_reg leaderboards_methods[] = {
     { "type", bridge::leaderboards::type },
     { "set_score", bridge::leaderboards::setScore },
     { "get_entries", bridge::leaderboards::getEntries },
+    { "get_info", bridge::leaderboards::getInfo },
     { "show_native_popup", bridge::leaderboards::showNativePopup },
     { 0, 0 }
 };

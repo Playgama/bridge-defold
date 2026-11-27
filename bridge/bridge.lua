@@ -91,6 +91,13 @@ bridge.LEADERBOARD_TYPE = {
 	NATIVE_POPUP = "native_popup",
 }
 
+bridge.LEADERBOARD_PERIOD = {
+	PERMANENT = "permanent",
+	DAILY = "daily",
+	WEEKLY = "weekly",
+	MONTHLY = "monthly",
+}
+
 bridge.MULTIPLAYER_STATE = {
 	DISCONNECTED = "disconnected",
 	CONNECTING = "connecting",

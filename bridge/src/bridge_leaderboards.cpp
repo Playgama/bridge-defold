@@ -14,6 +14,10 @@ int bridge::leaderboards::getEntries(lua_State* L) {
     return makeCallbackWithString(L, js_bridge_leaderboards_getEntries, true);
 }
 
+int bridge::leaderboards::getInfo(lua_State* L) {
+    return makeCallbackWithString(L, js_bridge_leaderboards_getInfo, true);
+}
+
 int bridge::leaderboards::showNativePopup(lua_State* L) {
     return makeCallbackWithString(L, js_bridge_leaderboards_showNativePopup, true);
 }

@@ -119,6 +119,7 @@ namespace bridge {
         int type(lua_State* L);
         int setScore(lua_State* L);
         int getEntries(lua_State* L);
+        int getInfo(lua_State* L);
         int showNativePopup(lua_State* L);
     } // namespace leaderboards
 

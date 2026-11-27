@@ -811,6 +811,19 @@
           type: function
           desc: function(_, error)
 
+    - name: get_info
+      type: function
+      desc: Get the leaderboard period with the shape { id, period, timeLeft }. period is one of bridge.LEADERBOARD_PERIOD - "permanent", "daily", "weekly" or "monthly". Daily, weekly and monthly exist only for Playgama leaderboards and reset at 00:00 UTC (weekly on Monday, monthly on the 1st); native platform leaderboards are always permanent. timeLeft is whole seconds until the current period resets, nil for permanent. Fails when leaderboards are not available.
+      parameters:
+        - name: id
+          type: string
+        - name: on_success
+          type: function
+          desc: function(_, info)
+        - name: on_failure
+          type: function
+          desc: function(_, error)
+
     - name: show_native_popup
       type: function
       desc: Show native popup leaderboard.
